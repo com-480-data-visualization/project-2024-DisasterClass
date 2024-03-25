@@ -3,8 +3,8 @@
 | Student's name | SCIPER |
 | -------------- | ------ |
 | David Friou | 327687 |
-| Elias Hörnberg | 324745 |
-| Wesley Monteith-Finas  | |
+| Elias Hörnberg | |
+| Wesley Monteith-Finas  | 324745 |
 
 [Milestone 1](#milestone-1) • [Milestone 2](#milestone-2) • [Milestone 3](#milestone-3)
 
