@@ -53,14 +53,14 @@ Please refer to the `exploratory_data_analysis.ipynb` to see how we delved into 
 ![](eda_figures/disaster_types.png)
 *Disaster Types present in the dataset.*
 
-![](eda_figures/heatmap_missing.png)
-*Quantifying missing values: Heatmap for every variable across every sample (white implies missing).*
+<!-- ![](eda_figures/heatmap_missing.png)
+*Quantifying missing values: Heatmap for every variable across every sample (white implies missing).* -->
 
 ![](eda_figures/percentage_missing.png)
 *Quantifying missing values: Percentage of missing values for every variable.*
 
-![](eda_figures/total_affected_per_year.png)
-*Number of people affected by a disaster across years.*
+<!-- ![](eda_figures/total_affected_per_year.png)
+*Number of people affected by a disaster across years.* -->
 
 ![](eda_figures/total_damage_costs_per_year.png)
 *Damage costs caused by a disaster across years.*
