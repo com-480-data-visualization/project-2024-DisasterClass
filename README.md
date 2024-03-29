@@ -42,8 +42,28 @@ The target audience for these visualisations, in addition to everyone we want to
 
 ### 📊 Exploratory Data Analysis
 
-> Pre-processing of the data set you chose
-> - Show some basic statistics and get insights about the data
+Regarding the pre-processing: not much data cleaning is necessary, but we will have to use subsets of the data when plotting different variables against one another because non mandatory variables have a significant amount of missing values. Additionally the idea to drop lesser quality historical data prior to the 2000s, will be explored as mentioned in the Dataset questions.
+
+Please refer to the `exploratory_data_analysis.ipynb` to see how we delved into the data. Here are some of the figures we generated:
+
+
+![](eda_figures/disaster_counts_per_year.png)
+*Disaster Counts per Year.*
+
+![](eda_figures/disaster_types.png)
+*Disaster Types present in the dataset.*
+
+![](eda_figures/heatmap_missing.png)
+*Quantifying missing values: Heatmap for every variable across every sample (white implies missing).*
+
+![](eda_figures/percentage_missing.png)
+*Quantifying missing values: Percentage of missing values for every variable.*
+
+![](eda_figures/total_affected_per_year.png)
+*Number of people affected by a disaster across years.*
+
+![](eda_figures/total_damage_costs_per_year.png)
+*Damage costs caused by a disaster across years.*
 
 ### 🌎 Related work
 
