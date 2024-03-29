@@ -29,9 +29,16 @@ CRED defines a disaster as _“a situation or event that overwhelms local capaci
 
 ### Problematic
 
-> Frame the general topic of your visualization and the main axis that you want to develop.
-> - What am I trying to show with my visualization?
-> - Think of an overview for the project, your motivation, and the target audience.
+Our main goal with the visualisation is to raise awareness about disasters affecting the world, focusing on both natural phenomena like earthquakes and technological mishaps such as industrial accidents. Especially, we want to shed light on such events affecting the world negatively that fortunate people living in less affected areas might not fully understand the scale of. By fostering heightened awareness, our goal is to inspire greater humanitarian aid donations and support for post-disaster reconstruction efforts.
+
+The key visualisations we prioritise include:
+Show how different categories of disasters are connected. For example, how earthquakes might cause a tsunami. We'll use graphs to make this easier to understand.
+Present the timeline of disasters around the world and its impact to illustrate most affected areas. Possible variables to show related to the disasters could be the number of people affected and economic costs. 
+The most impactful disasters through history, both individual ones and by category,, which could be measured based on different variables as victims or economic costs. 
+Identify which time of year most disasters occur to see if there are correlations between seasons and certain disasters. 
+Examining disparities in international responses to disasters, such as disparities in humanitarian aid allocation between different regions of the world.
+
+The target audience for these visualisations, in addition to everyone we want to raise awareness among, are researchers in natural disasters and geography students and educators. These groups might have an idea of the data but for deeper understanding, great visualisations are important. Accessible visual representations of historical disaster data and their geographical spread will aid anyone interested in the subject in developing a more robust understanding.
 
 ### Exploratory Data Analysis
 
