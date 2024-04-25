@@ -58,7 +58,7 @@ if (document.readyState === "loading") {
 }
 
 whenDocumentLoaded(() => {
-	plot_object = new World_Map('map-inequ');
+	plot_object = new World_Map('choropleth_map');
 	// plot object is global, you can inspect it in the dev-console
 });
 
