@@ -11,6 +11,7 @@
 You can find our website [here](https://com-480-data-visualization.github.io/project-2024-DisasterClass/) ;)
 
 <div id="milestone-1"></div>
+
 ## Milestone 1 (29th March, 5pm)
 
 **10% of the final grade**
@@ -83,6 +84,7 @@ We also found a [density map](https://www.visualcapitalist.com/cp/3d-mapping-the
 [This one](https://www.svt.se/datajournalistik/valu2022/valjarstrommar/), we are planning to use to show primary disasters leading to secondary disasters, for example an earthquake leading to tsunami or floods. 
 
 <div id="milestone-2"></div>
+
 ## Milestone 2 (26th April, 5pm)
 
 **10% of the final grade**
@@ -120,7 +122,7 @@ Possible upgrades : scale the plotting variable by a world population estimate t
 
 ### Sankey diagram showing disaster occurrences to certain months
 
-By plotting each natural disaster type on one side and months on the other, the Sankey diagram visualises the occurrences of various disasters throughout the years. The width of the flow lines between each disaster type and month represents the frequency or number of occurrences.
+The Sankey diagram is a powerful tool for visualizing the occurrences of various natural disasters over time. By juxtaposing each disaster type against months, it provides a clear snapshot of their frequency throughout the years. The width of the flow lines between disaster types and months directly correlates with the frequency or number of occurrences, offering an intuitive grasp of the data.
 This visualisation helps identify patterns such as peak months for specific types of natural disasters. For instance, if floods are most common in June and hurricanes are prevalent in September, the Sankey diagram will clearly show thicker lines leading from those disaster types to those respective months.
 
 Upgrades:
@@ -141,6 +143,7 @@ By enabling users to delve into various dynamics and observe how different varia
 **Tools:** d3.js    **Lectures:** 8.-Maps, 5.-Interactions
 
 <div id="milestone-3"></div>
+
 ## Milestone 3 (31st May, 5pm)
 
 **80% of the final grade**
