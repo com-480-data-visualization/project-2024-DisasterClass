@@ -85,6 +85,56 @@ We also found a [density map](https://www.visualcapitalist.com/cp/3d-mapping-the
 
 **10% of the final grade**
 
+### Spike map of disasters through time
+In our initial visualisation, we aim to illustrate the magnitude of disasters over history. As time progresses, each disaster will dynamically appear, showing its location and magnitude (e.g., total deaths) through spike lengths. However, due to the large number of events, the map may quickly become crowded.  Therefore, implementing a feature that allows users to filter by disaster group can enhance the visualisation, enabling users to observe different dynamics. While this approach may not facilitate in-depth analysis initially, its primary objective is to offer users an initial glimpse into the global scale and historical significance of disasters. Emphasising their widespread occurrence and geographical diversity, enrich our storytelling. One main aspect of the map is to highlight disasters individually.
+
+![](sketches/map_dynamics.jpeg)
+
+**Tools:** d3.js   **Lectures:** 8.-Maps, 5.-Interactions
+
+### 5D Bubble Chart
+
+For our second visualisation we plan on making a 5D bubble chart. The bubble chart’s x and y axes are devoted to two different continuous variables. The bubbles' centres correspond to the accumulation of the total values for each disaster type for a certain year. The radius of the bubble corresponds to the frequency of the disaster. The colour of the bubbles correspond to the type of disaster.
+
+For example, say the user wants to look at the correlation between the total deaths and the duration of the different disaster types, in the year 2019. For each disaster type (earthquake, flood, hurricane, etc…), you would look at every event that started in the year 2019, count them (for the radius of the bubble), sum every value of total deaths and of durations together, then plot the centre of the bubble at these coordinates.
+
+Some upgrades we could do with this plot are the following: make the bubbles dynamic by making the years change when you hit a play button; whenever you scroll over a bubble you get a popup window (rightmost box in the sketch) which gives you additional information about the specific disaster events; a toggle to switch between natural and technological disasters.
+
+![](sketches/5D_bubble_chart.png)
+
+**Tools:** d3.js    **Lectures:** 4.-D3.js, 12.-Storytelling
+
+### Individual disasters barchart race across time
+
+For our third visualisation we would like to create a dynamic “race”. As such we would be able to see how each disaster event ranks against one another on a user defined continuous variable. As time is passing (by day or month) a barchart is being updated by accumulating the total value of the event (for example total deaths) and stops getting updated once the event ends. On each bar you would see additional text information about the event. The colour of the bar reflects the disaster type.
+
+Possible upgrades : scale the plotting variable by a world population estimate to account for population growth.
+
+![](sketches/race.png)
+
+**Tools:** d3.js    **Lectures:** 4.-D3.js
+
+### Sankey diagram showing disaster occurrences to certain months
+
+By plotting each natural disaster type on one side and months on the other, the Sankey diagram visualises the occurrences of various disasters throughout the years. The width of the flow lines between each disaster type and month represents the frequency or number of occurrences.
+This visualisation helps identify patterns such as peak months for specific types of natural disasters. For instance, if floods are most common in June and hurricanes are prevalent in September, the Sankey diagram will clearly show thicker lines leading from those disaster types to those respective months.
+
+Upgrades:
+Adding a toggle between the northern and southern hemisphere to see more accurately how the seasons correlates with the month, because the seasons are switched between the hemispheres. Otherwise, you could add an extra layer representing the hemisphere. Another upgrade would also be to allow the user to choose a specific or a few disasters to get a clearer visual of the relation between the variables. Adding colours to it could also make it more visually pleasing. 
+
+![](sketches/sankey_diagram.jpg)
+
+**Tools:** d3.js    **Lectures:** 4- D3.js
+
+### World Choropleth Disasters Inequalities 
+
+Our final visualisation will feature a choropleth map, offering a clear visual experience. Its primary goal is to empower users to explore dynamic disasters among countries. We'll emphasise metrics such as the percentage or frequency of times a country requested international aid (Appeal) or declared a state of emergency in response to disasters.
+Some potential additional features could include allowing users to explore the diversity of disaster types, considering each country's land area to avoid bias towards larger states. To further refine the analysis, users will have the option to set a minimum threshold for disaster magnitude, allowing them to focus on events with significant impact rather than those with high occurrence but low impact.
+By enabling users to delve into various dynamics and observe how different variables can lead to distinct conclusions, our visualisation aims to shed light on inequalities and disparities across regions.
+
+![](sketches/choropleth.jpeg)
+
+**Tools:** d3.js    **Lectures:** 8.-Maps, 5.-Interactions
 
 ## Milestone 3 (31st May, 5pm)
 
