@@ -100,6 +100,8 @@ For example, say the user wants to look at the correlation between the total dea
 
 Some upgrades we could do with this plot are the following: make the bubbles dynamic by making the years change when you hit a play button; whenever you scroll over a bubble you get a popup window (rightmost box in the sketch) which gives you additional information about the specific disaster events; a toggle to switch between natural and technological disasters.
 
+![](sketches/5D_bubble_chart.jpeg)
+
 **Tools:** d3.js    **Lectures:** 4.-D3.js, 12.-Storytelling
 
 ### Individual disasters barchart race across time
@@ -107,6 +109,8 @@ Some upgrades we could do with this plot are the following: make the bubbles dyn
 For our third visualisation we would like to create a dynamic “race”. As such we would be able to see how each disaster event ranks against one another on a user defined continuous variable. As time is passing (by day or month) a barchart is being updated by accumulating the total value of the event (for example total deaths) and stops getting updated once the event ends. On each bar you would see additional text information about the event. The colour of the bar reflects the disaster type.
 
 Possible upgrades : scale the plotting variable by a world population estimate to account for population growth.
+
+![](sketches/race.png)
 
 **Tools:** d3.js    **Lectures:** 4.-D3.js
 
@@ -118,6 +122,8 @@ This visualisation helps identify patterns such as peak months for specific type
 Upgrades:
 Adding a toggle between the northern and southern hemisphere to see more accurately how the seasons correlates with the month, because the seasons are switched between the hemispheres. Otherwise, you could add an extra layer representing the hemisphere. Another upgrade would also be to allow the user to choose a specific or a few disasters to get a clearer visual of the relation between the variables. Adding colours to it could also make it more visually pleasing. 
 
+![](sketches/sankey_diagram.jpg)
+
 **Tools:** d3.js    **Lectures:** 4- D3.js
 
 ### World Choropleth Disasters Inequalities 
@@ -125,6 +131,8 @@ Adding a toggle between the northern and southern hemisphere to see more accurat
 Our final visualisation will feature a choropleth map, offering a clear visual experience. Its primary goal is to empower users to explore dynamic disasters among countries. We'll emphasise metrics such as the percentage or frequency of times a country requested international aid (Appeal) or declared a state of emergency in response to disasters.
 Some potential additional features could include allowing users to explore the diversity of disaster types, considering each country's land area to avoid bias towards larger states. To further refine the analysis, users will have the option to set a minimum threshold for disaster magnitude, allowing them to focus on events with significant impact rather than those with high occurrence but low impact.
 By enabling users to delve into various dynamics and observe how different variables can lead to distinct conclusions, our visualisation aims to shed light on inequalities and disparities across regions.
+
+![](sketches/choropleth.jpeg)
 
 **Tools:** d3.js    **Lectures:** 8.-Maps, 5.-Interactions
 
