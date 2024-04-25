@@ -8,7 +8,7 @@
 
 [Milestone 1](#milestone-1) • [Milestone 2](#milestone-2) • [Milestone 3](#milestone-3)
 
-[Website](https://com-480-data-visualization.github.io/project-2024-DisasterClass/) : https://com-480-data-visualization.github.io/project-2024-DisasterClass/
+You can find our website [here](https://com-480-data-visualization.github.io/project-2024-DisasterClass/) ;)
 
 ## Milestone 1 (29th March, 5pm)
 
@@ -84,6 +84,8 @@ We also found a [density map](https://www.visualcapitalist.com/cp/3d-mapping-the
 ## Milestone 2 (26th April, 5pm)
 
 **10% of the final grade**
+
+Initial website: https://com-480-data-visualization.github.io/project-2024-DisasterClass/
 
 ### Spike map of disasters through time
 In our initial visualisation, we aim to illustrate the magnitude of disasters over history. As time progresses, each disaster will dynamically appear, showing its location and magnitude (e.g., total deaths) through spike lengths. However, due to the large number of events, the map may quickly become crowded.  Therefore, implementing a feature that allows users to filter by disaster group can enhance the visualisation, enabling users to observe different dynamics. While this approach may not facilitate in-depth analysis initially, its primary objective is to offer users an initial glimpse into the global scale and historical significance of disasters. Emphasising their widespread occurrence and geographical diversity, enrich our storytelling. One main aspect of the map is to highlight disasters individually.
