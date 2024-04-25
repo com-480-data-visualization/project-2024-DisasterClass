@@ -10,6 +10,7 @@
 
 You can find our website [here](https://com-480-data-visualization.github.io/project-2024-DisasterClass/) ;)
 
+<div id="milestone-1"></div>
 ## Milestone 1 (29th March, 5pm)
 
 **10% of the final grade**
@@ -81,6 +82,7 @@ We also found a [density map](https://www.visualcapitalist.com/cp/3d-mapping-the
 
 [This one](https://www.svt.se/datajournalistik/valu2022/valjarstrommar/), we are planning to use to show primary disasters leading to secondary disasters, for example an earthquake leading to tsunami or floods. 
 
+<div id="milestone-2"></div>
 ## Milestone 2 (26th April, 5pm)
 
 **10% of the final grade**
@@ -138,6 +140,7 @@ By enabling users to delve into various dynamics and observe how different varia
 
 **Tools:** d3.js    **Lectures:** 8.-Maps, 5.-Interactions
 
+<div id="milestone-3"></div>
 ## Milestone 3 (31st May, 5pm)
 
 **80% of the final grade**
