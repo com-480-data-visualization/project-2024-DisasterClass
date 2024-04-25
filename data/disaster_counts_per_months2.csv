@@ -1,0 +1,140 @@
+Disaster Type,Start Month,Occurrences
+Animal incident,November,1
+Drought,January,142
+Drought,February,30
+Drought,March,51
+Drought,April,53
+Drought,May,49
+Drought,June,64
+Drought,July,62
+Drought,August,41
+Drought,September,35
+Drought,October,39
+Drought,November,25
+Drought,December,35
+Earthquake,January,136
+Earthquake,February,130
+Earthquake,March,135
+Earthquake,April,142
+Earthquake,May,148
+Earthquake,June,118
+Earthquake,July,127
+Earthquake,August,140
+Earthquake,September,136
+Earthquake,October,127
+Earthquake,November,135
+Earthquake,December,139
+Epidemic,January,368
+Epidemic,February,97
+Epidemic,March,101
+Epidemic,April,87
+Epidemic,May,89
+Epidemic,June,94
+Epidemic,July,91
+Epidemic,August,108
+Epidemic,September,97
+Epidemic,October,128
+Epidemic,November,92
+Epidemic,December,107
+Extreme temperature,January,148
+Extreme temperature,February,38
+Extreme temperature,March,7
+Extreme temperature,April,18
+Extreme temperature,May,65
+Extreme temperature,June,57
+Extreme temperature,July,124
+Extreme temperature,August,28
+Extreme temperature,September,3
+Extreme temperature,October,11
+Extreme temperature,November,37
+Extreme temperature,December,110
+Flood,January,447
+Flood,February,347
+Flood,March,399
+Flood,April,421
+Flood,May,490
+Flood,June,622
+Flood,July,693
+Flood,August,729
+Flood,September,491
+Flood,October,473
+Flood,November,405
+Flood,December,371
+Fog,December,1
+Glacial lake outburst flood,February,1
+Glacial lake outburst flood,April,1
+Glacial lake outburst flood,July,1
+Glacial lake outburst flood,October,1
+Impact,February,1
+Infestation,January,8
+Infestation,February,7
+Infestation,March,4
+Infestation,April,5
+Infestation,May,4
+Infestation,June,9
+Infestation,July,13
+Infestation,August,6
+Infestation,September,4
+Infestation,October,5
+Infestation,November,4
+Infestation,December,1
+Mass movement (dry),January,7
+Mass movement (dry),February,2
+Mass movement (dry),March,4
+Mass movement (dry),April,3
+Mass movement (dry),May,3
+Mass movement (dry),June,3
+Mass movement (dry),July,2
+Mass movement (dry),August,5
+Mass movement (dry),September,2
+Mass movement (dry),October,4
+Mass movement (dry),November,5
+Mass movement (dry),December,4
+Mass movement (wet),January,81
+Mass movement (wet),February,78
+Mass movement (wet),March,74
+Mass movement (wet),April,66
+Mass movement (wet),May,61
+Mass movement (wet),June,66
+Mass movement (wet),July,88
+Mass movement (wet),August,70
+Mass movement (wet),September,59
+Mass movement (wet),October,56
+Mass movement (wet),November,51
+Mass movement (wet),December,60
+Storm,January,447
+Storm,February,321
+Storm,March,272
+Storm,April,322
+Storm,May,344
+Storm,June,299
+Storm,July,409
+Storm,August,508
+Storm,September,638
+Storm,October,482
+Storm,November,358
+Storm,December,314
+Volcanic activity,January,25
+Volcanic activity,February,16
+Volcanic activity,March,19
+Volcanic activity,April,25
+Volcanic activity,May,26
+Volcanic activity,June,18
+Volcanic activity,July,27
+Volcanic activity,August,19
+Volcanic activity,September,25
+Volcanic activity,October,18
+Volcanic activity,November,19
+Volcanic activity,December,26
+Wildfire,January,38
+Wildfire,February,29
+Wildfire,March,25
+Wildfire,April,38
+Wildfire,May,36
+Wildfire,June,35
+Wildfire,July,95
+Wildfire,August,72
+Wildfire,September,35
+Wildfire,October,33
+Wildfire,November,13
+Wildfire,December,17
