@@ -29,40 +29,57 @@
 
 <main class="width-limited">
     <h2 id="description" class="section-title">Description</h2>
-	<p>Description content goes here...</p>
+	<p>Our main goal with the following visualisations is to raise awareness about disasters affecting the world, focusing on both natural phenomena like earthquakes and technological mishaps such as industrial accidents. Especially, we want to shed light on such events affecting the world negatively, that fortunate people living in less affected areas might not fully understand the scale of. By fostering heightened awareness, our goal is to inspire greater humanitarian aid donations and support for post-disaster reconstruction efforts.</p>
 
 	<h2 id="data" class="section-title">Data</h2>
-    <p>Data content goes here...</p>
+	<p>We have selected the <a href="https://www.emdat.be/">Emergency Events Database (EM-DAT)</a> for our analysis. This database encompasses records of over 26,000 mass disasters worldwide spanning from 1900 to the present day. Established in 1988 through collaboration between the Centre for Research on the Epidemiology of Disasters (CRED) and the World Health Organization (WHO), EM-DAT consolidates data from diverse sources including UN agencies, non-governmental organisations, and research institutes. CRED, affiliated with the University of Louvain and supported by the United States Agency for International Development (USAID), upholds the data's credibility and reliability.</p>
+	<p>It is worth noting that events predating 2000 are categorised as <em>"Historic"</em> by CRED and may exhibit a lower level of quality. This phenomenon, termed <em>time bias</em>, is elucidated further <a href="https://doc.emdat.be/docs/known-issues-and-limitations/specific-biases/#time-bias">here</a>.</p>
 
-	<h3>Interactive Maps</h3>
-    <p>
+
+	<p>CRED defines a disaster as <em>“a situation or event that overwhelms local capacity, necessitating a request at the national or international level for external assistance; it is an unforeseen and often sudden event that causes great damage, destruction and human suffering.”</em> The disasters in this dataset meet at least one of the following criteria:</p>
+	<ul>
+		<li>10 or more reported deaths</li>
+		<li>100 or more people affected</li>
+		<li>Declaration of a state of emergency</li>
+		<li>Call for international assistance</li>
+	</ul>
+
+	<!-- <h3>Interactive Maps</h3> -->
+    <!-- <p>
         <ul>
             <li><a href="disaster_map_clustered_only_natural.html">Disaster map clustered only natural</a></li>
-        </ul>
+        </ul> -->
 
-		<div style="margin-bottom: 20px;">
-			<h4>Map Dynamics</h4>
-			<p><img src="sketches\map_dynamics.jpeg" width="640" /></p>
-		</div>
-		<div style="margin-bottom: 20px;">
-			<h4>5D Bubble Chart</h4>
-			<p><img src="sketches\5D_bubble_chart.png" width="640" /></p>
-		</div>
-		<div style="margin-bottom: 20px;">
-			<h4>Race Diagram</h4>
-			<p><img src="sketches\race.png" width="640" /></p>
-		</div>
-		<div style="margin-bottom: 20px;">
-			<h4>Sankey Diagram</h4>
-			<p><img src="sketches\sankey_diagram.jpg" width="640" /></p>
-		</div>
-		<div style="margin-bottom: 20px;">
-			<h4>Choropleth Map</h4>
-			<p><img src="sketches\choropleth.jpeg" width="640" /></p>
-		</div>
+	<div style="margin-bottom: 20px;">
+		<h3>Spike Map of Disasters across Time</h3>
+		<p>Let us start by looking at the picture, that is every disaster that occurred in the world in these past 100 years or so, and their respective magnitude.</p>
+		<p><img src="sketches\map_dynamics.jpeg" width="1000" /></p>
+	</div>
+	<div style="margin-bottom: 20px;">
+		<h3>5D Bubble Chart</h3>
+		<p>Do you wonder what is the correlation between certain variables, for different disaster types, across years?! Look no further and play around with the following interactive bubble chart.</p>
+		<p>You can select which variables you want to plot on the x and the y axes.</p>
+		<p><img src="sketches\5D_bubble_chart.png" width="1000" /></p>
+	</div>
+	<div style="margin-bottom: 20px;">
+		<h3>Race Diagram</h3>
+		<p>Let's get dynamic and make disasters race against one another! Choose which variable you want to make them race for. Then click on the play button and let the race begin!</p>
+		<p><img src="sketches\race.png" width="1000" /></p>
+	</div>
+	<div style="margin-bottom: 20px;">
+		<h3>Sankey Diagram</h3>
+		<p>Now let's look at the relationship between the time of year at which each disaster type occurs.</p>
+		<p><img src="sketches\sankey_diagram.jpg" width="1000" /></p>
+	</div>
+	<div style="margin-bottom: 20px;">
+		<h3>Choropleth Map</h3>
+		<p>When we talk about disasters, are there inequalities or biases in the response when international help is called?</p>
+		<p><img src="sketches\choropleth.jpeg" width="1000" /></p>
+	</div>
 
     <h2 id="team" class="section-title">Team</h2>
-    <p>Team content goes here...</p>
+    <p>David Friou (327687), Elias Hörnberg (384928) & Wesley Monteith-Finas (324745)</p>
+	  
 
 
 </main>

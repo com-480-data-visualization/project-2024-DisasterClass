@@ -182,7 +182,7 @@ nav {
 	position: fixed;
 	top: 0;
 	width: 100%;
-	background-color:  rgb(141, 205, 230); /* Adjust background color as needed */
+	background-color: var(--dark-background-color);
 	z-index: 1000; /* Ensure the navigation bar is on top of other content */
 }
 
