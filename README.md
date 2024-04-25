@@ -88,6 +88,8 @@ We also found a [density map](https://www.visualcapitalist.com/cp/3d-mapping-the
 ### Spike map of disasters through time
 In our initial visualisation, we aim to illustrate the magnitude of disasters over history. As time progresses, each disaster will dynamically appear, showing its location and magnitude (e.g., total deaths) through spike lengths. However, due to the large number of events, the map may quickly become crowded.  Therefore, implementing a feature that allows users to filter by disaster group can enhance the visualisation, enabling users to observe different dynamics. While this approach may not facilitate in-depth analysis initially, its primary objective is to offer users an initial glimpse into the global scale and historical significance of disasters. Emphasising their widespread occurrence and geographical diversity, enrich our storytelling. One main aspect of the map is to highlight disasters individually.
 
+![](sketches/map_dynamics.jpeg)
+
 **Tools:** d3.js   **Lectures:** 8.-Maps, 5.-Interactions
 
 ### 5D Bubble Chart
