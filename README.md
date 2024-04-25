@@ -92,7 +92,9 @@ We also found a [density map](https://www.visualcapitalist.com/cp/3d-mapping-the
 Initial website: https://com-480-data-visualization.github.io/project-2024-DisasterClass/
 
 ### Spike map of disasters through time
-In our initial visualisation, we aim to illustrate the magnitude of disasters over history. As time progresses, each disaster will dynamically appear, showing its location and magnitude (e.g., total deaths) through spike lengths. However, due to the large number of events, the map may quickly become crowded.  Therefore, implementing a feature that allows users to filter by disaster group can enhance the visualisation, enabling users to observe different dynamics. While this approach may not facilitate in-depth analysis initially, its primary objective is to offer users an initial glimpse into the global scale and historical significance of disasters. Emphasising their widespread occurrence and geographical diversity, enrich our storytelling. One main aspect of the map is to highlight disasters individually.
+In our initial visualisation, we aim to illustrate the magnitude of disasters over history. As time progresses, each disaster will dynamically appear, showing its location and magnitude (e.g., total deaths) through spike lengths. However, due to the large number of events, the map may quickly become crowded. Therefore, implementing a feature that allows users to filter by disaster group can enhance the visualisation, enabling users to observe different dynamics. 
+
+While this approach may not facilitate in-depth analysis initially, its primary objective is to offer users an initial glimpse into the global scale and historical significance of disasters. Emphasising their widespread occurrence and geographical diversity, enrich our storytelling. One main aspect of the map is to highlight disasters individually.
 
 ![](sketches/map_dynamics.jpeg)
 
@@ -135,6 +137,7 @@ Adding a toggle between the northern and southern hemisphere to see more accurat
 ### World Choropleth Disasters Inequalities 
 
 Our final visualisation will feature a choropleth map, offering a clear visual experience. Its primary goal is to empower users to explore dynamic disasters among countries. We'll emphasise metrics such as the percentage or frequency of times a country requested international aid (Appeal) or declared a state of emergency in response to disasters.
+
 Some potential additional features could include allowing users to explore the diversity of disaster types, considering each country's land area to avoid bias towards larger states. To further refine the analysis, users will have the option to set a minimum threshold for disaster magnitude, allowing them to focus on events with significant impact rather than those with high occurrence but low impact.
 By enabling users to delve into various dynamics and observe how different variables can lead to distinct conclusions, our visualisation aims to shed light on inequalities and disparities across regions.
 
