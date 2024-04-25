@@ -100,7 +100,7 @@ For example, say the user wants to look at the correlation between the total dea
 
 Some upgrades we could do with this plot are the following: make the bubbles dynamic by making the years change when you hit a play button; whenever you scroll over a bubble you get a popup window (rightmost box in the sketch) which gives you additional information about the specific disaster events; a toggle to switch between natural and technological disasters.
 
-![](sketches/5D_bubble_chart.jpeg)
+![](sketches/5D_bubble_chart.png)
 
 **Tools:** d3.js    **Lectures:** 4.-D3.js, 12.-Storytelling
 
