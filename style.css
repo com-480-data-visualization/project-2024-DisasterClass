@@ -185,12 +185,3 @@ nav {
 	background-color: var(--dark-background-color);
 	z-index: 1000; /* Ensure the navigation bar is on top of other content */
 }
-
-/* Add padding to the main content to prevent it from being overlapped by the fixed navigation bar */
-main {
-	padding-top: 60px; /* Adjust this value to match the height of your navigation bar */
-} 
-
-.section-title {
-    margin-top: 80px; /* Adjust this value to provide space for the fixed navigation bar */
-}
