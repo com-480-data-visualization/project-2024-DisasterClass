@@ -51,22 +51,22 @@ Regarding the pre-processing: not much data cleaning is necessary, but we will h
 Please refer to the `exploratory_data_analysis.ipynb` to see how we delved into the data. Here are some of the figures we generated:
 
 
-![](eda_figures/disaster_counts_per_year.png)
+![](milestone_1/eda_figures/disaster_counts_per_year.png)
 *Disaster Counts per Year.*
 
-![](eda_figures/disaster_types.png)
+![](milestone_1/eda_figures/disaster_types.png)
 *Disaster Types present in the dataset.*
 
 <!-- ![](eda_figures/heatmap_missing.png)
 *Quantifying missing values: Heatmap for every variable across every sample (white implies missing).* -->
 
-![](eda_figures/percentage_missing.png)
+![](milestone_1/eda_figures/percentage_missing.png)
 *Quantifying missing values: Percentage of missing values for every variable.*
 
 <!-- ![](eda_figures/total_affected_per_year.png)
 *Number of people affected by a disaster across years.* -->
 
-![](eda_figures/total_damage_costs_per_year.png)
+![](milestone_1/eda_figures/total_damage_costs_per_year.png)
 *Damage costs caused by a disaster across years.*
 
 ### 🌎 Related work
@@ -96,7 +96,7 @@ In our initial visualisation, we aim to illustrate the magnitude of disasters ov
 
 While this approach may not facilitate in-depth analysis initially, its primary objective is to offer users an initial glimpse into the global scale and historical significance of disasters. Emphasising their widespread occurrence and geographical diversity, enrich our storytelling. One main aspect of the map is to highlight disasters individually.
 
-![](sketches/map_dynamics.jpeg)
+![](milestone_2/map_dynamics.jpeg)
 
 **Tools:** d3.js   **Lectures:** 8.-Maps, 5.-Interactions
 
@@ -108,7 +108,7 @@ For example, say the user wants to look at the correlation between the total dea
 
 Some upgrades we could do with this plot are the following: make the bubbles dynamic by making the years change when you hit a play button; whenever you scroll over a bubble you get a popup window (rightmost box in the sketch) which gives you additional information about the specific disaster events; a toggle to switch between natural and technological disasters.
 
-![](sketches/5D_bubble_chart.png)
+![](milestone_2/5D_bubble_chart.png)
 
 **Tools:** d3.js    **Lectures:** 4.-D3.js, 12.-Storytelling
 
@@ -118,7 +118,7 @@ For our third visualisation we would like to create a dynamic “race”. As suc
 
 Possible upgrades : scale the plotting variable by a world population estimate to account for population growth.
 
-![](sketches/race.png)
+![](milestone_2/race.png)
 
 **Tools:** d3.js    **Lectures:** 4.-D3.js
 
@@ -130,7 +130,7 @@ This visualisation helps identify patterns such as peak months for specific type
 Upgrades:
 Adding a toggle between the northern and southern hemisphere to see more accurately how the seasons correlates with the month, because the seasons are switched between the hemispheres. Otherwise, you could add an extra layer representing the hemisphere. Another upgrade would also be to allow the user to choose a specific or a few disasters to get a clearer visual of the relation between the variables. Adding colours to it could also make it more visually pleasing. 
 
-![](sketches/sankey_diagram.jpg)
+![](milestone_2/sankey_diagram.jpg)
 
 **Tools:** d3.js    **Lectures:** 4- D3.js
 
@@ -141,7 +141,7 @@ Our final visualisation will feature a choropleth map, offering a clear visual e
 Some potential additional features could include allowing users to explore the diversity of disaster types, considering each country's land area to avoid bias towards larger states. To further refine the analysis, users will have the option to set a minimum threshold for disaster magnitude, allowing them to focus on events with significant impact rather than those with high occurrence but low impact.
 By enabling users to delve into various dynamics and observe how different variables can lead to distinct conclusions, our visualisation aims to shed light on inequalities and disparities across regions.
 
-![](sketches/choropleth.jpeg)
+![](milestone_2/choropleth.jpeg)
 
 **Tools:** d3.js    **Lectures:** 8.-Maps, 5.-Interactions
 
