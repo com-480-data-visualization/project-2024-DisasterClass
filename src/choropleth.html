@@ -1,28 +1,19 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-
 <head>
-	<meta charset="utf-8">
-	<meta http-equiv="content-type" content="text/html; charset=utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-	<title>Exercise 08: Map</title>
-	<meta name="author" content="Kirell Benzi, Krzysztof Lis, Volodymyr Miz">
-
-	<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>World Map Visualization</title>
+    <style>
+        .legend {
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+        }
+    </style>
 </head>
 <body>
-
-
-    
-
-<svg id="choropleth_map" viewBox="0 0 1000 550" width="1000" height="550">
-	<style>
-
-	</style>
-</svg>
-
-
-<script src="choropleth.js"></script>
-</body>
+    <svg id="choropleth_map" width="960" height="500"></svg>
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <script src="https://d3js.org/topojson.v1.min.js"></script>
+	<script src="choropleth.js"></script>
 </html>
