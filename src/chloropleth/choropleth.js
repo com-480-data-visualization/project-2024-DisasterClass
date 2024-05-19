@@ -162,7 +162,7 @@ class World_Map {
         // Create the title for the legend
         legend.append("text")
             .attr("class", "legend-title")
-            .attr("x", legendWidth / 2) // Center the title
+            .attr("x", legendWidth / 2 + 50) // Center the title
             .attr("y", -10) // Position above the color bar
             .attr("text-anchor", "middle") // Center the text horizontally
             .style("font-size", "12px")
