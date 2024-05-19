@@ -1,18 +1,19 @@
 class World_Map {
-
     constructor(svg_element_id) {
-        this.initSVG(svg_element_id);
-        this.loadData();
+        this.svg_element_id = svg_element_id;
+        this.initSVG();
+        this.loadData('Declaration');  // Default category
     }
 
-    initSVG(svg_element_id) {
-        this.svg = d3.select(`#${svg_element_id}`);
+    initSVG() {
+        this.svg = d3.select(`#${this.svg_element_id}`);
         const svg_viewbox = this.svg.node().viewBox.animVal;
         this.svg_width = svg_viewbox.width || 960;
         this.svg_height = svg_viewbox.height || 500;
 
+        // Adjusted fitExtent method for consistent margins
         this.projection = d3.geoEqualEarth()
-            .fitExtent([[2, 2], [this.svg_width - 2, this.svg_height]], {type: "Sphere"});
+            .fitExtent([[2, 2], [this.svg_width - 2, this.svg_height - 2]], { type: "Sphere" });
         this.path = d3.geoPath(this.projection);
 
         // Zoom and pan configuration
@@ -25,22 +26,50 @@ class World_Map {
         this.svg.call(zoom);
     }
 
-    loadData() {
-        const data_promise = d3.csv("declaration_per_country.csv").then(data => {
-            return new Map(data.map(d => [d.Country, +d.Percentage]));
-        });
+    loadData(category) {
 
-        const map_promise = d3.json("countries-50m.json");
+        this.curent_category = category;
 
-        Promise.all([data_promise, map_promise]).then(values => {
-            this.dataMap = values[0];
-            this.map = values[1];
+        d3.csv("data_per_country_raw.csv").then(data => {
+            // Create a Map to hold the counts for each country
+            let counts = new Map();
+
+            data.forEach(row => {
+                if (!counts.has(row.Country)) {
+                    counts.set(row.Country, { yes: 0, total: 0 });
+                }
+                let countryData = counts.get(row.Country);
+                if (row[category] === 'Yes') {
+                    countryData.yes += 1;
+                }
+                countryData.total += 1;
+            });
+
+            // Convert counts to percentages for the "Yes" responses
+            let percentageMap = new Map();
+            counts.forEach((value, key) => {
+                let percentage = value.total > 0 ? (value.yes / value.total) * 100 : 0;
+                percentageMap.set(key, percentage.toFixed(2)); // Keep two decimal places
+            });
+
+            // Update the data map and redraw the map
+            this.dataMap = percentageMap;
+            this.map = null; // Reset the map before drawing
+            this.fetchMapAndDraw();
+        }).catch(error => console.error("Failed to load or process data: ", error));
+    }
+
+    fetchMapAndDraw() {
+        d3.json("countries-50m.json").then(mapData => {
+            this.map = mapData;
             this.drawMap();
-        });
+        }).catch(error => console.error("Failed to load map data: ", error));
     }
 
     drawMap() {
+        this.svg.selectAll("path").remove();  // Clear existing paths
         const countries = topojson.feature(this.map, this.map.objects.countries).features;
+
         const colorScale = d3.scaleSequentialLog(d3.interpolateLab("steelblue", "brown"))
             .domain([1, d3.max(Array.from(this.dataMap.values()))]);
 
@@ -55,8 +84,10 @@ class World_Map {
             .on("mouseover", (event, d) => this.onMouseOver(event, d))
             .on("mouseout", (event, d) => this.onMouseOut(event, d))
             .append("title")
-            .text(d => { const percentage = this.dataMap.get(d.properties.name) ;
-            return `${d.properties.name}\n${percentage !== undefined ? percentage + "%" : "No data"}`});
+            .text(d => {
+                const percentage = this.dataMap.get(d.properties.name);
+                return `${d.properties.name}\n${percentage !== undefined ? percentage + "%" : "No data"}`;
+            });
 
         this.createLegend(colorScale);
     }
@@ -65,7 +96,7 @@ class World_Map {
         const percentage = this.dataMap.get(d.properties.name);
         if (percentage === undefined) {
             return "black"; // No information available
-        } else if (percentage === 0) {
+        } else if (+percentage === 0) {
             return "#ccc"; // Percentage is zero
         } else {
             return colorScale(percentage); // Color based on percentage
@@ -86,10 +117,12 @@ class World_Map {
     }
 
     createLegend(colorScale) {
+        // Clear existing legend
+        this.svg.selectAll(".legend").remove();
+
         const legendWidth = 300;
         const legendHeight = 10;
-        const maxPercentage = d3.max(Array.from(this.dataMap.values()));
-        const numTicks = Math.min(Math.floor(maxPercentage / 10), 10);
+        const maxPercentage = d3.max(Array.from(this.dataMap.values(), value => +value));  // Ensure values are numbers
     
         // Logarithmic space function
         function logspace(start, end, num) {
@@ -105,13 +138,13 @@ class World_Map {
             .attr("x2", "100%")
             .attr("y1", "0%")
             .attr("y2", "0%");
-
+        
         // Create the gradient stops based on the color scale
-        const range = logspace(1, maxPercentage, numTicks);
+        const range = logspace(1, maxPercentage, 10);
         range.forEach((value, index) => {
             gradient.append("stop")
                 .attr("offset", `${(index / (range.length - 1)) * 100}%`)
-                .attr("stop-color", colorScale(value));
+                .attr("stop-color", colorScale(value));  
         });
     
         // Append the legend bar
@@ -128,30 +161,32 @@ class World_Map {
 
         // Create the title for the legend
         legend.append("text")
-        .attr("class", "legend-title")
-        .attr("x", legendWidth / 2) // Center the title
-        .attr("y", -10) // Position above the color bar
-        .attr("text-anchor", "middle") // Center the text horizontally
-        .style("font-size", "12px")
-        .style("font-weight", "bold")
-        .text("Data Value (%)"); // Text of the title
-            
+            .attr("class", "legend-title")
+            .attr("x", legendWidth / 2) // Center the title
+            .attr("y", -10) // Position above the color bar
+            .attr("text-anchor", "middle") // Center the text horizontally
+            .style("font-size", "12px")
+            .style("font-weight", "bold")
+            .text(`${this.curent_category} (%)`); // Text of the title
     
-        // Create scale and axis for legend
         const x = d3.scaleLog()
             .domain([1, maxPercentage])
             .range([0, legendWidth]);
     
         const xAxis = d3.axisBottom(x)
-            .tickValues(logspace(1, maxPercentage, numTicks))
+            .tickValues(logspace(1, maxPercentage, 10))
             .tickFormat(d3.format(".0f"));
     
         legend.append("g")
             .attr("transform", `translate(0, ${legendHeight})`)
             .call(xAxis)
-            .select(".domain").remove();  // Remove the axis line for a cleaner look
-    }    
+            .select(".domain").remove();
+    }
     
+
+    updateVisualization(category) {
+        this.loadData(category);
+    }
 }
 
 // Ensure DOM is loaded before executing script
@@ -164,5 +199,9 @@ function whenDocumentLoaded(action) {
 }
 
 whenDocumentLoaded(() => {
-    new World_Map('choropleth_map');
+    const map = new World_Map('choropleth_map');
+
+    document.getElementById('categorySelect').addEventListener('change', function() {
+        map.updateVisualization(this.value);
+    });
 });
