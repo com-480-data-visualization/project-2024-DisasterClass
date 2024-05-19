@@ -10,18 +10,84 @@
     <script src="spike_map.js"></script>
 </head>
 <body>
-    <svg id="spike_map"></svg>
+    <div id="main-container">
 
-    <div id="controls">
-        <button id="playButton" title="Play/Pause"><i class="fas fa-play"></i></button>
-        <input type="range" id="timeSlider" min="0" max="100" value="0">
-        <span id="currentYear"></span>
+        <div id="map-and-controls">
+            <svg id="spike_map"></svg>
+            <div id="controls">
+                <button id="playButton" title="Play/Pause"><i class="fas fa-play"></i></button>
+                <input type="range" id="timeSlider" min="0" max="100" value="0">
+                <span id="currentYear"></span>
+            </div>
+        </div>
+        <div id="legends">
+            <div id="colorLegend"></div>
+            <div id="sizeLegend"></div>
+        </div>
+
     </div>
-
-    <div id="legends">
-        <div id="colorLegend"></div>
-        <div id="sizeLegend"></div>
-    </div>
-
 </body>
+
 </html>
+
+<style>
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;  /* Ensures full height of the viewport */
+    width: 100%;   /* Ensures full width of the viewport */
+    box-sizing: border-box;  /* Border and padding are included in the width/height */
+}
+
+#main-container {
+    display: flex;
+    height: 100vh; /* Full viewport height */
+    align-items: stretch; /* Stretch children vertically */
+    margin: 0;
+    padding: 0;
+}
+
+#map-and-controls {
+    display: flex;
+    flex-direction: column;
+    flex: 3; /* Takes more space */
+    align-items: stretch; /* Ensures children stretch to fill the width */
+    margin: 0;
+}
+
+#spike_map {
+    height: calc(100% - 50px); /* Adjust if your control's height is different */
+    width: 100%;
+}
+
+#controls {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 50px; /* Set a fixed height for controls */
+    width: 100%;
+}
+
+#controls input[type="range"] {
+    width: 80%; /* Manage according to your design */
+}
+
+#legends {
+    flex: 1; /* Takes remaining space */
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    box-sizing: border-box; /* Includes padding in the element's height */
+}
+
+#colorLegend, #sizeLegend {
+    flex: 1; /* Allows both legends to grow equally */
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 5px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+</style>

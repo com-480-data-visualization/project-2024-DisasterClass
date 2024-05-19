@@ -5,7 +5,6 @@ class SpikeMap {
         this.initSVG();
         this.loadData(); // Load all disasters
         this.isPlaying = false;
-        this.adjustSliderWidth(); // Adjust the slider width initially
     }
 
     initSVG() {
@@ -95,8 +94,8 @@ class SpikeMap {
 
     getSpikePath(d,width = 1.5) {
         const height = this.sizeScale(d.magnitude)
-        return `M${-width / 2},0L0,${-height}L${width / 2},0`;
-        //return `M0,0 L0,${-height} L1,${-height} L1,0 Z`;
+        return `M${-width / 2},0L0,${-height}L${width / 2},0`; // A Spike
+        //return `M0,0 L0,${-height} L1,${-height} L1,0 Z`; // A rectangle
         //return `M${-width / 2},0 L0,${-height} L${width / 2},0 Z`; // A triangle
     }
 
@@ -118,12 +117,20 @@ class SpikeMap {
     createColorLegend() {
         const colorLegendContainer = d3.select('#colorLegend').append('svg');
         const subgroups = Array.from(new Set(this.data.map(d => d.subgroup)));  // Unique values using Set
-    
-        const legend = colorLegendContainer.selectAll('g')
-            .data(subgroups)
-            .enter()
-            .append('g')
-            .attr('transform', (d, i) => `translate(0, ${i * 25})`);
+        
+           // Adding a title to the color legend
+        colorLegendContainer.append('text')
+            .attr('x', 0)
+            .attr('y', 20)
+            .style('font-weight', 'bold')
+            .text('Disaster Types');
+
+            const legend = colorLegendContainer.selectAll('g.legend-entry')
+                .data(subgroups)
+                .enter()
+                .append('g')
+                .attr('class', 'legend-entry')
+                .attr('transform', (d, i) => `translate(0, ${i * 25 + 40})`);  // Offset by 40 to account for title
     
         legend.append('rect')
             .attr('width', 20)
@@ -137,25 +144,37 @@ class SpikeMap {
     }
 
     createSizeLegend() {
-        const sizeLegendContainer = d3.select('#sizeLegend').append('svg');
-        const sizes = [1000, 10000, 50000]; // Example magnitudes for demonstration
+        const sizeLegendContainer = d3.select('#sizeLegend').append('svg')
+            .attr('width', 200)  // Explicit width
+            .attr('height', 200); // Explicit height
+
+
+        // Example magnitudes structured as expected by `getSpikePath`
+        const sizes = [{magnitude: 1000}, {magnitude: 10000}, {magnitude: 50000}]; 
     
-        const legend = sizeLegendContainer.selectAll('g')
+        // Adding a title to the size legend
+        sizeLegendContainer.append('text')
+            .attr('x', 0)
+            .attr('y', 20)
+            .style('font-weight', 'bold')
+            .text('Total of Deaths');
+        
+        const legend = sizeLegendContainer.selectAll('g.legend-entry')
             .data(sizes)
             .enter()
             .append('g')
-            .attr('transform', (d, i) => `translate(0, ${i * 50 + 20})`);  // Ensure enough spacing and add top margin
-    
-        legend.append('circle')  // Using circle for better visual effect
-            .attr('cx', 10)
-            .attr('cy', d => 10 - this.sizeScale(d)/2)
-            .attr('r', d => this.sizeScale(d)/2)
-            .attr('fill', 'red');
-    
+            .attr('class', 'legend-entry')
+            .attr('transform', (d, i) => `translate(0, ${i * 50 + 40})`);  // Offset by 40 to account for title
+        
+        legend.append('path')  
+            .attr('fill', 'red')
+            .attr("d", d => this.getSpikePath(d,5))  // d now has a `magnitude` property
+            .attr('transform', 'translate(10,20)'); 
+        
         legend.append('text')
             .attr('x', 30)
-            .attr('y', d => 10)  // Align text to be centered with circles
-            .text(d => `${d.toLocaleString()} deaths`);
+            .attr('y', 15)  // Adjusted y to align with the center of the spikes
+            .text(d => `${d.magnitude.toLocaleString()} deaths`);
     }
     
     startAnimation() {
@@ -187,11 +206,6 @@ class SpikeMap {
             playButton.innerHTML = '<i class="fas fa-pause"></i>';
         }
     }
-
-    adjustSliderWidth() {
-        const slider = document.getElementById('timeSlider');
-        slider.style.width = `${this.svg_width}px`; // Set slider width to match SVG width
-    }
     
 }
 
@@ -207,7 +221,6 @@ function whenDocumentLoaded(action) {
 whenDocumentLoaded(() => {
 
     const map = new SpikeMap('spike_map', 'data_spike.csv');
-    window.onresize = () => map.adjustSliderWidth(); // Adjust slider width on window resize
     document.getElementById('playButton').addEventListener('click', () => map.togglePlayPause());
     document.getElementById('timeSlider').addEventListener('input', (e) => {
         const selectedDate = new Date(parseInt(e.target.value));
