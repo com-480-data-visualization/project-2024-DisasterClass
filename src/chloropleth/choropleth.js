@@ -1,6 +1,7 @@
 class World_Map {
-    constructor(svg_element_id) {
+    constructor(svg_element_id, data_file) {
         this.svg_element_id = svg_element_id;
+        this.data_file = data_file;
         this.initSVG();
         this.loadData('Declaration');  // Default category
     }
@@ -11,7 +12,7 @@ class World_Map {
         this.svg_width = svg_viewbox.width || 960;
         this.svg_height = svg_viewbox.height || 500;
 
-        // Adjusted fitExtent method for consistent margins
+        // Setup map projection
         this.projection = d3.geoEqualEarth()
             .fitExtent([[2, 2], [this.svg_width - 2, this.svg_height - 2]], { type: "Sphere" });
         this.path = d3.geoPath(this.projection);
@@ -30,7 +31,7 @@ class World_Map {
 
         this.curent_category = category;
 
-        d3.csv("data_per_country_raw.csv").then(data => {
+        d3.csv(this.data_file).then(data => {
             // Create a Map to hold the counts for each country
             let counts = new Map();
 
@@ -199,7 +200,7 @@ function whenDocumentLoaded(action) {
 }
 
 whenDocumentLoaded(() => {
-    const map = new World_Map('choropleth_map');
+    const map = new World_Map('choropleth_map',"data_per_country_raw.csv");
 
     document.getElementById('categorySelect').addEventListener('change', function() {
         map.updateVisualization(this.value);
