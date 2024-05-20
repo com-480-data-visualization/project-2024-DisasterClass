@@ -2,34 +2,42 @@ class SpikeMap {
     constructor(svg_element_id, data_file) {
         this.svg_element_id = svg_element_id;
         this.data_file = data_file;
-        this.initSVG();
-        this.loadData(); // Load all disasters
         this.isPlaying = false;
+        this.initialize();
     }
 
-    initSVG() {
-        this.svg = d3.select(`#${this.svg_element_id}`)            
+    async initialize() {
+        await this.initSVG();
+        await this.loadData();
+        this.attachEventListeners();
+    }
 
-        this.svg_width = this.svg.node().getBoundingClientRect().width;
-        this.svg_height = this.svg.node().getBoundingClientRect().height;
+    async initSVG() {
+        return new Promise(resolve => {
+            this.svg = d3.select(`#${this.svg_element_id}`)   
 
-        this.projection = d3.geoEqualEarth()
-            .fitExtent([[0, 0], [this.svg_width, this.svg_height]], { type: "Sphere" });
-        this.path = d3.geoPath(this.projection);
+            const rect = this.svg.node().getBoundingClientRect();
+            this.svg_width = rect.width;
+            this.svg_height = rect.height;
 
-        this.mapGroup = this.svg.append("g").attr("class", "map");
-        this.spikesGroup = this.svg.append("g").attr("class", "spikes");
+            this.projection = d3.geoEqualEarth()
+                .fitExtent([[0, 0], [this.svg_width, this.svg_height]], { type: "Sphere" });
+            this.path = d3.geoPath(this.projection);
 
-       // Define a color scale for different subgroups
-       this.colorScale = d3.scaleOrdinal(d3.schemeCategory10);
+            this.mapGroup = this.svg.append("g").attr("class", "map");
+            this.spikesGroup = this.svg.append("g").attr("class", "spikes");
 
-        // Example magnitudes structured as expected by `getSpikePath`
-        this.sizes = [{magnitude: 500000}, {magnitude: 1000000}, {magnitude: 2000000}, {magnitude: 3000000}, {magnitude: 5000000}]; 
+            // Define a color scale for different subgroups
+            this.colorScale = d3.scaleOrdinal(d3.schemeCategory10);
 
+            // Example magnitudes structured as expected by `getSpikePath`
+            this.sizes = [{magnitude: 500000}, {magnitude: 1000000}, {magnitude: 2000000}, {magnitude: 3000000}, {magnitude: 5000000}]; 
 
-       this.svg.call(d3.zoom()
-       .scaleExtent([1, 8])
-       .on('zoom', event => this.zoomed(event)));
+            this.svg.call(d3.zoom()
+                .scaleExtent([1, 8])
+                .on('zoom', event => this.zoomed(event)));
+            resolve();
+        });
     }
 
     zoomed(event) {
@@ -38,42 +46,43 @@ class SpikeMap {
         this.updateLegendValues(event.transform.k);
     }
 
-    loadData() {
-        Promise.all([
-            d3.json("countries-50m.json"),
-            d3.csv(this.data_file, this.type)
-        ]).then(([mapData, data]) => {
+    async loadData() {
+        try {
+            const [mapData, data] = await Promise.all([
+                d3.json("countries-50m.json"),
+                d3.csv(this.data_file, this.formatData)
+            ]);
             this.map = mapData;
             this.data = data;
             this.setupVisualization();
-        }).catch(error => console.error("Failed to load data: ", error));
+        } catch (error) {
+            console.error("Failed to load data: ", error);
+        }
     }
 
-    setupVisualization() {
-        this.sizeScale = d3.scaleSqrt()
-            .domain([0, d3.max(this.data, d => d.magnitude)])
-            .range([0, 100]);
-
-        /*this.sizeScale = d => {
-            if (d <= 0) return 0;  // Assign a fixed size for non-positive values
-            return d3.scaleLog()
-                .domain([1, d3.max(this.data, d => d.magnitude)])
-                .range([0, 50])(d);
-        }; */
-
-        this.drawMap();
-        this.createColorLegend();
-        this.createSizeLegend();
-        this.updateTimeRange();
-    }
-
-    type(d) {
+    formatData(d) {
         d.date = new Date(d.Date);
         d.latitude = +d.Latitude;
         d.longitude = +d.Longitude;
         d.magnitude = +d.Total_Deaths;
         d.subgroup = d.Disaster_Subgroup;
         return d;
+    }
+
+    setupVisualization() {
+        this.sizeScale = d3.scaleSqrt()
+            .domain([0, d3.max(this.data, d => d.magnitude)])
+            .range([0, 100]);
+        /*this.sizeScale = d => {
+            if (d <= 0) return 0;  // Assign a fixed size for non-positive values
+            return d3.scaleLog()
+                .domain([1, d3.max(this.data, d => d.magnitude)])
+                .range([0, 50])(d);
+        }; */
+        this.drawMap();
+        this.createColorLegend();
+        this.createSizeLegend();
+        this.updateTimeRange();
     }
 
     drawMap() {
@@ -109,21 +118,6 @@ class SpikeMap {
         return `M${-width / 2},0L0,${-height}L${width / 2},0`; // A Spike
         //return `M0,0 L0,${-height} L1,${-height} L1,0 Z`; // A rectangle
         //return `M${-width / 2},0 L0,${-height} L${width / 2},0 Z`; // A triangle
-    }
-
-    updateTimeRange() {
-        const minDate = this.data[0].date;
-        const maxDate = this.data[this.data.length - 1].date;
-        const slider = document.getElementById('timeSlider');
-        slider.min = minDate.getTime();
-        slider.max = maxDate.getTime();
-        slider.value = minDate.getTime();  // Initialize slider at the start date
-        slider.step = 365.25 * 24 * 60 * 60 * 1000; // Step by one year
-        this.updateCurrentYearLabel(minDate.getFullYear());
-    }
-
-    updateCurrentYearLabel(year) {
-        document.getElementById('currentYear').textContent = year;
     }
     
     createColorLegend() {
@@ -237,6 +231,37 @@ class SpikeMap {
             playButton.innerHTML = '<i class="fas fa-pause"></i>';
         }
     }
+
+    updateTimeRange() {
+        const minDate = this.data[0].date;
+        const maxDate = this.data[this.data.length - 1].date;
+        const slider = document.getElementById('timeSlider');
+        slider.min = minDate.getTime();
+        slider.max = maxDate.getTime();
+        slider.value = minDate.getTime();  // Initialize slider at the start date
+        slider.step = 365.25 * 24 * 60 * 60 * 1000; // Step by one year
+        this.updateCurrentYearLabel(minDate.getFullYear());
+    }
+
+    updateCurrentYearLabel(year) {
+        document.getElementById('currentYear').textContent = year;
+    }
+
+    attachEventListeners() {
+        const playButton = document.getElementById('playButton');
+        const timeSlider = document.getElementById('timeSlider');
+
+        playButton.addEventListener('click', () => this.togglePlayPause());
+        timeSlider.addEventListener('input', e => this.handleSliderInput(e));
+    }
+
+    handleSliderInput(e) {
+        const selectedDate = new Date(parseInt(e.target.value));
+        this.updateCurrentYearLabel(selectedDate.getFullYear());
+        this.drawSpikes(selectedDate);
+        this.isPlaying = false;
+        document.getElementById('playButton').innerHTML = '<i class="fas fa-play"></i>';
+    }
     
 }
 
@@ -250,15 +275,6 @@ function whenDocumentLoaded(action) {
 }
 
 whenDocumentLoaded(() => {
-
-    const map = new SpikeMap('spike_map', 'data_spike.csv');
-    document.getElementById('playButton').addEventListener('click', () => map.togglePlayPause());
-    document.getElementById('timeSlider').addEventListener('input', (e) => {
-        const selectedDate = new Date(parseInt(e.target.value));
-        map.updateCurrentYearLabel(selectedDate.getFullYear());
-        map.drawSpikes(selectedDate);
-        map.isPlaying = false;
-        document.getElementById('playButton').innerHTML = '<i class="fas fa-play"></i>';
-    });
+    new SpikeMap('spike_map', 'data_spike.csv');
 });
 
