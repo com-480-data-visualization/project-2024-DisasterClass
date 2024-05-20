@@ -50,7 +50,7 @@ html, body {
 #map-and-controls {
     display: flex;
     flex-direction: column;
-    flex: 3; /* Takes more space */
+    flex: 5; /* Takes more space */
     align-items: stretch; /* Ensures children stretch to fill the width */
     margin: 0;
 }
@@ -78,16 +78,20 @@ html, body {
     flex-direction: column;
     padding: 10px;
     box-sizing: border-box; /* Includes padding in the element's height */
+    border: 1px solid #ccc;
+    justify-content: flex-end; /* Aligns children at the bottom */
+    justify-content: space-between;  /* This ensures that the first item aligns to the top, and the last item aligns to the bottom */
+    height: 100%;
 }
 
-#colorLegend, #sizeLegend {
-    flex: 1; /* Allows both legends to grow equally */
-    border: 1px solid #ccc;
-    padding: 10px;
-    margin: 5px 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+#colorLegend svg {
+    overflow: visible; /* Allows elements that extend beyond the SVG's area to be visible */
+
+
+}
+
+#sizeLegend svg {
+    overflow: visible; /* Allows elements that extend beyond the SVG's area to be visible */
 }
 
 </style>

@@ -23,6 +23,10 @@ class SpikeMap {
        // Define a color scale for different subgroups
        this.colorScale = d3.scaleOrdinal(d3.schemeCategory10);
 
+        // Example magnitudes structured as expected by `getSpikePath`
+        this.sizes = [{magnitude: 500000}, {magnitude: 1000000}, {magnitude: 2000000}, {magnitude: 3000000}, {magnitude: 5000000}]; 
+
+
        this.svg.call(d3.zoom()
        .scaleExtent([1, 8])
        .on('zoom', event => this.zoomed(event)));
@@ -31,6 +35,7 @@ class SpikeMap {
     zoomed(event) {
         this.mapGroup.attr('transform', event.transform);
         this.spikesGroup.attr('transform', event.transform);
+        this.updateLegendValues(event.transform.k);
     }
 
     loadData() {
@@ -47,7 +52,14 @@ class SpikeMap {
     setupVisualization() {
         this.sizeScale = d3.scaleSqrt()
             .domain([0, d3.max(this.data, d => d.magnitude)])
-            .range([0, 80]);
+            .range([0, 100]);
+
+        /*this.sizeScale = d => {
+            if (d <= 0) return 0;  // Assign a fixed size for non-positive values
+            return d3.scaleLog()
+                .domain([1, d3.max(this.data, d => d.magnitude)])
+                .range([0, 50])(d);
+        }; */
 
         this.drawMap();
         this.createColorLegend();
@@ -89,7 +101,7 @@ class SpikeMap {
             .attr("stroke-width", 0.5)
             .attr("transform", d => `translate(${this.projection([d.longitude, d.latitude])})`)
             .append("title")
-            .text(d => `Date: ${d3.timeFormat("%Y-%m-%d")(d.date)}\nTotal Deaths: ${d.magnitude}`);
+            .text(d => `Date: ${d3.timeFormat("%Y-%m-%d")(d.date)}\nTotal Deaths: ${d.magnitude.toLocaleString()}`);
     }
 
     getSpikePath(d,width = 1.5) {
@@ -125,12 +137,12 @@ class SpikeMap {
             .style('font-weight', 'bold')
             .text('Disaster Types');
 
-            const legend = colorLegendContainer.selectAll('g.legend-entry')
-                .data(subgroups)
-                .enter()
-                .append('g')
-                .attr('class', 'legend-entry')
-                .attr('transform', (d, i) => `translate(0, ${i * 25 + 40})`);  // Offset by 40 to account for title
+        const legend = colorLegendContainer.selectAll('g.legend-entry')
+            .data(subgroups)
+            .enter()
+            .append('g')
+            .attr('class', 'legend-entry')
+            .attr('transform', (d, i) => `translate(0, ${i * 25 + 40})`);  // Offset by 40 to account for title
     
         legend.append('rect')
             .attr('width', 20)
@@ -145,37 +157,56 @@ class SpikeMap {
 
     createSizeLegend() {
         const sizeLegendContainer = d3.select('#sizeLegend').append('svg')
-            .attr('width', 200)  // Explicit width
-            .attr('height', 200); // Explicit height
 
+        const d3Formatter = d3.format(".1s");
 
-        // Example magnitudes structured as expected by `getSpikePath`
-        const sizes = [{magnitude: 1000}, {magnitude: 10000}, {magnitude: 50000}]; 
+        function formatNumberD3(num) {
+            return d3Formatter(num).replace('G', 'B'); // Replace 'G' with 'B' for billions
+        }
     
-        // Adding a title to the size legend
-        sizeLegendContainer.append('text')
-            .attr('x', 0)
-            .attr('y', 20)
-            .style('font-weight', 'bold')
-            .text('Total of Deaths');
-        
+        const spikeWidth = 10; // Width of the spike, adjust as needed
+        const spacing = 40; // Horizontal spacing between spikes, adjust as needed
+    
+        // Generate a legend entry for each size
         const legend = sizeLegendContainer.selectAll('g.legend-entry')
-            .data(sizes)
+            .data(this.sizes)
             .enter()
             .append('g')
             .attr('class', 'legend-entry')
-            .attr('transform', (d, i) => `translate(0, ${i * 50 + 40})`);  // Offset by 40 to account for title
-        
+            .attr('transform', (d, i) => `translate(${i * spacing}, 20)`); // Horizontal positioning
+    
+        // Append the spike path for each legend entry
         legend.append('path')  
             .attr('fill', 'red')
-            .attr("d", d => this.getSpikePath(d,5))  // d now has a `magnitude` property
-            .attr('transform', 'translate(10,20)'); 
-        
+            .attr("d", d => this.getSpikePath({magnitude: d.magnitude}, spikeWidth))  // Ensure getSpikePath is adjusted to use the width
+            .attr('transform', 'translate(10,0)'); // Adjust translation if necessary
+    
+        // Append text below each spike
         legend.append('text')
-            .attr('x', 30)
-            .attr('y', 15)  // Adjusted y to align with the center of the spikes
-            .text(d => `${d.magnitude.toLocaleString()} deaths`);
+            .attr('x', 4 +  spikeWidth / 2) // Center text under the spike
+            .attr('y', 20) // Vertical position below the spike
+            .attr('text-anchor', 'middle') // Center text horizontally
+            .text(d => formatNumberD3(d.magnitude));
+
+           // Adding a title under the values
+        sizeLegendContainer.append('text')
+            .attr('x', 0)  // Central position under the legend
+            .attr('y', 70)  // Lower position to place under the values
+            .style('font-weight', 'bold')
+            .text('Total Deaths by Disaster');
     }
+
+    updateLegendValues(scale) {
+        const d3Formatter = d3.format(".1s");
+
+        function formatNumberD3(num) {
+            return d3Formatter(num).replace('G', 'B'); // Replace 'G' with 'B' for billions
+        }
+
+        const legend = d3.select('#sizeLegend').selectAll('text')
+            .data(this.sizes)
+            .text(d => formatNumberD3(d.magnitude / scale));
+    }    
     
     startAnimation() {
         const slider = document.getElementById('timeSlider');
@@ -193,7 +224,7 @@ class SpikeMap {
                 this.updateCurrentYearLabel(currentDate.getFullYear());
                 this.drawSpikes(currentDate);
             }
-        }, 500); // miliseconds per year
+        }, 100); // miliseconds per year
     }
 
     togglePlayPause() {
