@@ -3,32 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>World Map Visualization</title>
-    <style>
-        .legend {
-            font-family: Arial, sans-serif;
-            font-size: 12px;
-        }
-        .legend-title {
-            font-weight: bold;
-        }
-        svg {
-            margin: auto;
-            display: block;
-        }
-    </style>
-</head>
-<body>
-    <select id="categorySelect">
-        <option value="Declaration">Declaration</option>
-        <option value="Appeal">Appeal</option>
-        <option value="OFDA/BHA Response">OFDA/BHA Response</option>
-        <!-- Add more options based on your data categories -->
-    </select>
-
-    <svg id="choropleth_map" width="960" height="500"></svg>
+    <title>Choropleth Map</title>
     <script src="https://d3js.org/d3.v6.min.js"></script>
     <script src="https://d3js.org/topojson.v1.min.js"></script>
     <script src="choropleth.js"></script>
+    <style>
+
+    </style>
+</head>
+<body>
+    <div id="main-container">
+        <select id="categorySelect">
+            <option value="Declaration">Declaration</option>
+            <option value="Appeal">Appeal</option>
+            <option value="OFDA/BHA Response">OFDA/BHA Response</option>
+            <!-- Add more options based on your data categories -->
+        </select>
+
+        <svg id="choropleth_map" width="960" height="500"></svg>
+    </div>
 </body>
 </html>

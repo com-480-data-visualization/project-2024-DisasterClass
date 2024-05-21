@@ -8,9 +8,14 @@ class World_Map {
 
     initSVG() {
         this.svg = d3.select(`#${this.svg_element_id}`);
-        const svg_viewbox = this.svg.node().viewBox.animVal;
-        this.svg_width = svg_viewbox.width || 960;
-        this.svg_height = svg_viewbox.height || 500;
+        const rect = this.svg.node().getBoundingClientRect();
+        this.svg_width = rect.width;
+        this.svg_height = rect.height;
+
+
+        // Create a group for the map
+        this.mapGroup = this.svg.append("g")
+            .attr("class", "map-group");
 
         // Setup map projection
         this.projection = d3.geoEqualEarth()
@@ -21,15 +26,14 @@ class World_Map {
         const zoom = d3.zoom()
             .scaleExtent([1, 8])
             .on('zoom', (event) => {
-                this.svg.attr('transform', event.transform);
+                this.mapGroup.attr('transform', event.transform);
             });
 
         this.svg.call(zoom);
     }
 
     loadData(category) {
-
-        this.curent_category = category;
+        this.current_category = category;
 
         d3.csv(this.data_file).then(data => {
             // Create a Map to hold the counts for each country
@@ -68,14 +72,14 @@ class World_Map {
     }
 
     drawMap() {
-        this.svg.selectAll("path").remove();  // Clear existing paths
+        this.mapGroup.selectAll("path").remove();  // Clear existing paths
         const countries = topojson.feature(this.map, this.map.objects.countries).features;
 
         const colorScale = d3.scaleSequentialLog(d3.interpolateLab("steelblue", "brown"))
             .domain([1, d3.max(Array.from(this.dataMap.values()))]);
 
         // Country paths
-        this.svg.selectAll("path")
+        this.mapGroup.selectAll("path")
             .data(countries)
             .enter().append("path")
             .attr("d", this.path)
@@ -121,8 +125,8 @@ class World_Map {
         // Clear existing legend
         this.svg.selectAll(".legend").remove();
 
-        const legendWidth = 300;
-        const legendHeight = 10;
+        const legendWidth = 400;
+        const legendHeight = 20;
         const maxPercentage = d3.max(Array.from(this.dataMap.values(), value => +value));  // Ensure values are numbers
     
         // Logarithmic space function
@@ -151,7 +155,7 @@ class World_Map {
         // Append the legend bar
         const legend = this.svg.append("g")
             .attr("class", "legend")
-            .attr("transform", `translate(${this.svg_width - legendWidth - 20}, ${this.svg_height - 30})`);
+            .attr("transform", `translate(${this.svg_width - legendWidth - 20}, ${this.svg_height - legendHeight - 20})`);
     
         legend.append("rect")
             .attr("x", 0)
@@ -168,7 +172,7 @@ class World_Map {
             .attr("text-anchor", "middle") // Center the text horizontally
             .style("font-size", "12px")
             .style("font-weight", "bold")
-            .text(`${this.curent_category} (%)`); // Text of the title
+            .text(`${this.current_category} (%)`); // Text of the title
     
         const x = d3.scaleLog()
             .domain([1, maxPercentage])
