@@ -19,12 +19,13 @@ class World_Map {
 
         // Setup map projection
         this.projection = d3.geoEqualEarth()
-            .fitExtent([[2, 2], [this.svg_width - 2, this.svg_height - 2]], { type: "Sphere" });
+            .fitExtent([[0, 0], [this.svg_width , this.svg_height ]], { type: "Sphere" });
         this.path = d3.geoPath(this.projection);
 
         // Zoom and pan configuration
         const zoom = d3.zoom()
-            .scaleExtent([1, 8])
+            .scaleExtent([1, 8]) // Limit zooming out to 1x and zooming in to 8x
+            .translateExtent([[0, 0], [this.svg_width, this.svg_height]]) // Limit panning to the dimensions of the SVG
             .on('zoom', (event) => {
                 this.mapGroup.attr('transform', event.transform);
             });
@@ -125,8 +126,10 @@ class World_Map {
         // Clear existing legend
         this.svg.selectAll(".legend").remove();
 
-        const legendWidth = 400;
-        const legendHeight = 20;
+        // Dynamically set the width based on SVG width
+        const legendWidth = Math.min(400, this.svg_width * 0.4); // Legend width is at most 50% of the SVG width
+        const legendHeight = 10;
+
         const maxPercentage = d3.max(Array.from(this.dataMap.values(), value => +value));  // Ensure values are numbers
     
         // Logarithmic space function
@@ -155,7 +158,7 @@ class World_Map {
         // Append the legend bar
         const legend = this.svg.append("g")
             .attr("class", "legend")
-            .attr("transform", `translate(${this.svg_width - legendWidth - 20}, ${this.svg_height - legendHeight - 20})`);
+            .attr("transform", `translate(${this.svg_width - legendWidth -15}, ${this.svg_height - legendHeight - 20})`);
     
         legend.append("rect")
             .attr("x", 0)

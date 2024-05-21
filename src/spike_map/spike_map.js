@@ -34,7 +34,8 @@ class SpikeMap {
             this.sizes = [{magnitude: 500000}, {magnitude: 1000000}, {magnitude: 2000000}, {magnitude: 3000000}, {magnitude: 5000000}]; 
 
             this.svg.call(d3.zoom()
-                .scaleExtent([1, 8])
+                .scaleExtent([1, 8]) // Limit zooming out to 1x and zooming in to 8x
+                .translateExtent([[0, 0], [this.svg_width, this.svg_height]]) // Limit panning to the dimensions of the SVG
                 .on('zoom', event => this.zoomed(event)));
             resolve();
         });

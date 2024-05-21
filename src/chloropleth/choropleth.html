@@ -8,7 +8,32 @@
     <script src="https://d3js.org/topojson.v1.min.js"></script>
     <script src="choropleth.js"></script>
     <style>
-
+        html, body {
+            height: 100%; 
+            width: 100%;  
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #main-container {
+            width: 95%;   /* Limits max width while allowing some margin */
+            max-width: 960px; /* Ensures it doesn't grow too large on bigger screens */
+            height: auto; /* Adjust height based on content */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        #categorySelect {
+            padding: 4px;
+            font-size: 16px;
+        }
+        svg {
+            width: 100%;  /* Full width of the container */
+            height: auto; 
+        }
     </style>
 </head>
 <body>
@@ -20,7 +45,10 @@
             <!-- Add more options based on your data categories -->
         </select>
 
-        <svg id="choropleth_map" width="960" height="500"></svg>
+        <svg id="choropleth_map" viewBox="0 0 960 500" preserveAspectRatio="xMidYMid meet"></svg>
     </div>
+    <script>
+        // JavaScript for handling the tooltip and other dynamic elements can go here
+    </script>
 </body>
 </html>
