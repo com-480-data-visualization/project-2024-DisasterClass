@@ -26,6 +26,15 @@
             align-items: center;
             justify-content: center;
         }
+        #select-container {
+            display: flex;
+            justify-content: center;
+            align-items: center; 
+            width: 100%;
+        }
+        #categorySelect, label {
+            margin: 5px;
+        }
         #categorySelect {
             padding: 4px;
             font-size: 16px;
@@ -38,12 +47,15 @@
 </head>
 <body>
     <div id="main-container">
-        <select id="categorySelect">
-            <option value="Declaration">Declaration</option>
-            <option value="Appeal">Appeal</option>
-            <option value="OFDA/BHA Response">OFDA/BHA Response</option>
-            <!-- Add more options based on your data categories -->
-        </select>
+        <div id="select-container">
+            <label for="categorySelect">Choose a category:</label>
+            <select id="categorySelect">
+                <option value="Declaration">Declaration</option>
+                <option value="Appeal">Appeal</option>
+                <option value="OFDA/BHA Response">OFDA/BHA Response</option>
+                <!-- Add more options based on your data categories -->
+            </select>
+        </div>
 
         <svg id="choropleth_map" viewBox="0 0 960 500" preserveAspectRatio="xMidYMid meet"></svg>
     </div>

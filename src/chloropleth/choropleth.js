@@ -129,6 +129,7 @@ class World_Map {
         // Dynamically set the width based on SVG width
         const legendWidth = Math.min(400, this.svg_width * 0.4); // Legend width is at most 50% of the SVG width
         const legendHeight = 10;
+        const legendPadding = 18;
 
         const maxPercentage = d3.max(Array.from(this.dataMap.values(), value => +value));  // Ensure values are numbers
     
@@ -154,12 +155,24 @@ class World_Map {
                 .attr("offset", `${(index / (range.length - 1)) * 100}%`)
                 .attr("stop-color", colorScale(value));  
         });
-    
-        // Append the legend bar
+
         const legend = this.svg.append("g")
             .attr("class", "legend")
             .attr("transform", `translate(${this.svg_width - legendWidth -15}, ${this.svg_height - legendHeight - 20})`);
-    
+
+        // Append a background rectangle to the legend
+        legend.append("rect")
+            .attr("class", "legend-background")
+            .attr("x", -legendPadding)
+            .attr("y", -legendPadding)
+            .attr("width", legendWidth + 2 * legendPadding)
+            .attr("height", legendHeight + 2 * legendPadding)
+            .attr("rx", 5) // Rounded corners
+            .attr("ry", 5) // Rounded corners
+            .style("fill", "#fff")
+            .style("opacity", 0.7);
+
+        // Append the legend bar
         legend.append("rect")
             .attr("x", 0)
             .attr("y", 0)
@@ -170,8 +183,8 @@ class World_Map {
         // Create the title for the legend
         legend.append("text")
             .attr("class", "legend-title")
-            .attr("x", legendWidth / 2 + 50) // Center the title
-            .attr("y", -10) // Position above the color bar
+            .attr("x", legendWidth / 2 ) // Center the title
+            .attr("y", -5) // Position above the color bar
             .attr("text-anchor", "middle") // Center the text horizontally
             .style("font-size", "12px")
             .style("font-weight", "bold")
