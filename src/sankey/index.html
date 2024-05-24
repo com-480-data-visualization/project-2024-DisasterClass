@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sankey Diagram for Disasters</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/d3-sankey@0.12.3/dist/d3-sankey.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .checkbox-container, .radio-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .checkbox-button, .radio-button {
+            display: none;
+        }
+        .checkbox-label, .radio-label {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 5px;
+            border: 2px solid #ccc;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+        .checkbox-button:checked + .checkbox-label, .radio-button:checked + .radio-label {
+            background-color: #007bff;
+            border-color: #007bff;
+            color: #fff;
+        }
+        .chart {
+            margin-top: 20px;
+        }
+        .tooltip {
+            position: absolute;
+            text-align: center;
+            width: auto;
+            height: auto;
+            padding: 5px;
+            font: 12px sans-serif;
+            background: lightsteelblue;
+            border: 0px;
+            border-radius: 8px;
+            pointer-events: none;
+            opacity: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="checkbox-container">
+        <input type="checkbox" id="drought" class="checkbox-button disaster-checkbox" value="Drought" checked>
+        <label for="drought" class="checkbox-label">Drought</label>
+        <input type="checkbox" id="earthquake" class="checkbox-button disaster-checkbox" value="Earthquake" checked>
+        <label for="earthquake" class="checkbox-label">Earthquake</label>
+        <input type="checkbox" id="extreme-temperature" class="checkbox-button disaster-checkbox" value="Extreme temperature" checked>
+        <label for="extreme-temperature" class="checkbox-label">Extreme temperature</label>
+        <input type="checkbox" id="flood" class="checkbox-button disaster-checkbox" value="Flood" checked>
+        <label for="flood" class="checkbox-label">Flood</label>
+        <input type="checkbox" id="storm" class="checkbox-button disaster-checkbox" value="Storm" checked>
+        <label for="storm" class="checkbox-label">Storm</label>
+        <input type="checkbox" id="volcanic-activity" class="checkbox-button disaster-checkbox" value="Volcanic activity" checked>
+        <label for="volcanic-activity" class="checkbox-label">Volcanic activity</label>
+        <input type="checkbox" id="wildfire" class="checkbox-button disaster-checkbox" value="Wildfire" checked>
+        <label for="wildfire" class="checkbox-label">Wildfire</label>
+    </div>
+    <div class="radio-container">
+        <input type="radio" id="northern" name="hemisphere" value="Northern Hemisphere" class="radio-button" checked>
+        <label for="northern" class="radio-label">Northern Hemisphere</label>
+        <input type="radio" id="southern" name="hemisphere" value="Southern Hemisphere" class="radio-button">
+        <label for="southern" class="radio-label">Southern Hemisphere</label>
+    </div>
+    <div id="chart" class="chart"></div>
+    <div id="tooltip" class="tooltip"></div>
+    <script src="script.js"></script>
+</body>
+</html>

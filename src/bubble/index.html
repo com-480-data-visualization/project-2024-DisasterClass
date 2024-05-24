@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animated Bubble Chart</title>
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <style>
+        .bubble {
+            stroke: black;
+            stroke-width: 1px;
+        }
+        .axis-label {
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div id="chart"></div>
+    <script>
+        // Load the JSON data
+        d3.json('accumulated_disaster_data_1950.json').then(data => {
+            const margin = {top: 20, right: 30, bottom: 60, left: 60},
+                  width = 800 - margin.left - margin.right,
+                  height = 600 - margin.top - margin.bottom;
+
+            const svg = d3.select("#chart")
+                          .append("svg")
+                          .attr("width", width + margin.left + margin.right)
+                          .attr("height", height + margin.top + margin.bottom)
+                          .append("g")
+                          .attr("transform", `translate(${margin.left},${margin.top})`);
+
+            const x = d3.scaleLog().range([0, width]).base(10);
+            const y = d3.scaleLog().range([height, 0]).base(10);
+            const z = d3.scaleSqrt().range([4, 40]);
+
+            const color = d3.scaleOrdinal(d3.schemeCategory10);
+
+            const xAxis = d3.axisBottom(x).ticks(10, d3.format(",d"));
+            const yAxis = d3.axisLeft(y).ticks(10, d3.format(",d"));
+
+            svg.append("g")
+               .attr("class", "x-axis")
+               .attr("transform", `translate(0, ${height})`);
+
+            svg.append("g")
+               .attr("class", "y-axis");
+
+            svg.append("text")
+               .attr("class", "axis-label")
+               .attr("text-anchor", "end")
+               .attr("x", width)
+               .attr("y", height + 40)
+               .text("Total Damage, Adjusted ('000 US$)");
+
+            svg.append("text")
+               .attr("class", "axis-label")
+               .attr("text-anchor", "end")
+               .attr("transform", "rotate(-90)")
+               .attr("y", -40)
+               .attr("x", -margin.top)
+               .text("Total Deaths");
+
+            function parseData(data) {
+                const parsedData = [];
+                data.forEach(disaster => {
+                    const type = disaster.name;
+                    const damageData = disaster["Total Damage, Adjusted ('000 US$)"];
+                    const affectedData = disaster["Total Affected"];
+                    const deathsData = disaster["Total Deaths"];
+                    
+                    damageData.forEach((d, i) => {
+                        const year = d[0];
+                        const damage = d[1];
+                        const affected = affectedData[i][1];
+                        const deaths = deathsData[i][1];
+
+                        parsedData.push({
+                            type: type,
+                            year: year,
+                            damage: damage,
+                            affected: affected,
+                            deaths: deaths
+                        });
+                    });
+                });
+                return parsedData;
+            }
+
+            const parsedData = parseData(data);
+
+            function updateChart(year) {
+                const yearData = parsedData.filter(d => d.year === year);
+
+                x.domain([1000000, d3.max(yearData, d => d.damage) || 10000000]);
+                y.domain([1000, d3.max(yearData, d => d.deaths) || 10000]);
+                z.domain([0, d3.max(yearData, d => d.affected)]);
+
+                svg.select(".x-axis")
+                   .transition()
+                   .duration(1000)
+                   .call(xAxis);
+
+                svg.select(".y-axis")
+                   .transition()
+                   .duration(1000)
+                   .call(yAxis);
+
+                const bubbles = svg.selectAll(".bubble")
+                                   .data(yearData, d => d.type);
+
+                bubbles.enter()
+                       .append("circle")
+                       .attr("class", "bubble")
+                       .attr("cx", d => x(d.damage))
+                       .attr("cy", d => y(d.deaths))
+                       .attr("r", d => z(d.affected))
+                       .style("fill", d => color(d.type))
+                       .merge(bubbles)
+                       .transition()
+                       .duration(1000)
+                       .attr("cx", d => x(d.damage))
+                       .attr("cy", d => y(d.deaths))
+                       .attr("r", d => z(d.affected))
+                       .style("fill", d => color(d.type));
+
+                bubbles.exit().remove();
+            }
+
+            let currentYear = 1960;
+            function animateChart() {
+                updateChart(currentYear);
+                currentYear++;
+                if (currentYear <= 2024) { // Adjust end year as needed
+                    setTimeout(animateChart, 2000);
+                }
+            }
+
+            animateChart();
+        });
+    </script>
+</body>
+</html>

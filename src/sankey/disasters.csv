@@ -1,0 +1,258 @@
+Disaster Type,Start Month,Hemisphere,Occurrences
+Animal incident,November,Northern Hemisphere,1
+Drought,January,Northern Hemisphere,105
+Drought,January,Southern Hemisphere,37
+Drought,February,Northern Hemisphere,23
+Drought,February,Southern Hemisphere,7
+Drought,March,Northern Hemisphere,42
+Drought,March,Southern Hemisphere,9
+Drought,April,Northern Hemisphere,42
+Drought,April,Southern Hemisphere,11
+Drought,May,Northern Hemisphere,40
+Drought,May,Southern Hemisphere,9
+Drought,June,Northern Hemisphere,52
+Drought,June,Southern Hemisphere,12
+Drought,July,Northern Hemisphere,52
+Drought,July,Southern Hemisphere,10
+Drought,August,Northern Hemisphere,27
+Drought,August,Southern Hemisphere,14
+Drought,September,Northern Hemisphere,22
+Drought,September,Southern Hemisphere,13
+Drought,October,Northern Hemisphere,22
+Drought,October,Southern Hemisphere,17
+Drought,November,Northern Hemisphere,15
+Drought,November,Southern Hemisphere,10
+Drought,December,Northern Hemisphere,24
+Drought,December,Southern Hemisphere,11
+Earthquake,January,Northern Hemisphere,104
+Earthquake,January,Southern Hemisphere,32
+Earthquake,February,Northern Hemisphere,103
+Earthquake,February,Southern Hemisphere,27
+Earthquake,March,Northern Hemisphere,112
+Earthquake,March,Southern Hemisphere,23
+Earthquake,April,Northern Hemisphere,126
+Earthquake,April,Southern Hemisphere,16
+Earthquake,May,Northern Hemisphere,127
+Earthquake,May,Southern Hemisphere,21
+Earthquake,June,Northern Hemisphere,92
+Earthquake,June,Southern Hemisphere,26
+Earthquake,July,Northern Hemisphere,108
+Earthquake,July,Southern Hemisphere,19
+Earthquake,August,Northern Hemisphere,113
+Earthquake,August,Southern Hemisphere,27
+Earthquake,September,Northern Hemisphere,105
+Earthquake,September,Southern Hemisphere,31
+Earthquake,October,Northern Hemisphere,106
+Earthquake,October,Southern Hemisphere,21
+Earthquake,November,Northern Hemisphere,108
+Earthquake,November,Southern Hemisphere,27
+Earthquake,December,Northern Hemisphere,112
+Earthquake,December,Southern Hemisphere,27
+Epidemic,January,Northern Hemisphere,272
+Epidemic,January,Southern Hemisphere,96
+Epidemic,February,Northern Hemisphere,70
+Epidemic,February,Southern Hemisphere,27
+Epidemic,March,Northern Hemisphere,77
+Epidemic,March,Southern Hemisphere,24
+Epidemic,April,Northern Hemisphere,70
+Epidemic,April,Southern Hemisphere,17
+Epidemic,May,Northern Hemisphere,65
+Epidemic,May,Southern Hemisphere,24
+Epidemic,June,Northern Hemisphere,76
+Epidemic,June,Southern Hemisphere,18
+Epidemic,July,Northern Hemisphere,71
+Epidemic,July,Southern Hemisphere,20
+Epidemic,August,Northern Hemisphere,80
+Epidemic,August,Southern Hemisphere,28
+Epidemic,September,Northern Hemisphere,80
+Epidemic,September,Southern Hemisphere,17
+Epidemic,October,Northern Hemisphere,93
+Epidemic,October,Southern Hemisphere,35
+Epidemic,November,Northern Hemisphere,62
+Epidemic,November,Southern Hemisphere,30
+Epidemic,December,Northern Hemisphere,76
+Epidemic,December,Southern Hemisphere,31
+Extreme temperature,January,Northern Hemisphere,132
+Extreme temperature,January,Southern Hemisphere,16
+Extreme temperature,February,Northern Hemisphere,34
+Extreme temperature,February,Southern Hemisphere,4
+Extreme temperature,March,Northern Hemisphere,7
+Extreme temperature,April,Northern Hemisphere,16
+Extreme temperature,April,Southern Hemisphere,2
+Extreme temperature,May,Northern Hemisphere,59
+Extreme temperature,May,Southern Hemisphere,6
+Extreme temperature,June,Northern Hemisphere,51
+Extreme temperature,June,Southern Hemisphere,6
+Extreme temperature,July,Northern Hemisphere,95
+Extreme temperature,July,Southern Hemisphere,29
+Extreme temperature,August,Northern Hemisphere,25
+Extreme temperature,August,Southern Hemisphere,3
+Extreme temperature,September,Northern Hemisphere,1
+Extreme temperature,September,Southern Hemisphere,2
+Extreme temperature,October,Northern Hemisphere,10
+Extreme temperature,October,Southern Hemisphere,1
+Extreme temperature,November,Northern Hemisphere,34
+Extreme temperature,November,Southern Hemisphere,3
+Extreme temperature,December,Northern Hemisphere,101
+Extreme temperature,December,Southern Hemisphere,9
+Flood,January,Northern Hemisphere,201
+Flood,January,Southern Hemisphere,246
+Flood,February,Northern Hemisphere,159
+Flood,February,Southern Hemisphere,188
+Flood,March,Northern Hemisphere,222
+Flood,March,Southern Hemisphere,177
+Flood,April,Northern Hemisphere,277
+Flood,April,Southern Hemisphere,144
+Flood,May,Northern Hemisphere,383
+Flood,May,Southern Hemisphere,107
+Flood,June,Northern Hemisphere,533
+Flood,June,Southern Hemisphere,89
+Flood,July,Northern Hemisphere,614
+Flood,July,Southern Hemisphere,79
+Flood,August,Northern Hemisphere,683
+Flood,August,Southern Hemisphere,46
+Flood,September,Northern Hemisphere,452
+Flood,September,Southern Hemisphere,39
+Flood,October,Northern Hemisphere,394
+Flood,October,Southern Hemisphere,79
+Flood,November,Northern Hemisphere,307
+Flood,November,Southern Hemisphere,98
+Flood,December,Northern Hemisphere,221
+Flood,December,Southern Hemisphere,150
+Fog,December,Northern Hemisphere,1
+Glacial lake outburst flood,February,Northern Hemisphere,1
+Glacial lake outburst flood,April,Northern Hemisphere,1
+Glacial lake outburst flood,July,Northern Hemisphere,1
+Glacial lake outburst flood,October,Northern Hemisphere,1
+Impact,February,Northern Hemisphere,1
+Infestation,January,Northern Hemisphere,7
+Infestation,January,Southern Hemisphere,1
+Infestation,February,Northern Hemisphere,7
+Infestation,March,Northern Hemisphere,4
+Infestation,April,Northern Hemisphere,4
+Infestation,April,Southern Hemisphere,1
+Infestation,May,Northern Hemisphere,4
+Infestation,June,Northern Hemisphere,5
+Infestation,June,Southern Hemisphere,4
+Infestation,July,Northern Hemisphere,13
+Infestation,August,Northern Hemisphere,5
+Infestation,August,Southern Hemisphere,1
+Infestation,September,Northern Hemisphere,3
+Infestation,September,Southern Hemisphere,1
+Infestation,October,Northern Hemisphere,4
+Infestation,October,Southern Hemisphere,1
+Infestation,November,Northern Hemisphere,4
+Infestation,December,Northern Hemisphere,1
+Mass movement (dry),January,Northern Hemisphere,5
+Mass movement (dry),January,Southern Hemisphere,2
+Mass movement (dry),February,Northern Hemisphere,2
+Mass movement (dry),March,Northern Hemisphere,4
+Mass movement (dry),April,Northern Hemisphere,3
+Mass movement (dry),May,Northern Hemisphere,2
+Mass movement (dry),May,Southern Hemisphere,1
+Mass movement (dry),June,Northern Hemisphere,2
+Mass movement (dry),June,Southern Hemisphere,1
+Mass movement (dry),July,Northern Hemisphere,1
+Mass movement (dry),July,Southern Hemisphere,1
+Mass movement (dry),August,Northern Hemisphere,5
+Mass movement (dry),September,Northern Hemisphere,1
+Mass movement (dry),September,Southern Hemisphere,1
+Mass movement (dry),October,Northern Hemisphere,4
+Mass movement (dry),November,Northern Hemisphere,5
+Mass movement (dry),December,Northern Hemisphere,4
+Mass movement (wet),January,Northern Hemisphere,47
+Mass movement (wet),January,Southern Hemisphere,34
+Mass movement (wet),February,Northern Hemisphere,55
+Mass movement (wet),February,Southern Hemisphere,23
+Mass movement (wet),March,Northern Hemisphere,51
+Mass movement (wet),March,Southern Hemisphere,23
+Mass movement (wet),April,Northern Hemisphere,41
+Mass movement (wet),April,Southern Hemisphere,25
+Mass movement (wet),May,Northern Hemisphere,43
+Mass movement (wet),May,Southern Hemisphere,18
+Mass movement (wet),June,Northern Hemisphere,58
+Mass movement (wet),June,Southern Hemisphere,8
+Mass movement (wet),July,Northern Hemisphere,82
+Mass movement (wet),July,Southern Hemisphere,6
+Mass movement (wet),August,Northern Hemisphere,64
+Mass movement (wet),August,Southern Hemisphere,6
+Mass movement (wet),September,Northern Hemisphere,52
+Mass movement (wet),September,Southern Hemisphere,7
+Mass movement (wet),October,Northern Hemisphere,44
+Mass movement (wet),October,Southern Hemisphere,12
+Mass movement (wet),November,Northern Hemisphere,41
+Mass movement (wet),November,Southern Hemisphere,10
+Mass movement (wet),December,Northern Hemisphere,36
+Mass movement (wet),December,Southern Hemisphere,24
+Storm,January,Northern Hemisphere,317
+Storm,January,Southern Hemisphere,130
+Storm,February,Northern Hemisphere,226
+Storm,February,Southern Hemisphere,95
+Storm,March,Northern Hemisphere,179
+Storm,March,Southern Hemisphere,93
+Storm,April,Northern Hemisphere,242
+Storm,April,Southern Hemisphere,80
+Storm,May,Northern Hemisphere,286
+Storm,May,Southern Hemisphere,58
+Storm,June,Northern Hemisphere,272
+Storm,June,Southern Hemisphere,27
+Storm,July,Northern Hemisphere,384
+Storm,July,Southern Hemisphere,25
+Storm,August,Northern Hemisphere,486
+Storm,August,Southern Hemisphere,22
+Storm,September,Northern Hemisphere,598
+Storm,September,Southern Hemisphere,40
+Storm,October,Northern Hemisphere,440
+Storm,October,Southern Hemisphere,42
+Storm,November,Northern Hemisphere,324
+Storm,November,Southern Hemisphere,34
+Storm,December,Northern Hemisphere,241
+Storm,December,Southern Hemisphere,73
+Volcanic activity,January,Northern Hemisphere,15
+Volcanic activity,January,Southern Hemisphere,10
+Volcanic activity,February,Northern Hemisphere,11
+Volcanic activity,February,Southern Hemisphere,5
+Volcanic activity,March,Northern Hemisphere,12
+Volcanic activity,March,Southern Hemisphere,7
+Volcanic activity,April,Northern Hemisphere,16
+Volcanic activity,April,Southern Hemisphere,9
+Volcanic activity,May,Northern Hemisphere,13
+Volcanic activity,May,Southern Hemisphere,13
+Volcanic activity,June,Northern Hemisphere,8
+Volcanic activity,June,Southern Hemisphere,10
+Volcanic activity,July,Northern Hemisphere,15
+Volcanic activity,July,Southern Hemisphere,12
+Volcanic activity,August,Northern Hemisphere,11
+Volcanic activity,August,Southern Hemisphere,8
+Volcanic activity,September,Northern Hemisphere,15
+Volcanic activity,September,Southern Hemisphere,10
+Volcanic activity,October,Northern Hemisphere,10
+Volcanic activity,October,Southern Hemisphere,8
+Volcanic activity,November,Northern Hemisphere,10
+Volcanic activity,November,Southern Hemisphere,9
+Volcanic activity,December,Northern Hemisphere,11
+Volcanic activity,December,Southern Hemisphere,15
+Wildfire,January,Northern Hemisphere,14
+Wildfire,January,Southern Hemisphere,24
+Wildfire,February,Northern Hemisphere,15
+Wildfire,February,Southern Hemisphere,14
+Wildfire,March,Northern Hemisphere,20
+Wildfire,March,Southern Hemisphere,5
+Wildfire,April,Northern Hemisphere,33
+Wildfire,April,Southern Hemisphere,5
+Wildfire,May,Northern Hemisphere,35
+Wildfire,May,Southern Hemisphere,1
+Wildfire,June,Northern Hemisphere,30
+Wildfire,June,Southern Hemisphere,5
+Wildfire,July,Northern Hemisphere,89
+Wildfire,July,Southern Hemisphere,6
+Wildfire,August,Northern Hemisphere,58
+Wildfire,August,Southern Hemisphere,14
+Wildfire,September,Northern Hemisphere,20
+Wildfire,September,Southern Hemisphere,15
+Wildfire,October,Northern Hemisphere,26
+Wildfire,October,Southern Hemisphere,7
+Wildfire,November,Northern Hemisphere,8
+Wildfire,November,Southern Hemisphere,5
+Wildfire,December,Northern Hemisphere,7
+Wildfire,December,Southern Hemisphere,10
