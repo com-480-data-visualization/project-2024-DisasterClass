@@ -1,187 +1,157 @@
-
-/*
-This CSS governs the appearance of our site.
-You can find the basic concepts of CSS here: https://developer.mozilla.org/en-US/docs/Learn/CSS/Introduction_to_CSS/How_CSS_works
-*/
-
-/*
-We use CSS variables to avoid repetition
-https://developer.mozilla.org/en-US/docs/Web/CSS/--*
-*/
-:root {
-	--theme-color-light: rgb(0, 200, 80);
-	--theme-color-dark: rgb(0, 122, 50);
- 	--dark-background-color: rgb(50, 50, 50);
-}
-
-
-/*
-This makes the border and padding be counted as part of the element's size.
-https://developer.mozilla.org/en-US/docs/Learn/CSS/Introduction_to_CSS/Box_model
-It switches from
-	https://mdn.mozillademos.org/files/13647/box-model-standard-small.png
-to
-	https://mdn.mozillademos.org/files/13649/box-model-alt-small.png
-*/
+/* General Reset and Basic Styling */
 * {
-	box-sizing: border-box;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
 }
 
-/*
-Make the document fill the whole viewport, this overrides any weird defaults that browsers might have.
-*/
-html, body, figure {
-	width: 100%;
-	padding: 0;
-	margin: 0;
-	border: 0;
-}
-
-/* Default font and size */
 body {
-	font-family: sans-serif;
-	font-size: 1.1rem;
+    background-color: #f4f4f9;
+    color: #333;
+    font-size: 16px;
+    line-height: 1.6;
 }
 
-/*
-It is easier to read if the text is not too wide, so we limit the width.
-We use the class selector ".", so this style will be applied to elements with class="width-limited"
-
-The various units of measurement available in CSS:
-	https://developer.mozilla.org/en-US/docs/Learn/CSS/Introduction_to_CSS/Values_and_units
-*/
-.width-limited {
-	max-width: 60rem;
-
-	/* Center horizontally: */
-	margin-left: auto;
-	margin-right: auto;
-}
-
-/* Links: apply our theme color and remove underline */
 a {
-	color: var(--theme-color-dark);
-	text-decoration: none;
+    color: #0275d8;
+    text-decoration: none;
 }
 
-/* Justify paragraphs */
-p {
-	text-align: justify;
+a:hover {
+    text-decoration: underline;
 }
 
-/* Titles: set color and sizes */
-h1, h2, h3, h4, h5, h6
-{
-	color: var(--theme-color-dark);
-}
-h1 { font-size: 2rem; }
-h2 { font-size: 1.75rem; }
-h3 { font-size: 1.75rem; }
-h4 { font-size: 1.25rem; }
-
-/* Top navigation bar */
+/* Navigation Styles */
 nav {
-	width: 100%;
-
-	padding-top: 1rem;
-	padding-bottom: 1rem;
-
-	background-color: var(--dark-background-color);
+    position: sticky;
+    top: 0;
+    background-color: #004d99;  /* Vibrant blue background */
+    color: #ffffff;  /* White text for contrast */
+    z-index: 1000;
+    border-bottom: 1px solid #ccc;
+    padding: 5px 0;  /* Reduced padding for a tighter look */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);  /* Subtle shadow for depth */
 }
 
-/* Make the links in the navbar bold */
-nav a {
-	font-weight: bold;
-	color: var(--theme-color-light);
-}
-
-/* Style of the list of links in the navbar */
 nav ul {
-	/* Clear defaults */
-	margin: 0;
-	padding: 0;
-
-	/* Remove list bullet points */
-	list-style-type: none;
-
-	/*
-	Flexbox is a modern mechanism for arranging elements
-		https://css-tricks.com/snippets/css/a-guide-to-flexbox/
-	This will arrange the elements in a row
-	*/
-	display: flex;
-	flex-flow: row wrap;
-	justify-content: flex-start;
+    display: flex;
+    justify-content: center;  /* Center links horizontally */
+    padding: 0;
+    margin: 0 auto;  /* Centering the navigation */
 }
 
-/* Space between links */
-nav li {
-	margin-right: 3rem;
+nav ul li {
+    margin: 0 10px;  /* Space between items */
 }
 
-
-/* The box with a dark background and our site's title */
-.title-row {
-	width: 100%;
-
-	/* Space above and below the title */
-	padding-top: 3rem;
-	padding-bottom: 3rem;
-
-	background-color: var(--theme-color-dark);
-	background: linear-gradient(45deg, rgb(250, 210, 0), var(--theme-color-dark));
-	/* Center the title using flexbox */
-	display: flex;
-	justify-content: center;
-	align-items: center;
+nav ul li a {
+    font-size: 0.9rem;  /* Slightly smaller font size */
+    color: inherit;  /* Inherits color from nav */
+    padding: 5px 10px;  /* Padding around links */
+    transition: background-color 0.3s;  /* Smooth transition for hover effect */
 }
 
-/* Style of the title inside the box */
-.title-row h1 {
-	font-size: 2.1rem;
-	color: white;
-	font-variant: small-caps;
-
-	text-shadow: black 0 0 0.6rem;
+nav ul li a:hover {
+    background-color: #003366;  /* Darker blue on hover and active */
 }
 
-.box {
-	padding-left: 2rem;
-	padding-right: 2rem;
-	margin-bottom: 1rem;
-
-	background-color: rgba(0, 122, 50, 0.1);
-
-	border: 2px solid var(--theme-color-dark);
-	border-radius: 2rem;
+/* Header */
+header.title-row {
+    background-color: #333;
+    color: #fff;
+    padding: 20px 10px;
+    text-align: center;
 }
 
-.viz-row {
-	width: 100%;
-	/* Center the title using flexbox */
-	display: flex;
-	justify-content: center;
-	align-items: center;
-
-	padding-top: 2rem;
-	padding-bottom: 2rem;
-
-	background-color: var(--dark-background-color)
+header.title-row h1 {
+    margin: 0;
 }
 
-figure embed {
-	width: 100%;
+/* Main Content */
+main.width-limited {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
 
+section {
+    margin-bottom: 20px;
+}
+
+h2, h3 {
+    color: #333;
+}
+
+p {
+    margin-bottom: 10px;
+}
+
+ul {
+    margin: 20px;
+    padding-left: 20px;
+}
+
+/* Footer */
 footer {
-	padding-bottom: 5rem;
+    text-align: center;
+    padding: 20px 10px;
+    background-color: #333;
+    color: white;
 }
 
-/* Add styles for the fixed navigation bar */
-nav {
-	position: fixed;
-	top: 0;
-	width: 100%;
-	background-color: var(--dark-background-color);
-	z-index: 1000; /* Ensure the navigation bar is on top of other content */
+
+/*Styles for the Spike Map*/
+
+#main-container_spike {
+    display: flex;
+    height: 80vh; /* Full viewport height */
+    align-items: stretch; /* Stretch children vertically */
+    margin: 0;
+    padding: 0;
+}
+
+#main-container_spike #map-and-controls {
+    display: flex;
+    flex-direction: column;
+    flex: 7; /* Takes more space */
+    align-items: stretch; /* Ensures children stretch to fill the width */
+    margin: 0;
+}
+
+#main-container_spike #spike_map {
+    height: 100%; /* Fill the available height */
+    width: 100%;
+}
+
+#main-container_spike #controls {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 30px; /* Set a fixed height for controls */
+    width: 100%;
+}
+
+#main-container_spike #controls input[type="range"] {
+    width: 80%; /* Manage according to your design */
+}
+
+#main-container_spike #legends {
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    padding-right: 0px;
+    border: 1px solid #ccc;
+	max-width: 240px; /* Maximum width to prevent too large containers */
+    justify-content: space-between;  /* This ensures that the first item aligns to the top, and the last item aligns to the bottom */
+}
+
+#main-container_spike #colorLegend svg {
+    overflow: visible; /* Allows elements that extend beyond the SVG's area to be visible */
+}
+
+#main-container_spike #sizeLegend svg {
+    overflow: visible; /* Allows elements that extend beyond the SVG's area to be visible */
 }

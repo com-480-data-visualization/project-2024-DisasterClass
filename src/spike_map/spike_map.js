@@ -92,7 +92,7 @@ class SpikeMap {
             .data(countries)
             .join("path")
             .attr("d", this.path)
-            .attr("fill", "#ccc")
+            .attr("fill", "#eee")
             .attr("stroke", "#333")
             .attr("stroke-width", 0.5);
 

@@ -5,80 +5,104 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Disaster Class</title>
     <meta name="description" content="Interactive visualizations of global disasters to promote awareness and aid efforts.">
-    <meta name="David Friou, Elias Hörnberg & Wesley Monteith-Finas" content="K Lis">
+    <meta name="author" content="David Friou, Elias Hörnberg & Wesley Monteith-Finas">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 <body>
 
 <nav>
-	<ul class="width-limited">
-		<li><a href="#description">Description</a></li>
-		<li><a href="#visualizations">Visualizations</a></li>
-		<li><a href="#team">Team</a></li>
-	</ul>
+    <ul class="width-limited">
+        <li><a href="#description">Description</a></li>
+        <li><a href="#visualizations">Visualizations</a></li>
+        <li><a href="#team">Team</a></li>
+    </ul>
 </nav>
 
 <header class="title-row">
-	<h1> Emergency Events Database (EM-DAT) </h1>
+    <h1>Emergency Events Database (EM-DAT)</h1>
 </header>
 
 <main class="width-limited">
+    <section id="description">
+        <h2>Description</h2>
+        <p>Our main goal with the following visualizations is to raise awareness about disasters affecting the world, focusing on both natural phenomena like earthquakes and technological mishaps such as industrial accidents. Especially, we want to shed light on such events affecting the world negatively, that fortunate people living in less affected areas might not fully understand the scale of. By fostering heightened awareness, our goal is to inspire greater humanitarian aid donations and support for post-disaster reconstruction efforts.</p>
 
-    <h2 id="description" >Description</h2>
-	<p>Our main goal with the following visualizations is to raise awareness about disasters affecting the world, focusing on both natural phenomena like earthquakes and technological mishaps such as industrial accidents. Especially, we want to shed light on such events affecting the world negatively, that fortunate people living in less affected areas might not fully understand the scale of. By fostering heightened awareness, our goal is to inspire greater humanitarian aid donations and support for post-disaster reconstruction efforts.</p>
+        <h3>Data</h3>
+        <p>We have selected the <a href="https://www.emdat.be/">Emergency Events Database (EM-DAT)</a> for our analysis. This database encompasses records of over 26,000 mass disasters worldwide spanning from 1900 to the present day. Established in 1988 through collaboration between the Centre for Research on the Epidemiology of Disasters (CRED) and the World Health Organization (WHO), EM-DAT consolidates data from diverse sources including UN agencies, non-governmental organisations, and research institutes. CRED, affiliated with the University of Louvain and supported by the United States Agency for International Development (USAID), upholds the data's credibility and reliability.</p>
+        <p>It is worth noting that events predating 2000 are categorised as <em>"Historic"</em> by CRED and may exhibit a lower level of quality. This phenomenon, termed <em>time bias</em>, is elucidated further <a href="https://doc.emdat.be/docs/known-issues-and-limitations/specific-biases/#time-bias">here</a>.</p>
+        <p>CRED defines a disaster as <em>“a situation or event that overwhelms local capacity, necessitating a request at the national or international level for external assistance; it is an unforeseen and often sudden event that causes great damage, destruction and human suffering.”</em> The disasters in this dataset meet at least one of the following criteria:</p>
+        <ul>
+            <li>10 or more reported deaths</li>
+            <li>100 or more people affected</li>
+            <li>Declaration of a state of emergency</li>
+            <li>Call for international assistance</li>
+        </ul>
+    </section>
 
-	<h3>Data</h3>
-	<p>We have selected the <a href="https://www.emdat.be/">Emergency Events Database (EM-DAT)</a> for our analysis. This database encompasses records of over 26,000 mass disasters worldwide spanning from 1900 to the present day. Established in 1988 through collaboration between the Centre for Research on the Epidemiology of Disasters (CRED) and the World Health Organization (WHO), EM-DAT consolidates data from diverse sources including UN agencies, non-governmental organisations, and research institutes. CRED, affiliated with the University of Louvain and supported by the United States Agency for International Development (USAID), upholds the data's credibility and reliability.</p>
-	<p>It is worth noting that events predating 2000 are categorised as <em>"Historic"</em> by CRED and may exhibit a lower level of quality. This phenomenon, termed <em>time bias</em>, is elucidated further <a href="https://doc.emdat.be/docs/known-issues-and-limitations/specific-biases/#time-bias">here</a>.</p>
+    <section id="visualizations">
+        <h2>Visualizations</h2>
+		
+		 <!-- Spike Map -->
+        <div style="margin-bottom: 20px;">
+            <h3>Spike Map of Disasters across Time</h3>
+            <p>Let us start by looking at the picture, that is every disaster that occurred in the world in these past 100 years or so, and their respective magnitude.</p>
+            <div id="main-container_spike">
+                <div id="map-and-controls">
+                    <svg id="spike_map" ></svg>
+                    <div id="controls">
+                        <button id="playButton" title="Play/Pause"><i class="fas fa-play"></i></button>
+                        <input type="range" id="timeSlider" min="0" max="100" value="0">
+                        <span id="currentYear"></span>
+                    </div>
+                </div>
+                <div id="legends">
+                    <div id="colorLegend"></div>
+                    <div id="sizeLegend"></div>
+                </div>
+            </div>
+        </div>
+
+		<!-- Others -->
+		<div style="margin-bottom: 20px;">
+			<h3>5D Bubble Chart</h3>
+			<p>Do you wonder what is the correlation between certain variables, for different disaster types, across years?! Look no further and play around with the following interactive bubble chart.</p>
+			<p>You can select which variables you want to plot on the x and the y axes.</p>
+			<p><img src="milestone_2\5D_bubble_chart.png" width="1000" /></p>
+		</div>
+		<div style="margin-bottom: 20px;">
+			<h3>Race Diagram</h3>
+			<p>Let's get dynamic and make disasters race against one another! Choose which variable you want to make them race for. Then click on the play button and let the race begin!</p>
+			<p><img src="milestone_2\race.png" width="1000" /></p>
+		</div>
+		<div style="margin-bottom: 20px;">
+			<h3>Sankey Diagram</h3>
+			<p>Now let's look at the relationship between the time of year at which each disaster type occurs.</p>
+			<p><img src="milestone_2\sankey_diagram.jpg" width="1000" /></p>
+		</div>
+		<div style="margin-bottom: 20px;">
+			<h3>Choropleth Map</h3>
+			<p>When we talk about disasters, are there inequalities or biases in the response when international help is called?</p>
+			<p><img src="milestone_2\choropleth.jpeg" width="1000" /></p>
+		</div>
 
 
-	<p>CRED defines a disaster as <em>“a situation or event that overwhelms local capacity, necessitating a request at the national or international level for external assistance; it is an unforeseen and often sudden event that causes great damage, destruction and human suffering.”</em> The disasters in this dataset meet at least one of the following criteria:</p>
-	<ul>
-		<li>10 or more reported deaths</li>
-		<li>100 or more people affected</li>
-		<li>Declaration of a state of emergency</li>
-		<li>Call for international assistance</li>
-	</ul>
-	
-	<h2 id="visualizations" >Visualizations</h2>
 
-	<div style="margin-bottom: 20px;">
-		<h3>Spike Map of Disasters across Time</h3>
-		<p>Let us start by looking at the picture, that is every disaster that occurred in the world in these past 100 years or so, and their respective magnitude.</p>
-		<p><img src="milestone_2\map_dynamics.jpeg" width="1000" /></p>
-	</div>
-	<div style="margin-bottom: 20px;">
-		<h3>5D Bubble Chart</h3>
-		<p>Do you wonder what is the correlation between certain variables, for different disaster types, across years?! Look no further and play around with the following interactive bubble chart.</p>
-		<p>You can select which variables you want to plot on the x and the y axes.</p>
-		<p><img src="milestone_2\5D_bubble_chart.png" width="1000" /></p>
-	</div>
-	<div style="margin-bottom: 20px;">
-		<h3>Race Diagram</h3>
-		<p>Let's get dynamic and make disasters race against one another! Choose which variable you want to make them race for. Then click on the play button and let the race begin!</p>
-		<p><img src="milestone_2\race.png" width="1000" /></p>
-	</div>
-	<div style="margin-bottom: 20px;">
-		<h3>Sankey Diagram</h3>
-		<p>Now let's look at the relationship between the time of year at which each disaster type occurs.</p>
-		<p><img src="milestone_2\sankey_diagram.jpg" width="1000" /></p>
-	</div>
-	<div style="margin-bottom: 20px;">
-		<h3>Choropleth Map</h3>
-		<p>When we talk about disasters, are there inequalities or biases in the response when international help is called?</p>
-		<p><img src="milestone_2\choropleth.jpeg" width="1000" /></p>
-	</div>
+    </section>
 
-    <h2 id="team" >Team</h2>
-    <p>David Friou (327687), Elias Hörnberg (384928) & Wesley Monteith-Finas (324745)</p>
-	  
-
-
+    <section id="team">
+        <h2>Team</h2>
+        <p>David Friou (327687), Elias Hörnberg (384928) & Wesley Monteith-Finas (324745)</p>
+    </section>
 </main>
+
+
 
 <footer></footer>
 
-<!-- Script for smooth scrolling -->
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script src="https://unpkg.com/topojson@3"></script>
+<script src="js/spike_map.js"></script>
 <script>
     // Smooth scroll to anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {

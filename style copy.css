@@ -1,0 +1,185 @@
+/* Theme and Core Variables */
+:root {
+    --theme-color-light: rgb(0, 200, 80);
+    --theme-color-dark: rgb(0, 122, 50);
+    --dark-background-color: rgb(50, 50, 50);
+    --text-color: #333;
+    --font-primary: sans-serif;
+    --font-size-base: 1rem; /* Base font size */
+    --font-size-large: 1.1rem; /* Larger text elements */
+    --spacing-unit: 1rem; /* Base unit for spacing (margins, paddings) */
+}
+
+/* Basic Reset */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body, html {
+    width: 100%;
+    font-family: var(--font-primary);
+    font-size: var(--font-size-base);
+    color: var(--text-color);
+    background-color: #fff;
+}
+
+/* Layout Containers */
+.width-limited {
+    max-width: 70rem;
+    margin: auto; /* Centering */
+    padding: 0 var(--spacing-unit);
+}
+
+/* Navigation Styles */
+nav {
+    background-color: var(--dark-background-color);
+    color: var(--theme-color-light);
+    position: fixed;
+    top: 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0.5rem var(--spacing-unit);
+    z-index: 1000;
+}
+
+nav a {
+    font-weight: bold;
+    color: inherit; /* Use parent color */
+    padding: 0 15px;
+    text-decoration: none;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+    color: var(--theme-color-dark);
+}
+
+h1 {
+    font-size: 2.5rem; /* Larger for main headings */
+}
+h2, h3 {
+    font-size: 1.75rem;
+}
+h4 {
+    font-size: 1.25rem;
+}
+
+p {
+    margin-bottom: var(--spacing-unit);
+    text-align: justify;
+}
+
+/* Link Styles */
+a {
+    color: var(--theme-color-light);
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+a:hover, a:focus {
+    text-decoration: underline;
+    color: var(--theme-color-dark);
+}
+
+/* Component: Title Row */
+.title-row {
+    background: linear-gradient(45deg, rgb(250, 210, 0), var(--theme-color-dark));
+    color: white;
+    text-shadow: 0 0 10px black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem 0;
+}
+
+/* Component: Boxes */
+.box {
+    margin-bottom: var(--spacing-unit);
+    padding: var(--spacing-unit);
+    background-color: rgba(0, 122, 50, 0.1);
+    border: 2px solid var(--theme-color-dark);
+    border-radius: 1rem;
+}
+
+/* Footer and Miscellaneous Styles */
+footer {
+    background-color: var(--dark-background-color);
+    color: white;
+    text-align: center;
+    padding: 2rem 0;
+}
+
+/* Responsive Typography and Layout Adjustments */
+@media (max-width: 768px) {
+    body {
+        font-size: 0.9rem;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    .width-limited {
+        padding: 0 0.5rem;
+    }
+}
+
+/*Styles for the Spike Map*/
+
+#main-container_spike {
+    display: flex;
+    height: 100vh; /* Ensures it takes the full viewport height */
+    align-items: stretch;
+    margin: 0; /* Remove any default margin */
+    padding: 0; /* Remove any default padding */
+    width: 100vw; /* Ensures it takes the full viewport width */
+    box-sizing: border-box; /* Include padding and borders in the element's dimensions */
+}
+
+#main-container_spike #map-and-controls {
+    display: flex;
+    flex-direction: column;
+    flex: 7; /* Takes more space */
+    align-items: stretch; /* Ensures children stretch to fill the width */
+    margin: 0;
+}
+
+#main-container_spike #spike_map {
+    height: 100%; /* Fill the available height */
+    width: 100%;
+}
+
+#main-container_spike #controls {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 30px; /* Set a fixed height for controls */
+    width: 100%;
+}
+
+#main-container_spike #controls input[type="range"] {
+    width: 80%; /* Manage according to your design */
+}
+
+#main-container_spike #legends {
+    flex: 1; /* Takes remaining space */
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    box-sizing: border-box; /* Includes padding in the element's height */
+    border: 1px solid #ccc;
+    justify-content: flex-end; /* Aligns children at the bottom */
+    justify-content: space-between;  /* This ensures that the first item aligns to the top, and the last item aligns to the bottom */
+    height: 100%;
+}
+
+#main-container_spike #colorLegend svg {
+    overflow: visible; /* Allows elements that extend beyond the SVG's area to be visible */
+}
+
+#main-container_spike #sizeLegend svg {
+    overflow: visible; /* Allows elements that extend beyond the SVG's area to be visible */
+}
