@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Bar Chart Race</title>
+  <script src="https://d3js.org/d3.v6.min.js"></script>
+  <script src="BarChartRace.js"></script>
+  <script src="main.js"></script>
+</head>
+<body>
+  <div>
+    <label for="onlyNonHistoric">Years:</label>
+    <select id="onlyNonHistoric">
+      <option value="true" selected>2000-2024</option>
+      <option value="false">1900-2024</option>
+    </select>
+
+    <label for="onlyNaturalDisasters">Disasters:</label>
+    <select id="onlyNaturalDisasters">
+      <option value="true" selected>Natural</option>
+      <option value="false">Natural & Technological</option>
+    </select>
+
+    <label for="xVariable">Race Against:</label>
+    <select id="xVariable">
+      <option value="Total Damage, Adjusted ('000 US$)" selected>Total Damage, Adjusted ('000 US$)</option>
+      <option value="Reconstruction Costs, Adjusted ('000 US$)">Reconstruction Costs, Adjusted ('000 US$)</option>
+      <option value="Insured Damage, Adjusted ('000 US$)">Insured Damage, Adjusted ('000 US$)</option>
+      <option value="AID Contribution ('000 US$)">AID Contribution ('000 US$)</option>
+      <option value="Total Deaths">Total Deaths</option>
+      <option value="No. Injured">Number of Injured people</option>
+      <option value="No. Affected">Number of Affected people</option>
+      <option value="No. Homeless">Number of Homeless people</option>
+      <option value="Total Affected">Total number of Affected people</option>
+      <!-- Add other xVariable options here -->
+    </select>
+
+    <label for="yVariable">Contestants:</label>
+    <select id="yVariable">
+      <option value="Disaster Subtype" selected>Disaster Subtypes</option>
+      <!-- <option value="Disaster Type">Disaster Types</option> -->
+      <option value="Country">Countries</option>
+      <!-- Add other yVariable options here -->
+    </select>
+
+    <button id="runRaceButton" onclick="initChart()">Run Race</button>
+  </div>
+  
+</body>
+</html>

@@ -73,7 +73,45 @@
 		<div style="margin-bottom: 20px;">
 			<h3>Race Diagram</h3>
 			<p>Let's get dynamic and make disasters race against one another! Choose which variable you want to make them race for. Then click on the play button and let the race begin!</p>
-			<p><img src="milestone_2\race.png" width="1000" /></p>
+			<!-- <p><img src="milestone_2\race.png" width="1000" /></p> -->
+            <div>
+                <label for="onlyNonHistoric">Years:</label>
+                <select id="onlyNonHistoric">
+                    <option value="true" selected>2000-2024</option>
+                    <option value="false">1900-2024</option>
+                </select>
+            
+                <label for="onlyNaturalDisasters">Disasters:</label>
+                <select id="onlyNaturalDisasters">
+                    <option value="true" selected>Natural</option>
+                    <option value="false">Natural & Technological</option>
+                </select>
+            
+                <label for="xVariable">Race Against:</label>
+                <select id="xVariable">
+                    <option value="Total Damage, Adjusted ('000 US$)" selected>Total Damage, Adjusted ('000 US$)</option>
+                    <option value="Reconstruction Costs, Adjusted ('000 US$)">Reconstruction Costs, Adjusted ('000 US$)</option>
+                    <option value="Insured Damage, Adjusted ('000 US$)">Insured Damage, Adjusted ('000 US$)</option>
+                    <option value="AID Contribution ('000 US$)">AID Contribution ('000 US$)</option>
+                    <option value="Total Deaths">Total Deaths</option>
+                    <option value="No. Injured">Number of Injured people</option>
+                    <option value="No. Affected">Number of Affected people</option>
+                    <option value="No. Homeless">Number of Homeless people</option>
+                    <option value="Total Affected">Total number of Affected people</option>
+                    <!-- Add other xVariable options here -->
+                </select>
+            
+                <label for="yVariable">Contestants:</label>
+                <select id="yVariable">
+                    <option value="Disaster Subtype" selected>Disaster Subtypes</option>
+                    <!-- <option value="Disaster Type">Disaster Types</option> -->
+                    <option value="Country">Countries</option>
+                    <!-- Add other yVariable options here -->
+                </select>
+            
+                <button id="runRaceButton" onclick="initChart()">Run Race</button>
+            </div>
+            <div id="bar-chart-race-container" style="width: 100%; height: 700px;"></div>
 		</div>
 		<div style="margin-bottom: 20px;">
 			<h3>Sankey Diagram</h3>
@@ -122,6 +160,8 @@
         });
     });
 </script>
+<script src="src/race/BarChartRace.js"></script>
+<script src="src/race/main.js"></script>
 
 </body>
 </html>
