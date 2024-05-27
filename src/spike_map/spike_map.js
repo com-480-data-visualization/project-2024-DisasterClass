@@ -37,7 +37,7 @@ class SpikeMap {
 
             this.svg.call(d3.zoom()
                 .scaleExtent([1, 7]) // Limit zooming out to 1x and zooming in to #x
-                .translateExtent([[0, 0], [this.svg_width, this.svg_height]]) // Limit panning to the dimensions of the SVG
+                .translateExtent([[0, 0], [this.svg_width, this.svg_height - 100]]) // Limit panning to the dimensions of the SVG
                 .on('zoom', event => this.zoomed(event)));
 
             // Apply a small translation to move the map slightly to the left
@@ -61,15 +61,16 @@ class SpikeMap {
                 d3.csv(this.data_file)
             ]);
             this.map = mapData;
-            this.data = this.processData(data); 
+            this.rawData = data.filter(d => d["Disaster Group"] === "Natural");
+            this.processData();
             this.setupVisualization();
         } catch (error) {
             console.error("Failed to load data: ", error);
         }
     }
 
-    processData(data) {
-        return data
+    processData() {
+        this.data = this.rawData
             .filter(d => !isNaN(+d[this.currentMagnitude]))  // Check if the current attribute is a valid number
             .map(d => this.formatData(d));
     }
@@ -92,7 +93,7 @@ class SpikeMap {
     setupVisualization() {
         this.sizeScale = d3.scaleSqrt()
             .domain([0, d3.max(this.data, d => d.magnitude)])
-            .range([0, 100]);
+            .range([0, 100]);  // Adjust the range as needed
 
         this.drawMap();
         this.createColorLegend();
@@ -173,7 +174,7 @@ class SpikeMap {
         const sizeLegendContainer = d3.select('#sizeLegend');
 
         // Remove all existing SVG elements from the legend container before appending new ones
-        sizeLegendContainer.selectAll('*').remove();
+        sizeLegendContainer.selectAll('svg').remove();
         const svg = sizeLegendContainer.append('svg');
 
         const d3Formatter = d3.format(".1s");
@@ -295,14 +296,11 @@ class SpikeMap {
         this.spikesGroup.selectAll("*").remove();
 
         // Reprocess data with the new magnitude attribute
-        this.loadData()
-            .then(() => {
-                this.setupVisualization();  // Setup visualization recalculates scales and redraws all elements
-                if (this.isPlaying) {
-                    this.togglePlayPause();  // Pause the animation if it is running
-                }
-            })
-            .catch(error => console.error("Failed to process data on magnitude change: ", error));
+        this.processData();
+        this.setupVisualization();  // Setup visualization recalculates scales and redraws all elements
+        if (this.isPlaying) {
+            this.togglePlayPause();  // Pause the animation if it is running
+        }
     }
     
 }

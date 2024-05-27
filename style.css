@@ -149,7 +149,7 @@ footer {
 }
 
 #main-container_spike #colorLegend {
-    padding-bottom: 280px;
+    padding-bottom: 250px;
 }
 
 #main-container_spike #sizeLegend {
@@ -163,16 +163,14 @@ footer {
 
 
 /* Fancy select styling */
-.select-container {
+#main-container_spike .select-container {
     position: relative;
-    width: 100%;
-    max-width: 240px;
-    margin-top: 15px;
+    width: 90%;
 }
 
-.select-container select {
+#main-container_spike .select-container select {
     width: 100%;
-    padding: 10px;
+    padding: 5px;
     font-size: 16px;
     border: 2px solid #ccc;
     border-radius: 5px;
@@ -184,7 +182,7 @@ footer {
 }
 
 /* Arrow icon styling */
-.select-container::after {
+#main-container_spike .select-container::after {
     content: '\25BC'; /* Unicode for downward arrow */
     position: absolute;
     top: 50%;
@@ -192,11 +190,11 @@ footer {
     transform: translateY(-50%);
     pointer-events: none;
     font-size: 16px;
-    color: #b40000;
+    color: #333;
 }
 
 /* Optional: Add a hover effect */
-.select-container select:hover {
+#main-container_spike .select-container select:hover {
     border-color: #888;
 }
 
