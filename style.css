@@ -155,3 +155,33 @@ footer {
 #main-container_spike #sizeLegend svg {
     overflow: visible; /* Allows elements that extend beyond the SVG's area to be visible */
 }
+
+
+/*Styles for the Choropleth Map*/
+
+#main-container_choropleth {
+    width: 95%;   /* Limits max width while allowing some margin */
+    max-width: 960px; /* Ensures it doesn't grow too large on bigger screens */
+    height: auto; /* Adjust height based on content */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+#main-container_choropleth #select-container {
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    width: 100%;
+}
+#main-container_choropleth #categorySelect, label {
+    margin: 5px;
+}
+#main-container_choropleth #categorySelect {
+    padding: 4px;
+    font-size: 16px;
+}
+#main-container_choropleth svg {
+    width: 100%;  /* Full width of the container */
+    height: auto; 
+}

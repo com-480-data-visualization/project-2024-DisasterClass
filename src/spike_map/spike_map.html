@@ -10,7 +10,7 @@
     <script src="spike_map.js"></script>
 </head>
 <body>
-    <div id="main-container">
+    <div id="main-container_spike">
 
         <div id="map-and-controls">
             <svg id="spike_map"></svg>
@@ -39,7 +39,8 @@ html, body {
     box-sizing: border-box;  /* Border and padding are included in the width/height */
 }
 
-#main-container {
+
+#main-container_spike {
     display: flex;
     height: 80vh; /* Full viewport height */
     align-items: stretch; /* Stretch children vertically */
@@ -47,49 +48,46 @@ html, body {
     padding: 0;
 }
 
-#map-and-controls {
+#main-container_spike #map-and-controls {
     display: flex;
     flex-direction: column;
-    flex: 5; /* Takes more space */
+    flex: 7; /* Takes more space */
     align-items: stretch; /* Ensures children stretch to fill the width */
     margin: 0;
 }
 
-#spike_map {
-    height: calc(100% - 50px); /* Adjust if your control's height is different */
+#main-container_spike #spike_map {
+    height: 100%; /* Fill the available height */
     width: 100%;
 }
 
-#controls {
+#main-container_spike #controls {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    height: 50px; /* Set a fixed height for controls */
+    height: 30px; /* Set a fixed height for controls */
     width: 100%;
 }
 
-#controls input[type="range"] {
+#main-container_spike #controls input[type="range"] {
     width: 80%; /* Manage according to your design */
 }
 
-#legends {
-    flex: 1; /* Takes remaining space */
+#main-container_spike #legends {
     display: flex;
     flex-direction: column;
-    padding: 10px;
-    box-sizing: border-box; /* Includes padding in the element's height */
+    padding: 15px;
+    padding-right: 0px;
     border: 1px solid #ccc;
-    justify-content: flex-end; /* Aligns children at the bottom */
+	max-width: 240px; /* Maximum width to prevent too large containers */
     justify-content: space-between;  /* This ensures that the first item aligns to the top, and the last item aligns to the bottom */
-    height: 100%;
 }
 
-#colorLegend svg {
+#main-container_spike #colorLegend svg {
     overflow: visible; /* Allows elements that extend beyond the SVG's area to be visible */
 }
 
-#sizeLegend svg {
+#main-container_spike #sizeLegend svg {
     overflow: visible; /* Allows elements that extend beyond the SVG's area to be visible */
 }
-
 </style>

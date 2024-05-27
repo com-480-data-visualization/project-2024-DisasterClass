@@ -21,7 +21,8 @@ class SpikeMap {
             this.svg_height = rect.height;
 
             this.projection = d3.geoEqualEarth()
-                .fitExtent([[0, 0], [this.svg_width, this.svg_height]], { type: "Sphere" });
+                .fitExtent([[0, 0], [this.svg_width , this.svg_height]], { type: "Sphere" });
+
             this.path = d3.geoPath(this.projection);
 
             this.mapGroup = this.svg.append("g").attr("class", "map");
@@ -34,9 +35,14 @@ class SpikeMap {
             this.sizes = [{magnitude: 500000}, {magnitude: 1000000}, {magnitude: 2000000}, {magnitude: 3000000}, {magnitude: 5000000}]; 
 
             this.svg.call(d3.zoom()
-                .scaleExtent([1, 8]) // Limit zooming out to 1x and zooming in to 8x
+                .scaleExtent([1, 7]) // Limit zooming out to 1x and zooming in to #x
                 .translateExtent([[0, 0], [this.svg_width, this.svg_height]]) // Limit panning to the dimensions of the SVG
                 .on('zoom', event => this.zoomed(event)));
+
+            // Apply a small translation to move the map slightly to the left
+            this.mapGroup.attr("transform", "translate(-100, 0)");
+            this.spikesGroup.attr("transform", "translate(-100, 0)");
+            
             resolve();
         });
     }
@@ -50,11 +56,14 @@ class SpikeMap {
     async loadData() {
         try {
             const [mapData, data] = await Promise.all([
-                d3.json("countries-50m.json"),
-                d3.csv(this.data_file, this.formatData)
+                d3.json("../../data/countries-50m.json"),
+                d3.csv(this.data_file)
             ]);
             this.map = mapData;
-            this.data = data;
+            // Filter out rows where "Total Deaths" is not a valid number before formatting
+            this.data = data
+                .filter(d => !isNaN(+d["Total Deaths"]))
+                .map(this.formatData);
             this.setupVisualization();
         } catch (error) {
             console.error("Failed to load data: ", error);
@@ -62,11 +71,17 @@ class SpikeMap {
     }
 
     formatData(d) {
-        d.date = new Date(d.Date);
+        
+        // Default to January 1st if only the year is provided
+        const year = +d["Start Year"]; // Always available
+        const month = d["Start Month"] ? +d["Start Month"] - 1 : 0; // Subtract 1 because JS months are 0-indexed
+        const day = d["Start Day"] ? +d["Start Day"] : 1;
+    
+        d.date = new Date(year, month, day);
         d.latitude = +d.Latitude;
         d.longitude = +d.Longitude;
-        d.magnitude = +d.Total_Deaths;
-        d.subgroup = d.Disaster_Subgroup;
+        d.magnitude = +d["Total Deaths"];
+        d.subgroup = d["Disaster Subgroup"];
         return d;
     }
 
@@ -183,7 +198,7 @@ class SpikeMap {
             .attr('text-anchor', 'middle') // Center text horizontally
             .text(d => formatNumberD3(d.magnitude));
 
-           // Adding a title under the values
+        // Adding a title under the values
         sizeLegendContainer.append('text')
             .attr('x', 0)  // Central position under the legend
             .attr('y', 70)  // Lower position to place under the values
@@ -276,6 +291,6 @@ function whenDocumentLoaded(action) {
 }
 
 whenDocumentLoaded(() => {
-    new SpikeMap('spike_map', 'data_spike.csv');
+    new SpikeMap('spike_map', '../../data/emdat_data.csv');
 });
 
