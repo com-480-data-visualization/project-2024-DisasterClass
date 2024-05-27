@@ -4,6 +4,7 @@ class SpikeMap {
         this.data_file = data_file;
         this.currentMagnitude = 'Total Deaths';
         this.isPlaying = false;
+        this.tooltip = d3.select("#tooltip"); // Initialize tooltip here
         this.initialize();
     }
 
@@ -87,6 +88,11 @@ class SpikeMap {
         d.longitude = +d.Longitude;
         d.magnitude = +d[this.currentMagnitude];  // Dynamic attribute
         d.subgroup = d["Disaster Subgroup"];
+        d.type = d["Disaster Type"];
+        d.country = d.Country;
+        // Event name if available
+        d.name = d["Event Name"] ? d["Event Name"] : "No available";
+        d.coord = d["Coordinates Specific"]
         return d;
     }
 
@@ -116,6 +122,7 @@ class SpikeMap {
 
     drawSpikes(filterDate) {
         const filteredData = this.data.filter(d => d.date <= filterDate);
+
         this.spikesGroup.selectAll("path")
             .data(filteredData, d => d.id)  // Assuming each data point has a unique id
             .join("path")
@@ -125,8 +132,30 @@ class SpikeMap {
             .attr("stroke", d => this.colorScale(d.subgroup))
             .attr("stroke-width", 0.5)
             .attr("transform", d => `translate(${this.projection([d.longitude, d.latitude])})`)
-            .append("title")
-            .text(d => `Date: ${d3.timeFormat("%Y-%m-%d")(d.date)}\n ${this.currentMagnitude}: ${d.magnitude.toLocaleString()}`);
+            .on("mouseover", (event, d) => {
+                this.tooltip.html(
+                    `<strong>Country:</strong> ${d.country}<br>
+                    <strong>Disaster Type:</strong> ${d.type}<br>
+                    <strong>${this.currentMagnitude}:</strong> ${d.magnitude.toLocaleString()}<br>
+                    <strong>Date:</strong> ${d3.timeFormat("%Y-%m-%d")(d.date)}<br>
+                    <strong>Event Name:</strong> ${d.name}<br>
+                    <strong>Coordinates specifi:</strong> ${d.coord}
+                    `
+                )
+                .style("left", (event.pageX + 10) + "px")  // Slightly offset from cursor
+                .style("top", (event.pageY + 10) + "px")
+                .style("opacity", 1)  // Make visible
+                .style("visibility", "visible");  // Ensure it's visible
+            })
+            .on("mousemove", (event) => {
+                this.tooltip
+                    .style("left", (event.pageX + 10) + "px")
+                    .style("top", (event.pageY + 10) + "px");
+            })
+            .on("mouseout", () => {
+                this.tooltip.style("opacity", 0)
+                    .style("visibility", "hidden");
+            });
     }
 
     getSpikePath(d,width = 1.5) {

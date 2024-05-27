@@ -161,8 +161,24 @@ footer {
     overflow: visible; /* Allows elements that extend beyond the SVG's area to be visible */
 }
 
+#main-container_spike .tooltip {
+    position: absolute;
+    text-align: left;
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 12px;
+    font-family: Arial, sans-serif;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+    visibility: hidden; /* Initially hidden */
+}
 
-/* Fancy select styling */
+
+    /* Fancy select styling */
 #main-container_spike .select-container {
     position: relative;
     width: 90%;
@@ -181,7 +197,6 @@ footer {
     cursor: pointer;
 }
 
-/* Arrow icon styling */
 #main-container_spike .select-container::after {
     content: '\25BC'; /* Unicode for downward arrow */
     position: absolute;
@@ -193,7 +208,6 @@ footer {
     color: #333;
 }
 
-/* Optional: Add a hover effect */
 #main-container_spike .select-container select:hover {
     border-color: #888;
 }
