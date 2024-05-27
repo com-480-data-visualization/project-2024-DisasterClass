@@ -63,13 +63,14 @@
             </div>
         </div>
 
-		<!-- Others -->
+		<!-- Bubble Chart -->
 		<div style="margin-bottom: 20px;">
 			<h3>5D Bubble Chart</h3>
 			<p>Do you wonder what is the correlation between certain variables, for different disaster types, across years?! Look no further and play around with the following interactive bubble chart.</p>
 			<p>You can select which variables you want to plot on the x and the y axes.</p>
 			<p><img src="milestone_2\5D_bubble_chart.png" width="1000" /></p>
 		</div>
+        <!-- Race Diagram -->
 		<div style="margin-bottom: 20px;">
 			<h3>Race Diagram</h3>
 			<p>Let's get dynamic and make disasters race against one another! Choose which variable you want to make them race for. Then click on the play button and let the race begin!</p>
@@ -113,15 +114,32 @@
             </div>
             <div id="bar-chart-race-container" style="width: 100%; height: 700px;"></div>
 		</div>
+
+        <!-- Sankey Diagram -->
 		<div style="margin-bottom: 20px;">
 			<h3>Sankey Diagram</h3>
 			<p>Now let's look at the relationship between the time of year at which each disaster type occurs.</p>
 			<p><img src="milestone_2\sankey_diagram.jpg" width="1000" /></p>
 		</div>
+
+        <!-- Choropleth Map -->
 		<div style="margin-bottom: 20px;">
 			<h3>Choropleth Map</h3>
 			<p>When we talk about disasters, are there inequalities or biases in the response when international help is called?</p>
-			<p><img src="milestone_2\choropleth.jpeg" width="1000" /></p>
+
+            <div id="main-container_choropleth">
+                <div id="select-container">
+                    <label for="categorySelect">Choose a category:</label>
+                    <select id="categorySelect">
+                        <option value="Declaration">Declaration</option>
+                        <option value="Appeal">Appeal</option>
+                        <option value="OFDA/BHA Response">OFDA/BHA Response</option>
+                        <!-- Add more options based on your data categories -->
+                    </select>
+                </div>
+        
+                <svg id="choropleth_map" viewBox="0 0 960 500" preserveAspectRatio="xMidYMid meet"></svg>
+            </div>
 		</div>
 
 
@@ -140,7 +158,11 @@
 
 <script src="https://d3js.org/d3.v7.min.js"></script>
 <script src="https://unpkg.com/topojson@3"></script>
-<script src="js/spike_map.js"></script>
+<script src="src/spike_map/spike_map.js"></script>
+<script src="src/chloropleth/choropleth.js"></script>
+<script src="src/race/BarChartRace.js"></script>
+<script src="src/race/main.js"></script>
+
 <script>
     // Smooth scroll to anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -160,8 +182,6 @@
         });
     });
 </script>
-<script src="src/race/BarChartRace.js"></script>
-<script src="src/race/main.js"></script>
 
 </body>
 </html>

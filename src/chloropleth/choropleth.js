@@ -66,7 +66,7 @@ class World_Map {
     }
 
     fetchMapAndDraw() {
-        d3.json("countries-50m.json").then(mapData => {
+        d3.json("../../data/countries-50m.json").then(mapData => {
             this.map = mapData;
             this.drawMap();
         }).catch(error => console.error("Failed to load map data: ", error));
@@ -220,7 +220,7 @@ function whenDocumentLoaded(action) {
 }
 
 whenDocumentLoaded(() => {
-    const map = new World_Map('choropleth_map',"data_per_country_raw.csv");
+    const map = new World_Map('choropleth_map',"../../data/emdat_data.csv");
 
     document.getElementById('categorySelect').addEventListener('change', function() {
         map.updateVisualization(this.value);
