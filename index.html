@@ -49,7 +49,7 @@
             <p>Let us start by looking at the picture, that is every disaster that occurred in the world in these past 100 years or so, and their respective magnitude.</p>
             <div id="main-container_spike">
                 <div id="map-and-controls">
-                    <svg id="spike_map" ></svg>
+                    <svg id="spike_map"  csv-path="data/emdat_data.csv" map-path="data/countries-50m.json"></svg>
                     <div id="controls">
                         <button id="playButton" title="Play/Pause"><i class="fas fa-play"></i></button>
                         <input type="range" id="timeSlider" min="0" max="100" value="0">
@@ -134,7 +134,6 @@
 			<p>Now let's look at the relationship between the time of year at which each disaster type occurs.</p>
 			<p><img src="milestone_2\sankey_diagram.jpg" width="1000" /></p>
 		</div>
-
         <!-- Choropleth Map -->
 		<div style="margin-bottom: 20px;">
 			<h3>Choropleth Map</h3>
@@ -151,11 +150,9 @@
                     </select>
                 </div>
         
-                <svg id="choropleth_map" viewBox="0 0 960 500" preserveAspectRatio="xMidYMid meet"></svg>
+                <svg id="choropleth_map" viewBox="0 0 960 500" preserveAspectRatio="xMidYMid meet" csv-path="data/emdat_data.csv" map-path="data/countries-50m.json"></svg>
             </div>
 		</div>
-
-
 
     </section>
 

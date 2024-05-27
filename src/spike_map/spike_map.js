@@ -1,7 +1,6 @@
 class SpikeMap {
-    constructor(svg_element_id, data_file) {
+    constructor(svg_element_id) {
         this.svg_element_id = svg_element_id;
-        this.data_file = data_file;
         this.currentMagnitude = 'Total Deaths';
         this.isPlaying = false;
         this.tooltip = d3.select("#tooltip"); // Initialize tooltip here
@@ -9,6 +8,10 @@ class SpikeMap {
     }
 
     async initialize() {
+        const element = document.getElementById(this.svg_element_id);
+        this.data_file = element.getAttribute('csv-path'); // Get the data path from the SVG element
+        this.map_file = element.getAttribute('map-path'); // Get the map path from the SVG element
+
         await this.initSVG();
         await this.loadData();
         this.attachEventListeners();
@@ -58,7 +61,7 @@ class SpikeMap {
     async loadData() {
         try {
             const [mapData, data] = await Promise.all([
-                d3.json("../../data/countries-50m.json"),
+                d3.json(this.map_file),
                 d3.csv(this.data_file)
             ]);
             this.map = mapData;
@@ -344,6 +347,6 @@ function whenDocumentLoaded(action) {
 }
 
 whenDocumentLoaded(() => {
-    new SpikeMap('spike_map', '../../data/emdat_data.csv');
+    new SpikeMap('spike_map');
 });
 
