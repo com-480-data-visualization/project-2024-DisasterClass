@@ -135,7 +135,7 @@ footer {
 }
 
 #main-container_spike #controls input[type="range"] {
-    width: 80%; /* Manage according to your design */
+    width: 90%; /* Manage according to your design */
 }
 
 #main-container_spike #legends {
@@ -148,12 +148,56 @@ footer {
     justify-content: space-between;  /* This ensures that the first item aligns to the top, and the last item aligns to the bottom */
 }
 
-#main-container_spike #colorLegend svg {
+#main-container_spike #colorLegend {
+    padding-bottom: 280px;
+}
+
+#main-container_spike #sizeLegend {
+    height: 80px;
+}
+
+#main-container_spike #colorLegend svg,
+#main-container_spike #sizeLegend svg {
     overflow: visible; /* Allows elements that extend beyond the SVG's area to be visible */
 }
 
-#main-container_spike #sizeLegend svg {
-    overflow: visible; /* Allows elements that extend beyond the SVG's area to be visible */
+
+/* Fancy select styling */
+.select-container {
+    position: relative;
+    width: 100%;
+    max-width: 240px;
+    margin-top: 15px;
+}
+
+.select-container select {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    background: #fff;
+    appearance: none; /* Remove default styling */
+    -webkit-appearance: none; /* Remove default styling for Safari */
+    -moz-appearance: none; /* Remove default styling for Firefox */
+    cursor: pointer;
+}
+
+/* Arrow icon styling */
+.select-container::after {
+    content: '\25BC'; /* Unicode for downward arrow */
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    pointer-events: none;
+    font-size: 16px;
+    color: #b40000;
+}
+
+/* Optional: Add a hover effect */
+.select-container select:hover {
+    border-color: #888;
 }
 
 

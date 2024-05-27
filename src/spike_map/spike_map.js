@@ -2,6 +2,7 @@ class SpikeMap {
     constructor(svg_element_id, data_file) {
         this.svg_element_id = svg_element_id;
         this.data_file = data_file;
+        this.currentMagnitude = 'Total Deaths';
         this.isPlaying = false;
         this.initialize();
     }
@@ -60,14 +61,17 @@ class SpikeMap {
                 d3.csv(this.data_file)
             ]);
             this.map = mapData;
-            // Filter out rows where "Total Deaths" is not a valid number before formatting
-            this.data = data
-                .filter(d => !isNaN(+d["Total Deaths"]))
-                .map(this.formatData);
+            this.data = this.processData(data); 
             this.setupVisualization();
         } catch (error) {
             console.error("Failed to load data: ", error);
         }
+    }
+
+    processData(data) {
+        return data
+            .filter(d => !isNaN(+d[this.currentMagnitude]))  // Check if the current attribute is a valid number
+            .map(d => this.formatData(d));
     }
 
     formatData(d) {
@@ -80,7 +84,7 @@ class SpikeMap {
         d.date = new Date(year, month, day);
         d.latitude = +d.Latitude;
         d.longitude = +d.Longitude;
-        d.magnitude = +d["Total Deaths"];
+        d.magnitude = +d[this.currentMagnitude];  // Dynamic attribute
         d.subgroup = d["Disaster Subgroup"];
         return d;
     }
@@ -89,12 +93,7 @@ class SpikeMap {
         this.sizeScale = d3.scaleSqrt()
             .domain([0, d3.max(this.data, d => d.magnitude)])
             .range([0, 100]);
-        /*this.sizeScale = d => {
-            if (d <= 0) return 0;  // Assign a fixed size for non-positive values
-            return d3.scaleLog()
-                .domain([1, d3.max(this.data, d => d.magnitude)])
-                .range([0, 50])(d);
-        }; */
+
         this.drawMap();
         this.createColorLegend();
         this.createSizeLegend();
@@ -126,7 +125,7 @@ class SpikeMap {
             .attr("stroke-width", 0.5)
             .attr("transform", d => `translate(${this.projection([d.longitude, d.latitude])})`)
             .append("title")
-            .text(d => `Date: ${d3.timeFormat("%Y-%m-%d")(d.date)}\nTotal Deaths: ${d.magnitude.toLocaleString()}`);
+            .text(d => `Date: ${d3.timeFormat("%Y-%m-%d")(d.date)}\n ${this.currentMagnitude}: ${d.magnitude.toLocaleString()}`);
     }
 
     getSpikePath(d,width = 1.5) {
@@ -137,17 +136,22 @@ class SpikeMap {
     }
     
     createColorLegend() {
-        const colorLegendContainer = d3.select('#colorLegend').append('svg');
+        const colorLegendContainer = d3.select('#colorLegend');
+
+        // Remove all existing SVG elements from the legend container before appending new ones
+        colorLegendContainer.selectAll('*').remove();
+    
+        const svg = colorLegendContainer.append('svg');
         const subgroups = Array.from(new Set(this.data.map(d => d.subgroup)));  // Unique values using Set
-        
-           // Adding a title to the color legend
-        colorLegendContainer.append('text')
+
+        // Adding a title to the color legend
+        svg.append('text')
             .attr('x', 0)
             .attr('y', 20)
             .style('font-weight', 'bold')
             .text('Disaster Types');
 
-        const legend = colorLegendContainer.selectAll('g.legend-entry')
+        const legend = svg.selectAll('g.legend-entry')
             .data(subgroups)
             .enter()
             .append('g')
@@ -166,10 +170,13 @@ class SpikeMap {
     }
 
     createSizeLegend() {
-        const sizeLegendContainer = d3.select('#sizeLegend').append('svg')
+        const sizeLegendContainer = d3.select('#sizeLegend');
+
+        // Remove all existing SVG elements from the legend container before appending new ones
+        sizeLegendContainer.selectAll('*').remove();
+        const svg = sizeLegendContainer.append('svg');
 
         const d3Formatter = d3.format(".1s");
-
         function formatNumberD3(num) {
             return d3Formatter(num).replace('G', 'B'); // Replace 'G' with 'B' for billions
         }
@@ -178,7 +185,7 @@ class SpikeMap {
         const spacing = 40; // Horizontal spacing between spikes, adjust as needed
     
         // Generate a legend entry for each size
-        const legend = sizeLegendContainer.selectAll('g.legend-entry')
+        const legend = svg.selectAll('g.legend-entry')
             .data(this.sizes)
             .enter()
             .append('g')
@@ -199,11 +206,11 @@ class SpikeMap {
             .text(d => formatNumberD3(d.magnitude));
 
         // Adding a title under the values
-        sizeLegendContainer.append('text')
+        svg.append('text')
             .attr('x', 0)  // Central position under the legend
             .attr('y', 70)  // Lower position to place under the values
             .style('font-weight', 'bold')
-            .text('Total Deaths by Disaster');
+            .text(`${this.currentMagnitude} by Disaster`);
     }
 
     updateLegendValues(scale) {
@@ -266,9 +273,11 @@ class SpikeMap {
     attachEventListeners() {
         const playButton = document.getElementById('playButton');
         const timeSlider = document.getElementById('timeSlider');
+        const magnitudeSelect = document.getElementById('magnitudeSelect'); 
 
         playButton.addEventListener('click', () => this.togglePlayPause());
         timeSlider.addEventListener('input', e => this.handleSliderInput(e));
+        magnitudeSelect.addEventListener('change', e => this.handleMagnitudeChange(e)); 
     }
 
     handleSliderInput(e) {
@@ -277,6 +286,23 @@ class SpikeMap {
         this.drawSpikes(selectedDate);
         this.isPlaying = false;
         document.getElementById('playButton').innerHTML = '<i class="fas fa-play"></i>';
+    }
+
+    handleMagnitudeChange(e) {
+        this.currentMagnitude = e.target.value;
+
+        // Clear existing spikes or other related visual elements
+        this.spikesGroup.selectAll("*").remove();
+
+        // Reprocess data with the new magnitude attribute
+        this.loadData()
+            .then(() => {
+                this.setupVisualization();  // Setup visualization recalculates scales and redraws all elements
+                if (this.isPlaying) {
+                    this.togglePlayPause();  // Pause the animation if it is running
+                }
+            })
+            .catch(error => console.error("Failed to process data on magnitude change: ", error));
     }
     
 }
