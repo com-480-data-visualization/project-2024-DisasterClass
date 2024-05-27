@@ -16,10 +16,28 @@ function initChart() {
     }
 
     chart = new BarChartRace(container, csvUrl, onlyNonHistoric, onlyNaturalDisasters, xVariable, yVariable);
+    const button = document.getElementById('playPauseButton');
+    button.classList.remove('fa-play');
+    button.classList.add('fa-pause');
 }
 
 // Initialize the chart with default selections on page load
-document.addEventListener('DOMContentLoaded', initChart);
+// document.addEventListener('DOMContentLoaded', initChart);
 
-// // Update the chart when the button is clicked
-// document.getElementById('runRaceButton').addEventListener('click', initChart);
+function togglePlayPause() {
+    const button = document.getElementById('playPauseButton');
+    chart.toggle();
+    if (chart.isPlaying) {
+        button.classList.remove('fa-play');
+        button.classList.add('fa-pause');
+    } else {
+        button.classList.remove('fa-pause');
+        button.classList.add('fa-play');
+    }
+}
+
+// Add event listener to the play/pause button
+document.getElementById('playPauseButton').addEventListener('click', togglePlayPause);
+
+// Update the chart when the button is clicked
+document.getElementById('runRaceButton').addEventListener('click', initChart);

@@ -29,6 +29,9 @@ class BarChartRace {
         this.hueVariable = 'Subregion';
       }
 
+      this.isPlaying = true;  // Play/Pause flag
+      this.currentKeyframe = 0;  // To track the current keyframe
+
       this.initChart();
   }
 
@@ -349,7 +352,8 @@ class BarChartRace {
   }
 
   async runChart() {
-    for (const keyframe of this.keyframes) {
+    while (this.isPlaying && this.currentKeyframe < this.keyframes.length) {
+        const keyframe = this.keyframes[this.currentKeyframe];
         const transition = this.svg.transition()
             .duration(this.duration)
             .ease(d3.easeLinear);
@@ -362,6 +366,24 @@ class BarChartRace {
         this.updateTicker(keyframe, transition);
 
         await transition.end();
+
+        this.currentKeyframe++;
+    }
+  }
+  start() {
+    this.isPlaying = true;
+    this.runChart();
+  }
+
+  stop() {
+    this.isPlaying = false;
+  }
+
+  toggle() {
+    if (this.isPlaying) {
+      this.stop();
+    } else {
+      this.start();
     }
   }
 
