@@ -13,7 +13,7 @@
     <div id="main-container_spike">
 
         <div id="map-and-controls">
-            <svg id="spike_map"></svg>
+            <svg id="spike_map" csv-path="data/emdat_data.csv" map-path="data/countries-50m.json"></svg>
             <div id="controls">
                 <button id="playButton" title="Play/Pause"><i class="fas fa-play"></i></button>
                 <input type="range" id="timeSlider" min="0" max="100" value="0">
@@ -23,6 +23,11 @@
         <div id="legends">
             <div id="colorLegend"></div>
             <div id="sizeLegend"></div>
+            <select id="magnitudeSelect">
+                <option value="Total Deaths">Total Deaths</option>
+                <option value="Total Affected">Total Affected</option>
+                <!-- Add other options as needed -->
+              </select>
         </div>
 
     </div>
@@ -62,7 +67,6 @@ html, body {
 }
 
 #main-container_spike #controls {
-    display: flex;
     justify-content: space-around;
     align-items: center;
     height: 30px; /* Set a fixed height for controls */
@@ -74,19 +78,25 @@ html, body {
 }
 
 #main-container_spike #legends {
-    display: flex;
+    display: block;
     flex-direction: column;
     padding: 15px;
     padding-right: 0px;
     border: 1px solid #ccc;
 	max-width: 240px; /* Maximum width to prevent too large containers */
-    justify-content: space-between;  /* This ensures that the first item aligns to the top, and the last item aligns to the bottom */
+    justify-content: flex-start; /* This ensures that the first item aligns to the top, and the last item aligns to the bottom */
 }
 
-#main-container_spike #colorLegend svg {
-    overflow: visible; /* Allows elements that extend beyond the SVG's area to be visible */
+#main-container_spike #colorLegend {
+    padding-bottom: 280px;
 }
 
+#main-container_spike #sizeLegend {
+    height: 80px;
+}
+
+
+#main-container_spike #colorLegend svg,
 #main-container_spike #sizeLegend svg {
     overflow: visible; /* Allows elements that extend beyond the SVG's area to be visible */
 }

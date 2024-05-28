@@ -135,7 +135,7 @@ footer {
 }
 
 #main-container_spike #controls input[type="range"] {
-    width: 80%; /* Manage according to your design */
+    width: 90%; /* Manage according to your design */
 }
 
 #main-container_spike #legends {
@@ -148,12 +148,68 @@ footer {
     justify-content: space-between;  /* This ensures that the first item aligns to the top, and the last item aligns to the bottom */
 }
 
-#main-container_spike #colorLegend svg {
+#main-container_spike #colorLegend {
+    padding-bottom: 250px;
+}
+
+#main-container_spike #sizeLegend {
+    height: 80px;
+}
+
+#main-container_spike #colorLegend svg,
+#main-container_spike #sizeLegend svg {
     overflow: visible; /* Allows elements that extend beyond the SVG's area to be visible */
 }
 
-#main-container_spike #sizeLegend svg {
-    overflow: visible; /* Allows elements that extend beyond the SVG's area to be visible */
+#main-container_spike .tooltip {
+    position: absolute;
+    text-align: left;
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 12px;
+    font-family: Arial, sans-serif;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+    visibility: hidden; /* Initially hidden */
+}
+
+
+    /* Fancy select styling */
+#main-container_spike .select-container {
+    position: relative;
+    width: 90%;
+}
+
+#main-container_spike .select-container select {
+    width: 100%;
+    padding: 5px;
+    font-size: 16px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    background: #fff;
+    appearance: none; /* Remove default styling */
+    -webkit-appearance: none; /* Remove default styling for Safari */
+    -moz-appearance: none; /* Remove default styling for Firefox */
+    cursor: pointer;
+}
+
+#main-container_spike .select-container::after {
+    content: '\25BC'; /* Unicode for downward arrow */
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    pointer-events: none;
+    font-size: 16px;
+    color: #333;
+}
+
+#main-container_spike .select-container select:hover {
+    border-color: #888;
 }
 
 
@@ -184,4 +240,20 @@ footer {
 #main-container_choropleth svg {
     width: 100%;  /* Full width of the container */
     height: auto; 
+}
+
+#main-container_choropleth .tooltip {
+    position: absolute;
+    text-align: left;
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 12px;
+    font-family: Arial, sans-serif;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    visibility: hidden; /* Initially hidden */
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
 }

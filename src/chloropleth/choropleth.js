@@ -1,17 +1,20 @@
 class World_Map {
-    constructor(svg_element_id, data_file) {
+    constructor(svg_element_id) {
         this.svg_element_id = svg_element_id;
-        this.data_file = data_file;
+        this.tooltip = d3.select("#tooltip"); 
         this.initSVG();
         this.loadData('Declaration');  // Default category
     }
 
     initSVG() {
+        const element = document.getElementById(this.svg_element_id);
+        this.data_file = element.getAttribute('csv-path'); // Get the data path from the SVG element
+        this.map_file = element.getAttribute('map-path'); // Get the map path from the SVG element
+
         this.svg = d3.select(`#${this.svg_element_id}`);
         const rect = this.svg.node().getBoundingClientRect();
         this.svg_width = rect.width;
         this.svg_height = rect.height;
-
 
         // Create a group for the map
         this.mapGroup = this.svg.append("g")
@@ -66,7 +69,7 @@ class World_Map {
     }
 
     fetchMapAndDraw() {
-        d3.json("../../data/countries-50m.json").then(mapData => {
+        d3.json(this.map_file).then(mapData => {
             this.map = mapData;
             this.drawMap();
         }).catch(error => console.error("Failed to load map data: ", error));
@@ -88,12 +91,7 @@ class World_Map {
             .attr("stroke", "#fff")
             .attr("stroke-width", 0.5)
             .on("mouseover", (event, d) => this.onMouseOver(event, d))
-            .on("mouseout", (event, d) => this.onMouseOut(event, d))
-            .append("title")
-            .text(d => {
-                const percentage = this.dataMap.get(d.properties.name);
-                return `${d.properties.name}\n${percentage !== undefined ? percentage + "%" : "No data"}`;
-            });
+            .on("mouseout", (event, d) => this.onMouseOut(event, d));
 
         this.createLegend(colorScale);
     }
@@ -113,13 +111,27 @@ class World_Map {
         d3.select(event.currentTarget)
             .attr("stroke", "#f00")
             .attr("stroke-width", 1.5);
-        // Additional tooltip logic here
+        this.tooltip
+        .html(
+            `<strong>Country:</strong> ${d.properties.name}<br>
+            <strong>Percentage:</strong> ${this.dataMap.get(d.properties.name) ? this.dataMap.get(d.properties.name) + "%" : "No data"}`
+        )
+        .style("left", (event.pageX + 10) + "px")
+        .style("top", (event.pageY + 10) + "px")
+        .style("opacity", 1)
+        .style("visibility", "visible");
     }
 
     onMouseOut(event, d) {
+        // Revert the stroke changes
         d3.select(event.currentTarget)
             .attr("stroke", "#fff")
             .attr("stroke-width", 0.5);
+
+        // Hide the tooltip
+        this.tooltip
+        .style("opacity", 0)
+        .style("visibility", "hidden");
     }
 
     createLegend(colorScale) {
@@ -220,7 +232,7 @@ function whenDocumentLoaded(action) {
 }
 
 whenDocumentLoaded(() => {
-    const map = new World_Map('choropleth_map',"../../data/emdat_data.csv");
+    const map = new World_Map('choropleth_map');
 
     document.getElementById('categorySelect').addEventListener('change', function() {
         map.updateVisualization(this.value);
