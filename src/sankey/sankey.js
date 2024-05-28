@@ -2,7 +2,7 @@ const margin = {top: 10, right: 10, bottom: 10, left: 10};
 const width = 960 - margin.left - margin.right;
 const height = 600 - margin.top - margin.bottom;
 
-const svg = d3.select("#chart").append("svg")
+const svg = d3.select("#chart-sankey").append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
     .append("g")
@@ -32,7 +32,7 @@ function updateChart() {
 
     const selectedHemisphere = document.querySelector('input[name="hemisphere"]:checked').value;
 
-    d3.csv("disasters.csv").then(data => {
+    d3.csv("src/sankey/disasters.csv").then(data => {
         data = data.filter(d => selectedDisasters.includes(d["Disaster Type"]) && d["Hemisphere"] === selectedHemisphere);
 
         const graph = {nodes: [], links: []};
