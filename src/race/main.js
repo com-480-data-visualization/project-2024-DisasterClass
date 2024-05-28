@@ -23,7 +23,8 @@ function initChart() {
 }
 
 // Initialize the chart with default selections on page load
-// document.addEventListener('DOMContentLoaded', initChart);
+document.addEventListener('DOMContentLoaded', initChart);
+document.addEventListener('DOMContentLoaded', togglePlayPause);
 
 function togglePlayPause() {
     const button = document.getElementById('playPauseButton');
