@@ -3,7 +3,7 @@ class SpikeMap {
         this.svg_element_id = svg_element_id;
         this.currentMagnitude = 'Total Deaths';
         this.isPlaying = false;
-        this.tooltip = d3.select("#tooltip"); // Initialize tooltip here
+        this.tooltip = d3.select("#tooltip"); 
         this.initialize();
     }
 

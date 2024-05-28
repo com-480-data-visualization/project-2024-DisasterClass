@@ -241,3 +241,19 @@ footer {
     width: 100%;  /* Full width of the container */
     height: auto; 
 }
+
+#main-container_choropleth .tooltip {
+    position: absolute;
+    text-align: left;
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 12px;
+    font-family: Arial, sans-serif;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    visibility: hidden; /* Initially hidden */
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+}

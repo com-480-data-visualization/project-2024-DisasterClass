@@ -1,6 +1,7 @@
 class World_Map {
     constructor(svg_element_id) {
         this.svg_element_id = svg_element_id;
+        this.tooltip = d3.select("#tooltip"); 
         this.initSVG();
         this.loadData('Declaration');  // Default category
     }
@@ -90,12 +91,7 @@ class World_Map {
             .attr("stroke", "#fff")
             .attr("stroke-width", 0.5)
             .on("mouseover", (event, d) => this.onMouseOver(event, d))
-            .on("mouseout", (event, d) => this.onMouseOut(event, d))
-            .append("title")
-            .text(d => {
-                const percentage = this.dataMap.get(d.properties.name);
-                return `${d.properties.name}\n${percentage !== undefined ? percentage + "%" : "No data"}`;
-            });
+            .on("mouseout", (event, d) => this.onMouseOut(event, d));
 
         this.createLegend(colorScale);
     }
@@ -115,13 +111,27 @@ class World_Map {
         d3.select(event.currentTarget)
             .attr("stroke", "#f00")
             .attr("stroke-width", 1.5);
-        // Additional tooltip logic here
+        this.tooltip
+        .html(
+            `<strong>Country:</strong> ${d.properties.name}<br>
+            <strong>Percentage:</strong> ${this.dataMap.get(d.properties.name) ? this.dataMap.get(d.properties.name) + "%" : "No data"}`
+        )
+        .style("left", (event.pageX + 10) + "px")
+        .style("top", (event.pageY + 10) + "px")
+        .style("opacity", 1)
+        .style("visibility", "visible");
     }
 
     onMouseOut(event, d) {
+        // Revert the stroke changes
         d3.select(event.currentTarget)
             .attr("stroke", "#fff")
             .attr("stroke-width", 0.5);
+
+        // Hide the tooltip
+        this.tooltip
+        .style("opacity", 0)
+        .style("visibility", "hidden");
     }
 
     createLegend(colorScale) {
