@@ -1,4 +1,5 @@
-const csvUrl = "src/race/public_emdat_incl_hist_2024-03-26.csv";
+const csvUrl = "data/emdat_data.csv";
+// const csvUrl = "src/race/public_emdat_incl_hist_2024-03-26.csv";
 let chart;
 
 // Function to initialize the chart with default values
