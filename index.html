@@ -62,11 +62,11 @@
                     <div class="select-container">
                         <select id="magnitudeSelect">
                             <option value="Total Deaths">Total Deaths</option>
-                            <option value="No. Injured">No. Injured</option>
-                            <option value="No. Homeless">No. Homeless</option>
-                            <option value="No. Affected">No. Affected</option>
+                            <option value="No. Injured">Number of Injured people</option>
+                            <option value="No. Homeless">Number of Homeless people</option>
+                            <option value="No. Affected">Number of Affected people</option>
                             <option value="Total Affected">Total Affected</option>
-                            <option value="Total Damage, Adjusted ('000 US$)">Total Damage</option>
+                            <option value="Total Damage, Adjusted ('000 US$)">Total Damage,Adjusted ('000 US$)</option>
                             <!-- Add other options as needed -->
                         </select>
                     </div>
@@ -185,16 +185,39 @@
 
             <div id="main-container_choropleth">
                 <div id="select-container">
+
                     <label for="categorySelect">Choose a category:</label>
                     <select id="categorySelect">
-                        <option value="Declaration">Declaration</option>
-                        <option value="Appeal">Appeal</option>
+                        <option value="Declaration">Declaration of State of Emergency</option>
+                        <option value="Appeal">Request for International Assistance</option>
                         <option value="OFDA/BHA Response">OFDA/BHA Response</option>
                         <!-- Add more options based on your data categories -->
                     </select>
+                    
+
+                    <div id="filters">
+                        <button id="addFilterBtn">Add Filter</button>
+                    </div>
+                    <div id="dynamicFilters"></div>
+                    <template id="filterTemplate">
+                        <div class="filter">
+                            <select class="attributeSelect">
+                                <option value="Total Deaths">Total Deaths</option>
+                                <option value="No. Injured">Number of Injured people</option>
+                                <option value="No. Homeless">Number of Homeless people</option>
+                                <option value="No. Affected">Number of Affected people</option>
+                                <option value="Total Affected">Total Affected</option>
+                                <option value="Total Damage, Adjusted ('000 US$)">Total Damage,Adjusted ('000 US$)</option>
+                            </select>
+                            <input type="number" class="thresholdInput" value="0" min="0">
+                            <button class="removeFilter">Remove</button>
+                        </div>
+                    </template>
                 </div>
+
                 <svg id="choropleth_map" viewBox="0 0 960 500" preserveAspectRatio="xMidYMid meet" csv-path="data/emdat_data.csv" map-path="data/countries-50m.json"></svg>
                 <div class="tooltip" id="tooltip"></div>
+
             </div>
 		</div>
 

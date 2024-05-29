@@ -2,77 +2,80 @@ class World_Map {
     constructor(svg_element_id) {
         this.svg_element_id = svg_element_id;
         this.tooltip = d3.select("#tooltip"); 
-        this.initSVG();
-        this.loadData('Declaration');  // Default category
+        this.filters = [];
+        this.current_category = 'Declaration';
+        this.initialize();
     }
 
-    initSVG() {
+    async initialize() {
+        await this.initSVG();
+        await this.loadData(); 
+    }
+
+    async initSVG() {
         const element = document.getElementById(this.svg_element_id);
-        this.data_file = element.getAttribute('csv-path'); // Get the data path from the SVG element
-        this.map_file = element.getAttribute('map-path'); // Get the map path from the SVG element
+        this.data_file = element.getAttribute('csv-path');
+        this.map_file = element.getAttribute('map-path');
 
         this.svg = d3.select(`#${this.svg_element_id}`);
-        const rect = this.svg.node().getBoundingClientRect();
-        this.svg_width = rect.width;
-        this.svg_height = rect.height;
+        const { width, height } = this.svg.node().getBoundingClientRect();
+        this.svg_width = width;
+        this.svg_height = height;
 
-        // Create a group for the map
-        this.mapGroup = this.svg.append("g")
-            .attr("class", "map-group");
+        this.mapGroup = this.svg.append("g").attr("class", "map-group");
+        this.setupProjection();
+        this.setupZoom();
+    }
 
-        // Setup map projection
-        this.projection = d3.geoEqualEarth()
-            .fitExtent([[0, 0], [this.svg_width , this.svg_height ]], { type: "Sphere" });
+    setupProjection() {
+        this.projection = d3.geoEqualEarth().fitExtent([[0, 0], [this.svg_width , this.svg_height ]], { type: "Sphere" });
         this.path = d3.geoPath(this.projection);
+    }
 
-        // Zoom and pan configuration
+    setupZoom() {
         const zoom = d3.zoom()
-            .scaleExtent([1, 8]) // Limit zooming out to 1x and zooming in to 8x
-            .translateExtent([[0, 0], [this.svg_width, this.svg_height]]) // Limit panning to the dimensions of the SVG
-            .on('zoom', (event) => {
-                this.mapGroup.attr('transform', event.transform);
-            });
-
+            .scaleExtent([1, 8])
+            .translateExtent([[0, 0], [this.svg_width, this.svg_height]])
+            .on('zoom', (event) => this.mapGroup.attr('transform', event.transform));
         this.svg.call(zoom);
     }
 
-    loadData(category) {
-        this.current_category = category;
-
-        d3.csv(this.data_file).then(data => {
-            // Create a Map to hold the counts for each country
-            let counts = new Map();
-
-            data.forEach(row => {
-                if (!counts.has(row.Country)) {
-                    counts.set(row.Country, { yes: 0, total: 0 });
-                }
-                let countryData = counts.get(row.Country);
-                if (row[category] === 'Yes') {
-                    countryData.yes += 1;
-                }
-                countryData.total += 1;
-            });
-
-            // Convert counts to percentages for the "Yes" responses
-            let percentageMap = new Map();
-            counts.forEach((value, key) => {
-                let percentage = value.total > 0 ? (value.yes / value.total) * 100 : 0;
-                percentageMap.set(key, percentage.toFixed(2)); // Keep two decimal places
-            });
-
-            // Update the data map and redraw the map
-            this.dataMap = percentageMap;
-            this.map = null; // Reset the map before drawing
-            this.fetchMapAndDraw();
-        }).catch(error => console.error("Failed to load or process data: ", error));
+    async loadData() {
+        try {
+            const data = await d3.csv(this.data_file);
+            this.processData(data);
+        } catch (error) {
+            console.error("Failed to load or process data: ", error);
+        }
     }
 
-    fetchMapAndDraw() {
-        d3.json(this.map_file).then(mapData => {
+    processData(data) {
+        let counts = new Map();
+
+        // Log the filters being applied
+        console.log("Applying filters:", this.filters.map(filter => `${filter.attribute} >= ${filter.threshold}`).join(", "));
+
+        data.forEach(row => {
+            if (this.filters.every(filter => row[filter.attribute] >= filter.threshold)) {
+                let countryData = counts.get(row.Country_json) || { yes: 0, total: 0 };
+                countryData.yes += row[this.current_category] === 'Yes' ? 1 : 0;
+                countryData.total += 1;
+                counts.set(row.Country_json, countryData);
+            }
+        });
+
+        this.dataMap = new Map(Array.from(counts, ([country, { yes, total }]) => [country, ((yes / total) * 100).toFixed(2)]));
+        this.fetchMapAndDraw();
+    }
+
+    async fetchMapAndDraw() {
+        try {
+            const mapData = await d3.json(this.map_file);
             this.map = mapData;
             this.drawMap();
-        }).catch(error => console.error("Failed to load map data: ", error));
+        } catch (error) {
+            console.error("Failed to load map data: ", error);
+        }
     }
 
     drawMap() {
@@ -215,11 +218,51 @@ class World_Map {
             .call(xAxis)
             .select(".domain").remove();
     }
-    
 
-    updateVisualization(category) {
-        this.loadData(category);
+    updateVisualization() {
+        this.loadData();
     }
+}
+
+function setupEventListeners(map) {
+    document.getElementById('categorySelect').addEventListener('change', function() {
+        map.current_category = this.value;
+        map.updateVisualization();
+    });
+
+    document.getElementById('addFilterBtn').addEventListener('click', function() {
+        addFilter(map);
+    });
+}
+
+function addFilter(map) {
+    const template = document.getElementById('filterTemplate').content.firstElementChild.cloneNode(true);
+    const container = document.getElementById('filters');
+    container.appendChild(template);
+
+    template.querySelector('.removeFilter').addEventListener('click', function() {
+        this.closest('div').remove();
+        updateFilters(map);
+    });
+
+    template.querySelector('.attributeSelect').addEventListener('change', function() {
+        updateFilters(map);
+    });
+
+    template.querySelector('.thresholdInput').addEventListener('input', function() {
+        updateFilters(map);
+    });
+}
+
+function updateFilters(map) {
+    const filterDivs = document.querySelectorAll('#filters > div');
+    map.filters = Array.from(filterDivs).map(filterDiv => {
+        return {
+            attribute: filterDiv.querySelector('.attributeSelect').value,
+            threshold: parseInt(filterDiv.querySelector('.thresholdInput').value, 10) || 0
+        };
+    });
+    map.updateVisualization(map.current_category);
 }
 
 // Ensure DOM is loaded before executing script
@@ -233,8 +276,5 @@ function whenDocumentLoaded(action) {
 
 whenDocumentLoaded(() => {
     const map = new World_Map('choropleth_map');
-
-    document.getElementById('categorySelect').addEventListener('change', function() {
-        map.updateVisualization(this.value);
-    });
+    setupEventListeners(map);
 });

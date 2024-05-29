@@ -41,12 +41,12 @@ class SpikeMap {
 
             this.svg.call(d3.zoom()
                 .scaleExtent([1, 7]) // Limit zooming out to 1x and zooming in to #x
-                .translateExtent([[0, 0], [this.svg_width, this.svg_height - 100]]) // Limit panning to the dimensions of the SVG
+                .translateExtent([[0, 0], [this.svg_width, this.svg_height ]]) // Limit panning to the dimensions of the SVG
                 .on('zoom', event => this.zoomed(event)));
 
             // Apply a small translation to move the map slightly to the left
-            this.mapGroup.attr("transform", "translate(-100, 0)");
-            this.spikesGroup.attr("transform", "translate(-100, 0)");
+            //this.mapGroup.attr("transform", "translate(-100, 0)");
+            //this.spikesGroup.attr("transform", "translate(-100, 0)");
             
             resolve();
         });
@@ -65,7 +65,12 @@ class SpikeMap {
                 d3.csv(this.data_file)
             ]);
             this.map = mapData;
-            this.rawData = data.filter(d => d["Disaster Group"] === "Natural");
+            this.rawData = data.filter(d => 
+                d.Latitude && d.Longitude && // Checks if latitude and longitude exist and are truthy
+                d.Latitude.toLowerCase() !== 'none' && d.Longitude.toLowerCase() !== 'none' && // Exclude 'None' values
+                !isNaN(parseFloat(d.Latitude)) && !isNaN(parseFloat(d.Longitude)) // Ensure values are not NaN
+            );
+
             this.processData();
             this.setupVisualization();
         } catch (error) {
@@ -94,8 +99,7 @@ class SpikeMap {
         d.type = d["Disaster Type"];
         d.country = d.Country;
         // Event name if available
-        d.name = d["Event Name"] ? d["Event Name"] : "No available";
-        d.coord = d["Coordinates Specific"]
+        d.name = d["Event Name"] ? d["Event Name"] : "Not available";
         return d;
     }
 
@@ -142,7 +146,6 @@ class SpikeMap {
                     <strong>${this.currentMagnitude}:</strong> ${d.magnitude.toLocaleString()}<br>
                     <strong>Date:</strong> ${d3.timeFormat("%Y-%m-%d")(d.date)}<br>
                     <strong>Event Name:</strong> ${d.name}<br>
-                    <strong>Coordinates specifi:</strong> ${d.coord}
                     `
                 )
                 .style("left", (event.pageX + 10) + "px")  // Slightly offset from cursor
@@ -237,13 +240,6 @@ class SpikeMap {
             .attr('y', 20) // Vertical position below the spike
             .attr('text-anchor', 'middle') // Center text horizontally
             .text(d => formatNumberD3(d.magnitude));
-
-        // Adding a title under the values
-        svg.append('text')
-            .attr('x', 0)  // Central position under the legend
-            .attr('y', 70)  // Lower position to place under the values
-            .style('font-weight', 'bold')
-            .text(`${this.currentMagnitude} by Disaster`);
     }
 
     updateLegendValues(scale) {
