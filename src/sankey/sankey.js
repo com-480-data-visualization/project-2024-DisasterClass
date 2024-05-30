@@ -16,7 +16,7 @@ const sankey = d3.sankey()
 const color = d3.scaleOrdinal(d3.schemeCategory10);
 
 // Tooltip
-const tooltip = d3.select("#tooltip");
+const tooltip = d3.select("#tooltip-sankey");
 
 // Define the order of the months
 const monthOrder = [

@@ -299,7 +299,7 @@ footer {
     display: block;
 }
 
-#sankey-diagram .tooltip {
+#sankey-diagram #tooltip-sankey {
     position: absolute;
     text-align: center;
     width: auto;
