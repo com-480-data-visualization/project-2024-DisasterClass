@@ -207,6 +207,9 @@
                                 <option value="Biological">Biological</option>
                                 <option value="Geophysical">Geophysical</option>
                                 <option value="Climatological">Climatological</option>
+                                <option value="Industrial accident">Industrial accident</option>
+                                <option value="Miscellaneous accident">Miscellaneous accident</option>
+                                <option value="Transport">Transport</option>
                                 <!-- Additional disaster types can be added here -->
                             </select>
                         </div>
@@ -227,7 +230,7 @@
                                 <option value="No. Homeless">Number of Homeless people</option>
                                 <option value="No. Affected">Number of Affected people</option>
                                 <option value="Total Affected">Total Affected</option>
-                                <option value="Total Damage, Adjusted ('000 US$)">Total Damage,Adjusted ('000 US$)</option>
+                                <option value="Total Damage, Adjusted ('000 US$)">Total Damage ('000 US$)</option>
                             </select>
                             <input type="number" class="thresholdInput" value="0" min="0">
                             <button class="removeFilter">Remove</button>
@@ -252,8 +255,8 @@
 
 <script src="https://d3js.org/d3.v7.min.js"></script>
 <script src="https://unpkg.com/topojson@3"></script>
-<script src="src/spike_map/spike_map.js"></script>
-<script src="src/chloropleth/choropleth.js"></script>
+<script src="src/spike_map.js"></script>
+<script src="src/choropleth.js"></script>
 <script src="src/race/BarChartRace.js"></script>
 <script src="src/race/main.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/d3-sankey@0.12.3/dist/d3-sankey.min.js"></script>

@@ -114,16 +114,19 @@ class World_Map {
         
         // Define color ranges for each type of disaster
         const colorSchemes = {
-            "Meteorological": d3.scaleSequentialLog(d3.interpolateOranges).domain([1, maxPercentage]),
-            "Hydrological": d3.scaleSequentialLog(d3.interpolateBlues).domain([1, maxPercentage]),
-            "Biological": d3.scaleSequentialLog(d3.interpolateGreens).domain([1, maxPercentage]),
-            "Geophysical": d3.scaleSequentialLog(d3.interpolateReds).domain([1, maxPercentage]),
-            "Climatological": d3.scaleSequentialLog(d3.interpolatePurples).domain([1, maxPercentage])
+            "Meteorological": d3.interpolateBlues,
+            "Hydrological": d3.interpolateYlGnBu,
+            "Biological": d3.interpolateGreens, //yess
+            "Geophysical": d3.interpolateReds, // yesss
+            "Climatological": d3.interpolateYlOrBr, //yes
+            "Industrial accident": d3.interpolateOrRd, //yes
+            "Miscellaneous accident": d3.interpolatePurples, //yes
+            "Transport": d3.interpolateBuPu//interpolateYlOrRd  
         };
 
         // Choose the appropriate color scale based on the current view mode
         if (this.currentViewMode === 'disasterType' && colorSchemes.hasOwnProperty(this.currentMetric)) {
-            return colorSchemes[this.currentMetric];
+            return d3.scaleSequentialLog(colorSchemes[this.currentMetric]).domain([1, maxPercentage]);
         } else {
             return d3.scaleSequentialLog(d3.interpolateLab("steelblue", "brown"))
                 .domain([1, maxPercentage]);
