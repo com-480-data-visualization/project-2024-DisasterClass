@@ -4,6 +4,7 @@ class World_Map {
         this.tooltip = d3.select("#tooltip"); 
         this.filters = [];
         this.current_category = 'Declaration';
+        this.counts = new Map();
         this.initialize();
     }
 
@@ -50,21 +51,20 @@ class World_Map {
     }
 
     processData(data) {
-        let counts = new Map();
+        this.counts = new Map();
 
         // Log the filters being applied
         console.log("Applying filters:", this.filters.map(filter => `${filter.attribute} >= ${filter.threshold}`).join(", "));
 
         data.forEach(row => {
             if (this.filters.every(filter => row[filter.attribute] >= filter.threshold)) {
-                let countryData = counts.get(row.Country_json) || { yes: 0, total: 0 };
+                let countryData = this.counts.get(row.Country_json) || { yes: 0, total: 0 };
                 countryData.yes += row[this.current_category] === 'Yes' ? 1 : 0;
                 countryData.total += 1;
-                counts.set(row.Country_json, countryData);
+                this.counts.set(row.Country_json, countryData);
             }
         });
-
-        this.dataMap = new Map(Array.from(counts, ([country, { yes, total }]) => [country, ((yes / total) * 100).toFixed(2)]));
+        this.dataMap = new Map(Array.from(this.counts, ([country, { yes, total }]) => [country, ((yes / total) * 100).toFixed(2)]));
         this.fetchMapAndDraw();
     }
 
@@ -111,14 +111,21 @@ class World_Map {
     }
 
     onMouseOver(event, d) {
+        const countryName = d.properties.name;
+        const percentage = this.dataMap.get(countryName);
+        const countryData = this.counts.get(countryName);
+        const totalDisasters = countryData ? countryData.total : 'No data';
+    
         d3.select(event.currentTarget)
             .attr("stroke", "#f00")
             .attr("stroke-width", 1.5);
+    
         this.tooltip
-        .html(
-            `<strong>Country:</strong> ${d.properties.name}<br>
-            <strong>Percentage:</strong> ${this.dataMap.get(d.properties.name) ? this.dataMap.get(d.properties.name) + "%" : "No data"}`
-        )
+            .html(
+                `<strong>Country:</strong> ${countryName}<br>` +
+                `<strong>Percentage:</strong> ${percentage ? percentage + "%" : "No data"}<br>` +
+                `<strong>Total Disasters:</strong> ${totalDisasters}`
+            )
         .style("left", (event.pageX + 10) + "px")
         .style("top", (event.pageY + 10) + "px")
         .style("opacity", 1)
