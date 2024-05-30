@@ -217,31 +217,47 @@ footer {
 
 /*Styles for the Choropleth Map*/
 
+
 #main-container_choropleth {
     width: 95%;   /* Limits max width while allowing some margin */
-    max-width: 960px; /* Ensures it doesn't grow too large on bigger screens */
     height: auto; /* Adjust height based on content */
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    align-items: flex-start; /* Aligns items to the start of the flex direction */
     justify-content: center;
 }
+
+#main-container_choropleth #map-container {
+    flex: 7;            /* Takes up 3 parts of the available space */
+    display: block;  
+}
+
+#main-container_choropleth #filter-container {
+    flex: 1;            /* Takes up 1 part of the available space */
+    display: block;     /* Adjusts display for better control over child elements */
+}
+
 #main-container_choropleth #select-container {
     display: flex;
     justify-content: center;
     align-items: center; 
     width: 100%;
+    margin-bottom: 20px; /* Add some spacing below the select container */
 }
-#main-container_choropleth #categorySelect, label {
+
+#main-container_choropleth label {
     margin: 5px;
+    font-weight: bold; /* Make labels bold for better readability */
 }
-#main-container_choropleth #categorySelect {
-    padding: 4px;
+
+#main-container_choropleth select {
     font-size: 16px;
-}
-#main-container_choropleth svg {
-    width: 100%;  /* Full width of the container */
-    height: auto; 
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+    position: relative;
+    cursor: pointer;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 #main-container_choropleth .tooltip {
@@ -255,7 +271,7 @@ footer {
     font-family: Arial, sans-serif;
     pointer-events: none;
     opacity: 0;
-    transition: opacity 0.3s ease-in-out;
+    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
     visibility: hidden; /* Initially hidden */
     box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
 }

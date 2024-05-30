@@ -3,7 +3,10 @@ class World_Map {
         this.svg_element_id = svg_element_id;
         this.tooltip = d3.select("#tooltip"); 
         this.filters = [];
-        this.current_category = 'Declaration';
+        this.currentMetric = 'Declaration'; // default metric
+        this.defaultCategory = 'Declaration'; // default category
+        this.defaultDisasterType = 'Meteorological'; // default disaster type
+        this.currentViewMode = 'category'; // default view mode
         this.counts = new Map();
         this.initialize();
     }
@@ -11,6 +14,7 @@ class World_Map {
     async initialize() {
         await this.initSVG();
         await this.loadData(); 
+        this.setupEventListeners();
     }
 
     async initSVG() {
@@ -51,23 +55,31 @@ class World_Map {
     }
 
     processData(data) {
-        this.counts = new Map();
-
-        // Log the filters being applied
-        console.log("Applying filters:", this.filters.map(filter => `${filter.attribute} >= ${filter.threshold}`).join(", "));
-
+        this.counts.clear(); // Reset counts for new data processing
+    
         data.forEach(row => {
             if (this.filters.every(filter => row[filter.attribute] >= filter.threshold)) {
-                let countryData = this.counts.get(row.Country_json) || { yes: 0, total: 0 };
-                countryData.yes += row[this.current_category] === 'Yes' ? 1 : 0;
-                countryData.total += 1;
+                let countryData = this.counts.get(row.Country_json) || { total: 0, count: 0 };
+    
+                countryData.total += 1; // Always increment total for each valid row
+    
+                // Check what we're counting based on the mode
+                if ((this.currentViewMode === 'category' && row[this.currentMetric] === 'Yes') ||
+                    (this.currentViewMode === 'disasterType' && row["Disaster Subgroup"] === this.currentMetric)) {
+                    countryData.count += 1;
+                }
+    
                 this.counts.set(row.Country_json, countryData);
             }
         });
-        this.dataMap = new Map(Array.from(this.counts, ([country, { yes, total }]) => [country, ((yes / total) * 100).toFixed(2)]));
+    
+        // Calculate percentages for visualization
+        this.dataMap = new Map(Array.from(this.counts, ([key, { total, count }]) => 
+            [key, ((count / total) * 100).toFixed(2)]));
+    
         this.fetchMapAndDraw();
     }
-
+    
     async fetchMapAndDraw() {
         try {
             const mapData = await d3.json(this.map_file);
@@ -81,9 +93,7 @@ class World_Map {
     drawMap() {
         this.mapGroup.selectAll("path").remove();  // Clear existing paths
         const countries = topojson.feature(this.map, this.map.objects.countries).features;
-
-        const colorScale = d3.scaleSequentialLog(d3.interpolateLab("steelblue", "brown"))
-            .domain([1, d3.max(Array.from(this.dataMap.values()))]);
+        const colorScale = this.getColorScale();
 
         // Country paths
         this.mapGroup.selectAll("path")
@@ -98,6 +108,29 @@ class World_Map {
 
         this.createLegend(colorScale);
     }
+
+    getColorScale() {
+        const maxPercentage = d3.max(Array.from(this.dataMap.values(), value => +value));  // Ensure values are numbers
+        
+        // Define color ranges for each type of disaster
+        const colorSchemes = {
+            "Meteorological": d3.scaleSequentialLog(d3.interpolateOranges).domain([1, maxPercentage]),
+            "Hydrological": d3.scaleSequentialLog(d3.interpolateBlues).domain([1, maxPercentage]),
+            "Biological": d3.scaleSequentialLog(d3.interpolateGreens).domain([1, maxPercentage]),
+            "Geophysical": d3.scaleSequentialLog(d3.interpolateReds).domain([1, maxPercentage]),
+            "Climatological": d3.scaleSequentialLog(d3.interpolatePurples).domain([1, maxPercentage])
+        };
+
+        // Choose the appropriate color scale based on the current view mode
+        if (this.currentViewMode === 'disasterType' && colorSchemes.hasOwnProperty(this.currentMetric)) {
+            return colorSchemes[this.currentMetric];
+        } else {
+            return d3.scaleSequentialLog(d3.interpolateLab("steelblue", "brown"))
+                .domain([1, maxPercentage]);
+        }
+
+    }
+       
 
     getCountryColor(d, colorScale) {
         const percentage = this.dataMap.get(d.properties.name);
@@ -147,6 +180,7 @@ class World_Map {
     createLegend(colorScale) {
         // Clear existing legend
         this.svg.selectAll(".legend").remove();
+        this.svg.selectAll("defs").remove(); // Remove existing defs to clear old gradients
 
         // Dynamically set the width based on SVG width
         const legendWidth = Math.min(400, this.svg_width * 0.4); // Legend width is at most 50% of the SVG width
@@ -210,7 +244,7 @@ class World_Map {
             .attr("text-anchor", "middle") // Center the text horizontally
             .style("font-size", "12px")
             .style("font-weight", "bold")
-            .text(`${this.current_category} (%)`); // Text of the title
+            .text(`${this.currentMetric} (%)`); // Text of the title
     
         const x = d3.scaleLog()
             .domain([1, maxPercentage])
@@ -229,12 +263,48 @@ class World_Map {
     updateVisualization() {
         this.loadData();
     }
+
+    setupEventListeners() {
+        const viewModeSelector = document.getElementById('viewMode');
+        const categorySelector = document.getElementById('categorySelect');
+        const disasterTypeSelector = document.getElementById('disasterTypeSelect');
+        
+        viewModeSelector.addEventListener('change', (event) => {
+            this.currentViewMode = event.target.value;
+            this.currentMetric = this.currentViewMode === 'category' ? this.defaultCategory : this.defaultDisasterType;
+            toggleDropdowns(); // Toggle dropdown visibility
+            this.updateVisualization();
+        });
+
+        categorySelector.addEventListener('change', (event) => {
+            if (this.currentViewMode === 'category') {
+                this.currentMetric  = event.target.value;
+            }
+            this.updateVisualization();
+        });
+
+        disasterTypeSelector.addEventListener('change', (event) => {
+            if (this.currentViewMode === 'disasterType') {
+                this.currentMetric  = event.target.value;
+            }
+            this.updateVisualization();
+        });
+    }
 }
 
 function setupEventListeners(map) {
     document.getElementById('categorySelect').addEventListener('change', function() {
-        map.current_category = this.value;
-        map.updateVisualization();
+        if (map.currentViewMode === 'category') {
+            map.currentMetric = this.value;
+            map.updateVisualization();
+        }
+    });
+
+    document.getElementById('disasterTypeSelect').addEventListener('change', function() {
+        if (map.currentViewMode === 'disasterType') {
+            map.currentMetric = this.value;
+            map.updateVisualization();
+        }
     });
 
     document.getElementById('addFilterBtn').addEventListener('click', function() {
@@ -269,7 +339,21 @@ function updateFilters(map) {
             threshold: parseInt(filterDiv.querySelector('.thresholdInput').value, 10) || 0
         };
     });
-    map.updateVisualization(map.current_category);
+    map.updateVisualization();
+}
+
+function toggleDropdowns() {
+    const viewMode = document.getElementById('viewMode').value;
+    const categoryDiv = document.getElementById('categorySelection');
+    const disasterTypeDiv = document.getElementById('disasterTypeSelection');
+
+    if (viewMode === 'category') {
+        categoryDiv.style.display = 'block';
+        disasterTypeDiv.style.display = 'none';
+    } else {
+        categoryDiv.style.display = 'none';
+        disasterTypeDiv.style.display = 'block';
+    }
 }
 
 // Ensure DOM is loaded before executing script
@@ -285,3 +369,5 @@ whenDocumentLoaded(() => {
     const map = new World_Map('choropleth_map');
     setupEventListeners(map);
 });
+
+

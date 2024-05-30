@@ -185,7 +185,7 @@ class SpikeMap {
             .attr('x', 0)
             .attr('y', 20)
             .style('font-weight', 'bold')
-            .text('Disaster Types');
+            .text('Disaster Subgroups');
 
         const legend = svg.selectAll('g.legend-entry')
             .data(subgroups)

@@ -184,17 +184,37 @@
 			<p>When we talk about disasters, are there inequalities or biases in the response when international help is called?</p>
 
             <div id="main-container_choropleth">
-                <div id="select-container">
-
-                    <label for="categorySelect">Choose a category:</label>
-                    <select id="categorySelect">
-                        <option value="Declaration">Declaration of state of emergency</option>
-                        <option value="Appeal">Call for international assistance</option>
-                        <option value="OFDA/BHA Response">OFDA/BHA Response</option>
-                        <!-- Add more options based on your data categories -->
-                    </select>
-                    
-
+                <div id="map-container">
+                    <div id="select-container">
+                        <!-- View Mode Selection -->
+                        <select id="viewMode" onchange="toggleDropdowns()">
+                            <option value="category">View by Aid Category</option>
+                            <option value="disasterType">View by Disaster Subgroup</option>
+                        </select>
+                        <!-- Category Selection -->
+                        <div id="categorySelection" style="display: block;">
+                            <select id="categorySelect">
+                                <option value="Declaration">Declaration of state of emergency</option>
+                                <option value="Appeal">Call for international assistance</option>
+                                <option value="OFDA/BHA Response">OFDA/BHA Response</option>
+                            </select>
+                        </div>
+                            <!-- Disaster Type Selection -->
+                        <div id="disasterTypeSelection" style="display: none;">
+                            <select id="disasterTypeSelect">
+                                <option value="Meteorological">Meteorological</option>
+                                <option value="Hydrological">Hydrological</option>
+                                <option value="Biological">Biological</option>
+                                <option value="Geophysical">Geophysical</option>
+                                <option value="Climatological">Climatological</option>
+                                <!-- Additional disaster types can be added here -->
+                            </select>
+                        </div>
+                    </div>
+                    <svg id="choropleth_map" viewBox="0 0 960 500" preserveAspectRatio="xMidYMid meet" csv-path="data/emdat_data.csv" map-path="data/countries-50m.json"></svg>
+                </div>
+                            
+                <div id="filter-container">
                     <div id="filters">
                         <button id="addFilterBtn">Add Filter</button>
                     </div>
@@ -214,10 +234,7 @@
                         </div>
                     </template>
                 </div>
-
-                <svg id="choropleth_map" viewBox="0 0 960 500" preserveAspectRatio="xMidYMid meet" csv-path="data/emdat_data.csv" map-path="data/countries-50m.json"></svg>
                 <div class="tooltip" id="tooltip"></div>
-
             </div>
 		</div>
 
