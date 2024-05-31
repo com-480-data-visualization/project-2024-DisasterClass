@@ -43,7 +43,7 @@ d3.json('src/bubble/disasters.json').then(data => {
        .append("tspan")
        .attr("x", width - 10)
        .attr("dy", "1em")
-       .text("Total Damage, Adjusted ('000 US$)");
+       .text("Total Economic Damage ('000 US$)");
 
     svg.append("text")
        .attr("class", "axis-label")
