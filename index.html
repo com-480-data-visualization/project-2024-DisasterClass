@@ -46,7 +46,14 @@
 		 <!-- Spike Map -->
         <div style="margin-bottom: 20px;">
             <h3>Spike Map of Disasters across Time</h3>
-            <p>Let us start by looking at the picture, that is every disaster that occurred in the world in these past 100 years or so, and their respective magnitude.</p>
+            <p>Let's begin by exploring the big picture. This initial visualization dynamically illustrates the magnitude of historical disasters on a global scale. Each disaster will appear over time, represented by spikes that vary in length according to the severity of the event, such as the total number of deaths or the economic damage caused provoked by disaster. You can adjust the display criteria using the toggle bar below the spike legend.</p>    
+            <p>Each spike is color-coded according to its disaster subgroup. When you start the visualization with the play button in the bottom left corner, it will display disasters from 1900 to the present day, demonstrating how disasters despite our will have persistently accompanied humanity.
+                You can pause the visualization at any time. If you're curious about a specific disaster, hover your mouse over the spike to see more information, such as the disaster type and the country where it occurred. This feature is especially useful if you're unfamiliar with geography or smaller countries
+                </p>
+            <p>If you want to focus on a specific region, you can zoom within the map while maintaining accurate references with as the values of the spike legend will dynamically adapt.
+                This approach provides a preliminary glimpse into the historical significance and geographical diversity of disasters, helping you visualize and explore with a better understanding for future visualizations.
+                </p>
+            <p><strong>Important Note:</strong> Data on disasters can be complex and sensitive, often leading to incomplete datasets. For this visualization, we were only able to retrieve 60% of the geo-coordinates, and not all disasters have complete information across all types of magnitude. Consequently, some disasters may not appear, or may disappear, as you change the magnitude variable.</p>
             <div id="main-container_spike">
                 <div id="map-and-controls">
                     <svg id="spike_map"  csv-path="data/emdat_data.csv" map-path="data/countries-50m.json"></svg>
@@ -204,9 +211,13 @@
 		</div>
         <!-- Choropleth Map -->
 		<div style="margin-bottom: 20px;">
-			<h3>Choropleth Map</h3>
-			<p>When we talk about disasters, are there inequalities or biases in the response when international help is called?</p>
-
+			<h3>World Choropleth Disasters Inequalities</h3>
+            <p>Now that we've explored the dynamics of disasters over time, let's shift our focus to the differences between countries. Our final visualization features a choropleth map that provides a clear visual representation of dynamic disasters across countries.
+                The primary aim is to highlight inequalities by displaying metrics such as the percentage of international aid requests (appeals) and declarations of state of emergency per disaster within the Aid Category view. This allows us to observe how different countries respond to disasters.
+                </p>
+            <p>For a more refined analysis, you can set minimum thresholds for disaster magnitudes using the filter button in the top left corner. This feature enables you to focus on significant events, effectively filtering out frequent but low-impact disasters. By exploring these dynamics, you can see how various variables impact conclusions, illuminating regional disparities and inequalities.</p>
+            <p>If you switch the view to the Disaster Subgroup, you can observe how different types of disasters affect each country. For example, if you examine the biological subgroup, you will notice that a certain region of the world is more frequently affected for this type of disasters than others.</p>
+            <p><strong>OFDA/BHA Response:</strong> Correspond to whether or not the (former) Office of US Foreign Disaster Assistance (OFDA) or the Bureau of Humanitarian Assistance (BHA) responded to the disaster.</p>
             <div id="main-container_choropleth">
                 <div id="map-container">
                     <div id="select-container">
