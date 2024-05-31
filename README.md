@@ -151,11 +151,10 @@ By enabling users to delve into various dynamics and observe how different varia
 
 **80% of the final grade**
 
- * Screencast: * link
+ * 📽️ Screencast: * link
 
-* Process book: * link
+* 📖 Process book: * link
 
-# Installation
 - Our website is already hosted by github: https://com-480-data-visualization.github.io/project-2024-DisasterClass/
 
 If you want to see the code or make modifications you can:
