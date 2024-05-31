@@ -134,6 +134,47 @@ footer {
     color: white;
 }
 
+#team {
+    margin-top: 50px; /* Adjust the size as needed */
+    display: flex;
+    flex-direction: column; /* Organizes the title and member container vertically */
+    padding: 20px;
+    width: 100%; /* Full width of the container */
+}
+
+.members-container {
+    display: flex;
+    justify-content: space-around; /* Space out the members equally */
+    width: 100%; /* Full width to contain all members horizontally */
+}
+
+.member {
+    flex-basis: 30%; /* Each member takes up 30% of the flex container */
+    text-align: center; /* Centering the text and image */
+    padding: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Adds visual depth */
+    border-radius: 10px; /* Rounded corners for the containers */
+}
+
+.member img {
+    width: 100%; /* Responsive image width */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 50%; /* Circular images */
+    margin-bottom: 10px; /* Space between image and text */
+}
+
+.member h3 {
+    margin-top: 0;
+    color: #333; /* Dark grey color for names */
+}
+
+.member p {
+    font-size: 0.9em;
+    color: #666; /* Medium grey color for descriptions */
+}
+
+
+
 /*Styles for the Spike Map*/
 #main-container_spike {
     display: flex;
