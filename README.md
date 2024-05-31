@@ -147,8 +147,7 @@ By enabling users to delve into various dynamics and observe how different varia
 
 📽️ **Screencast :** https://youtu.be/g4ebzn1w3dg
 
-📖 **Process book :** See our [Process Book](https://com-480-data-visualization.github.io/project-2024-DisasterClass/process_book.pdf)
-
+📖 **Process book :** See our [Process Book](https://github.com/com-480-data-visualization/project-2024-DisasterClass/blob/master/process_book.pdf)
 
 Our website is already hosted by github here : https://com-480-data-visualization.github.io/project-2024-DisasterClass/
 
