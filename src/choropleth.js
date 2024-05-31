@@ -272,10 +272,16 @@ class World_Map {
         const categorySelector = document.getElementById('categorySelect');
         const disasterTypeSelector = document.getElementById('disasterTypeSelect');
         
+        // Handles changes in the view mode
         viewModeSelector.addEventListener('change', (event) => {
             this.currentViewMode = event.target.value;
-            this.currentMetric = this.currentViewMode === 'category' ? this.defaultCategory : this.defaultDisasterType;
-            toggleDropdowns(); // Toggle dropdown visibility
+            // Set current metric according to the current dropdown value
+            if (this.currentViewMode === 'category') {
+                this.currentMetric = categorySelector.value;
+            } else {
+                this.currentMetric = disasterTypeSelector.value;
+            }
+            toggleDropdowns(); // Toggle dropdown visibility based on selected view mode
             this.updateVisualization();
         });
 

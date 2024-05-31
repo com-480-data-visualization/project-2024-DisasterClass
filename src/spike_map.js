@@ -36,9 +36,6 @@ class SpikeMap {
             // Define a color scale for different subgroups
             this.colorScale = d3.scaleOrdinal(d3.schemeCategory10);
 
-            // Example magnitudes structured as expected by `getSpikePath`
-            this.sizes = [{magnitude: 500000}, {magnitude: 1000000}, {magnitude: 2000000}, {magnitude: 3000000}, {magnitude: 5000000}]; 
-
             this.svg.call(d3.zoom()
                 .scaleExtent([1, 7]) // Limit zooming out to 1x and zooming in to #x
                 .translateExtent([[0, 0], [this.svg_width, this.svg_height ]]) // Limit panning to the dimensions of the SVG
@@ -212,13 +209,28 @@ class SpikeMap {
         sizeLegendContainer.selectAll('svg').remove();
         const svg = sizeLegendContainer.append('svg');
 
+        // Conditionally set magnitudes based on the current magnitude context
+        if (this.currentMagnitude === 'Total Damage, Adjusted (\'000 US$)') {
+            this.sizes = [{magnitude: 50000000}, {magnitude: 100000000}, {magnitude: 200000000}, {magnitude: 300000000}, {magnitude: 500000000}];
+        } else if (this.currentMagnitude === 'No. Injured') {
+            this.sizes = [{magnitude: 100000}, {magnitude: 500000}, {magnitude: 1000000}, {magnitude: 2000000}, {magnitude: 3000000}];
+        } else if (this.currentMagnitude === 'No. Affected') {
+            this.sizes = [{magnitude: 10000000}, {magnitude: 50000000}, {magnitude: 100000000}, {magnitude: 300000000}, {magnitude: 500000000}];
+        } else if (this.currentMagnitude === 'Total Affected') {
+            this.sizes = [{magnitude: 10000000}, {magnitude: 50000000}, {magnitude: 100000000}, {magnitude: 300000000}, {magnitude: 500000000}];
+        } else {
+            // Default or other categories might have a different scale
+            this.sizes = [{magnitude: 500000}, {magnitude: 1000000}, {magnitude: 2000000}, {magnitude: 3000000}, {magnitude: 5000000}];
+        }
+
+
         const d3Formatter = d3.format(".1s");
         function formatNumberD3(num) {
             return d3Formatter(num).replace('G', 'B'); // Replace 'G' with 'B' for billions
         }
     
         const spikeWidth = 10; // Width of the spike, adjust as needed
-        const spacing = 40; // Horizontal spacing between spikes, adjust as needed
+        const spacing = 45; // Horizontal spacing between spikes, adjust as needed
     
         // Generate a legend entry for each size
         const legend = svg.selectAll('g.legend-entry')
