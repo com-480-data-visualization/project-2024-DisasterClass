@@ -151,14 +151,14 @@ By enabling users to delve into various dynamics and observe how different varia
 
 **80% of the final grade**
 
- * 📽️ Screencast: * link
+📽️ **Screencast :** link
 
-* 📖 Process book: * link
+📖 **Process book :** link
 
-- Our website is already hosted by github: https://com-480-data-visualization.github.io/project-2024-DisasterClass/
+- Our website is already hosted by github here : https://com-480-data-visualization.github.io/project-2024-DisasterClass/
 
-If you want to see the code or make modifications you can:
-- Clone the repo: git clone git@github.com:com-480-data-visualization/project-2024-DisasterClass.git
+If you want to see the code or make modifications you can :
+- Clone the repo: ``` git clone git@github.com:com-480-data-visualization/project-2024-DisasterClass.git ```
  
 
 ## Late policy
