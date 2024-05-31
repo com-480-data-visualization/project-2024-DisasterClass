@@ -145,11 +145,10 @@ By enabling users to delve into various dynamics and observe how different varia
 
 ## Milestone 3 (31st May, 5pm)
 
-📽️ **Screencast :** link
+📽️ **Screencast :** https://youtu.be/g4ebzn1w3dg
 
-📖 **Process book :** link
+📖 **Process book :** See process_book.pdf
 
-- Our website is already hosted by github here : https://com-480-data-visualization.github.io/project-2024-DisasterClass/
+Our website is already hosted by github here : https://com-480-data-visualization.github.io/project-2024-DisasterClass/
 
-If you want to see the code or make modifications you can :
-- Clone the repo: ``` git clone git@github.com:com-480-data-visualization/project-2024-DisasterClass.git ```
+If you want to see the code or make modifications you can clone the repository: ``` git clone git@github.com:com-480-data-visualization/project-2024-DisasterClass.git ```
