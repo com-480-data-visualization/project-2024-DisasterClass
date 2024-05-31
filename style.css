@@ -39,10 +39,12 @@ nav ul {
     justify-content: center;  /* Center links horizontally */
     padding: 0;
     margin: 0 auto;  /* Centering the navigation */
+    list-style: none; /* Add this line */
 }
 
 nav ul li {
     margin: 0 10px;  /* Space between items */
+    position: relative; /* Add for dropdown */
 }
 
 nav ul li a {
@@ -54,6 +56,36 @@ nav ul li a {
 
 nav ul li a:hover {
     background-color: #003366;  /* Darker blue on hover and active */
+}
+
+/* Dropdown styles */
+nav ul li .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #004d99;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+nav ul li .dropdown-content li {
+    display: block;
+    text-align: left;
+}
+
+nav ul li .dropdown-content li a {
+    color: white;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+nav ul li .dropdown-content li a:hover {
+    background-color: #003366;
+}
+
+nav ul li:hover .dropdown-content {
+    display: block;
 }
 
 /* Header */
@@ -102,9 +134,7 @@ footer {
     color: white;
 }
 
-
 /*Styles for the Spike Map*/
-
 #main-container_spike {
     display: flex;
     height: 80vh; /* Full viewport height */
@@ -144,7 +174,7 @@ footer {
     padding: 15px;
     padding-right: 0px;
     border: 1px solid #ccc;
-	max-width: 240px; /* Maximum width to prevent too large containers */
+    max-width: 240px; /* Maximum width to prevent too large containers */
     justify-content: space-between;  /* This ensures that the first item aligns to the top, and the last item aligns to the bottom */
 }
 
@@ -177,8 +207,7 @@ footer {
     visibility: hidden; /* Initially hidden */
 }
 
-
-    /* Fancy select styling */
+/* Fancy select styling */
 #main-container_spike .select-container {
     position: relative;
     width: 98%;
@@ -214,10 +243,7 @@ footer {
     border-color: #888;
 }
 
-
 /*Styles for the Choropleth Map*/
-
-
 #main-container_choropleth {
     width: 95%;   /* Limits max width while allowing some margin */
     height: auto; /* Adjust height based on content */
@@ -277,7 +303,6 @@ footer {
 }
 
 /*Styles for the Sankey diagram*/
-
 #sankey-diagram .checkbox-container, .radio-container {
     display: flex;
     flex-wrap: wrap;
@@ -330,38 +355,44 @@ footer {
 }
 
 /*Styles for the Bubble chart*/
-
 #bubble .bubble {
     stroke: black;
     stroke-width: 1px;
 }
+
 #bubble .axis-label {
     font-size: 14px;
 }
+
 #bubble .controls {
     display: flex;
     align-items: center;
     margin-top: 20px;
 }
+
 #bubble .slider {
     width: 1000px; /* Set slider width to match chart width */
     margin-left: 10px;
     margin-right: 10px;
 }
+
 #bubble .legend {
     font-size: 12px;
     margin-left: 20px;
 }
+
 #bubble .legend-color {
     display: inline-block;
     width: 12px;
     height: 12px;
     margin-right: 5px;
 }
+
 #bubble .description {
     margin-top: 20px;
     font-size: 14px;
 }
+
 #bubble .tooltip {
     position: absolute;
     background-color: white;
@@ -371,6 +402,7 @@ footer {
     box-shadow: 0px 0px 5px #aaa;
     pointer-events: none;
 }
+
 #bubble .year-text {
     font-size: 100px;
     fill: lightgray;
