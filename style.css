@@ -154,6 +154,7 @@ footer {
     padding: 10px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Adds visual depth */
     border-radius: 10px; /* Rounded corners for the containers */
+    overflow: hidden; /* Ensures content fits within the borders */
 }
 
 .member img {
@@ -161,6 +162,8 @@ footer {
     height: auto; /* Maintain aspect ratio */
     border-radius: 50%; /* Circular images */
     margin-bottom: 10px; /* Space between image and text */
+    object-fit: cover; /* Ensures the images cover the area without being distorted */
+    aspect-ratio: 1; /* Keeps the images circular, adjust as necessary */
 }
 
 .member h3 {
