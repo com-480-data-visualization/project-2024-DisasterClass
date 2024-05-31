@@ -85,8 +85,10 @@
 		<!-- Bubble Chart -->
 		<div style="margin-bottom: 20px;">
 			<h3>5D Bubble Chart</h3>
-			<p>Do you wonder what is the correlation between certain variables, for different disaster types, across years?! Look no further and play around with the following interactive bubble chart.</p>
-			<p>You can select which variables you want to plot on the x and the y axes.</p>
+			<p>Now that we have explored the geographic spread of disasters, let's delve into their impact over the years. Below, you will find a dynamic bubble chart that updates annually, illustrating the human and economic toll of various natural disasters.</p>
+            <p>The y-axis represents the number of deaths caused by these disasters, while the x-axis shows the total financial damage, adjusted to thousands of US dollars. Each bubble's size corresponds to the number of people affected. The bubbles are color-coded to differentiate between types of natural disasters, such as earthquakes, floods, storms, and more.</p>
+            <p>This visualization provides a comprehensive view of the cumulative impact of each disaster type over time, allowing us to observe trends and patterns. By tracking these changes, we can better understand the evolving nature of global natural disasters and their consequences.</p>
+            <p>When you feel ready, hit the play button below the diagram to watch the data progress year by year, offering a historical perspective on the effects of natural catastrophes.</p>
 			<div id="bubble">
                 <div id="chart-container" style="display: flex;">
                     <div id="chart-bubble"></div>
@@ -111,7 +113,21 @@
         <!-- Race Diagram -->
 		<div style="margin-bottom: 20px;">
 			<h3>Race Diagram</h3>
-			<p>Let's get dynamic and make disasters race against one another! Choose which variable you want to make them race for. Then click on the play button and let the race begin!</p>
+            <p>
+                Now that we have explored the impact of natural disasters over the years, let's shift our focus to a dynamic race chart that highlights the accumulation of various disaster-related variables.
+            </p>
+            <p>
+                This race chart updates over time, showcasing the cumulative totals for your chosen variable, such as total damages, total deaths, or total affected individuals. The bars expand to reflect the growing numbers as each disaster is accounted for up to the year 2024.
+            </p>
+            <p>
+                You can customize the chart to display data by disaster subgroup or by country. When selecting disaster subgroups, the bars represent the accumulation of your chosen variable for specific types of disasters, such as ground movement, drought, or tropical cyclones. If you choose to view by country, the bars will show the cumulative impact of all disasters within each country.
+            </p>
+            <p>
+                This visualization provides a compelling way to compare and contrast the effects of different disasters or the overall impact on various countries. By observing these changes, we gain a deeper understanding of how different regions have been affected and how different types of disasters have contributed to the total impact over time.
+            </p>
+            <p>
+                When you feel ready, hit the play button to the right to watch the race unfold, revealing the cumulative impact of natural disasters up to 2024.
+            </p>
 			<!-- <p><img src="milestone_2\race.png" width="1000" /></p> -->
             <div>
                 <label for="onlyNonHistoric">Years:</label>
@@ -128,15 +144,15 @@
             
                 <label for="xVariable">Race Against:</label>
                 <select id="xVariable">
-                    <option value="Total Damage, Adjusted ('000 US$)" selected>Total Damage, Adjusted ('000 US$)</option>
-                    <option value="Reconstruction Costs, Adjusted ('000 US$)">Reconstruction Costs, Adjusted ('000 US$)</option>
-                    <option value="Insured Damage, Adjusted ('000 US$)">Insured Damage, Adjusted ('000 US$)</option>
+                    <option value="Total Damage, Adjusted ('000 US$)" selected>Total Economic Damage ('000 US$)</option>
+                    <!-- <option value="Reconstruction Costs, Adjusted ('000 US$)">Reconstruction Costs, Adjusted ('000 US$)</option> -->
+                    <option value="Insured Damage, Adjusted ('000 US$)">Insured Damage ('000 US$)</option>
                     <option value="AID Contribution ('000 US$)">AID Contribution ('000 US$)</option>
                     <option value="Total Deaths">Total Deaths</option>
                     <option value="No. Injured">Number of Injured people</option>
                     <option value="No. Affected">Number of Affected people</option>
                     <option value="No. Homeless">Number of Homeless people</option>
-                    <option value="Total Affected">Total number of Affected people</option>
+                    <option value="Total Affected">Total Injured + Affected + Homeless people</option>
                     <!-- Add other xVariable options here -->
                 </select>
             
@@ -157,7 +173,15 @@
         <!-- Sankey Diagram -->
 		<div style="margin-bottom: 20px;">
 			<h3>Sankey Diagram</h3>
-			<p>Now let's look at the relationship between the time of year at which each disaster type occurs.</p>
+            <p>
+                Now that we have explored the impact of natural disasters over the years, let's turn our attention to a Sankey diagram that illustrates the connection between disasters and the months they occur. This diagram allows you to switch between the Northern and Southern Hemispheres, showcasing the times of the year when different disasters are more common.
+            </p>
+            <p>
+                Hover over a connection to get more details about the relationship between specific disasters and the months they occur. This visualization helps identify seasonal patterns and trends, providing a clearer understanding of when various natural disasters are most likely to happen throughout the year.
+            </p>
+            <p>
+                Use the interactive features to explore the data and gain insights into the seasonal distribution of natural disasters in different hemispheres.
+            </p>
             <div id="sankey-diagram">
                 <div class="checkbox-container">
                     <input type="checkbox" id="drought" class="checkbox-button disaster-checkbox" value="Drought" checked>
