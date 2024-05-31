@@ -14,8 +14,6 @@ You can find our website [here](https://com-480-data-visualization.github.io/pro
 
 ## Milestone 1 (29th March, 5pm)
 
-**10% of the final grade**
-
 ### 📋 Dataset
 
 We have selected the [Emergency Events Database (EM-DAT)](https://www.emdat.be/) for our analysis. This database encompasses records of over 26,000 mass disasters worldwide spanning from 1900 to the present day. Established in 1988 through collaboration between the Centre for Research on the Epidemiology of Disasters (CRED) and the World Health Organization (WHO), EM-DAT consolidates data from diverse sources including UN agencies, non-governmental organisations, and research institutes. CRED, affiliated with the University of Louvain and supported by the United States Agency for International Development (USAID), upholds the data's credibility and reliability.
@@ -87,8 +85,6 @@ We also found a [density map](https://www.visualcapitalist.com/cp/3d-mapping-the
 
 ## Milestone 2 (26th April, 5pm)
 
-**10% of the final grade**
-
 Initial website: https://com-480-data-visualization.github.io/project-2024-DisasterClass/
 
 ### Spike map of disasters through time
@@ -149,8 +145,6 @@ By enabling users to delve into various dynamics and observe how different varia
 
 ## Milestone 3 (31st May, 5pm)
 
-**80% of the final grade**
-
 📽️ **Screencast :** link
 
 📖 **Process book :** link
@@ -159,10 +153,3 @@ By enabling users to delve into various dynamics and observe how different varia
 
 If you want to see the code or make modifications you can :
 - Clone the repo: ``` git clone git@github.com:com-480-data-visualization/project-2024-DisasterClass.git ```
- 
-
-## Late policy
-
-- < 24h: 80% of the grade for the milestone
-- < 48h: 70% of the grade for the milestone
-
